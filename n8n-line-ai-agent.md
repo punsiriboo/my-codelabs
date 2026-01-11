@@ -20,9 +20,15 @@ Duration: 0:05:00
 
 ![Title](images/title.png)
 
-ในยุคที่ AI เข้ามามีบทบาทสำคัญ การสร้าง Chatbot ที่ "ฉลาด" และ "เข้าใจบริบท" ไม่จำเป็นต้องเขียนโค้ดที่ซับซ้อนอีกต่อไป
+"ในยุคที่ AI เข้ามามีบทบาทสำคัญ การสร้าง Chatbot ที่ 'ฉลาด' และ 'เข้าใจบริบท' ไม่จำเป็นต้องเขียนโค้ดที่ซับซ้อนอีกต่อไป"
 
-ใน Codelab นี้ คุณจะได้สร้าง LINE AI Chatbot ที่ทำงานบน n8n (Workflow Automation Tool) ซึ่งติดตั้งบน Render (Cloud Hosting) และใช้สมองของ Google Gemini ในการประมวลผลคำตอบ ทั้งหมดนี้ด้วยวิธี Low-Code
+ใน Codelab นี้ คุณจะได้เรียนรู้วิธีสร้าง LINE AI Chatbot แบบ Step-by-Step โดยใช้ Technology Stack ที่ทรงพลังและเริ่มต้นได้ฟรี:
+
+- LINE: แพลตฟอร์มแชทที่เราคุ้นเคย ทำหน้าที่เป็นหน้าบ้าน (User Interface) สำหรับรับ-ส่งข้อความกับผู้ใช้งาน
+- Google Gemini: ทำหน้าที่เป็น "สมอง" ในการประมวลผลภาษาและคิดคำตอบ
+- n8n (Workflow Automation): เครื่องมือ Low-Code เพื่อเชื่อมต่อระบบต่างๆ เข้าด้วยกัน
+- Render: Cloud Hosting สำหรับรัน n8n (Deployment)
+
 ![Title](images/1.1.png)
 ![Architecture](images/architecture.png)
 
@@ -46,15 +52,14 @@ Duration: 0:05:00
 
 - **ปรับแต่ง AI**: เทคนิคการเขียนคำสั่ง (Prompt) ให้ AI เข้าใจบริบทและตอบโจทย์ธุรกิจ
 
-- **ประกอบร่าง**: สร้าง Workflow อัตโนมัติที่สมบูรณ์ (รับข้อความ → คิดด้วย AI → ตอบกลับ)  
 
 ### สิ่งที่คุณต้องเตรียมพร้อมก่อนเริ่ม Codelab 
 
 - **แอปพลิเคชัน LINE บนสมาร์ทโฟน** ที่เข้าสู่ระบบเรียบร้อยแล้ว – สำหรับใช้สร้างและจัดการ LINE Official Account
 
-- **บัญชี Google (Gmail)** – สำหรับเข้าใช้งาน Google AI Studio เพื่อกดรับ Gemini API Key
+- [**บัญชี Google**](https://accounts.google.com/lifecycle/steps/signup/) – สำหรับเข้าใช้งาน Google AI Studio เพื่อกดรับ Gemini API Key
 
-- **บัญชี Render (สมัครฟรี)** – สำหรับใช้เป็น Server ในการ Deploy และรัน n8n
+- **[บัญชี Render (สมัครฟรี)](https://dashboard.render.com/register)** – สำหรับใช้เป็น Server ในการ Deploy และรัน n8n
 
 
 
@@ -361,6 +366,7 @@ Duration: 0:15:00
 4. เพิ่ม Reply Node
 5. ตั้งค่า Webhook URL ใน LINE
 6. ทดสอบผ่าน LINE บนมือถือ
+7. ตรวจสอบการทำงานของ Workflow บน n8n
 
 ---
 
@@ -427,156 +433,150 @@ Duration: 0:15:00
 
 ### ขั้นตอนที่ 6: ทดสอบผ่าน LINE บนมือถือ
 จะเห็นได้ว่า n8n workflow นี้สามารถตอบกลับเป็นข้อความอัตโนมัติได้
+![n8n Test Chat](images/6.20.png)
 ### ขั้นตอนที่ 7: ตรวจสอบการทำงานของ Workflow บน n8n
 <aside class="positive">
 <strong>Tip:</strong> ใช้ n8n Execution Log เพื่อ debug และดูข้อมูลที่ผ่านแต่ละ node
 </aside>
 
-![n8n Test Chat](images/6.20.png)
+![n8n Test Chat](images/6.21.png)
+
 
 ## ทำความรู้จัก AI Agent
 Duration: 0:15:00
 
+AI Agent คือระบบบอทที่มีความสามารถสูงกว่า Chatbot ทั่วไป โดยใช้เทคโนโลยี AI และ LLM (Large Language Model) เป็นแกนหลักในการประมวลผล ทำให้มีความสามารถในการทำความเข้าใจภาษาและบริบทที่ซับซ้อน ได้แก่:
+- **เข้าใจความหมาย (Understand Meaning):** สามารถตีความเจตนาของผู้ใช้งานได้ แม้ว่าจะมีการใช้คำศัพท์หรือรูปประโยคที่หลากหลาย
+- **ตอบตามบริบท (Context Aware):** สามารถจดจำและเชื่อมโยงข้อมูลจากการสนทนาก่อนหน้า ทำให้การโต้ตอบมีความต่อเนื่องและเป็นธรรมชาติ
+![n8n Test Chat](images/7.1.png)
+### องค์ประกอบหลักของ AI Agent
+โครงสร้างการทำงานของ AI Agent ประกอบด้วย 4 ส่วนสำคัญ คือ:
+1. **LLM Model:** โมเดลภาษาที่เป็นหน่วยประมวลผลหลักและคลังความรู้
+2. **Instruction:** คำสั่งกำกับดูแลเพื่อกำหนดพฤติกรรมของ Agent
+3. **Memory:** หน่วยความจำสำหรับเก็บประวัติการสนทนา เข้าใจความต่อเนื่องของบทสนทนา
+4. **Tools:** เครื่องมือสำหรับเชื่อมต่อกับระบบภายนอกเพื่อทำภารกิจต่างๆ
 
-**AI Agent** คือบอทที่ใช้ AI/LLM เพื่อเข้าใจและตอบคำถาม:
+---
 
-- **เข้าใจความหมาย**: เข้าใจความหมายของข้อความแม้จะใช้คำต่างกัน
-- **ตอบตามบริบท**: จำบริบทการสนทนาได้
+### เจาะลึก: Instruction และ Prompt
 
+Instruction (หรือ System Prompt) คือส่วนประกอบที่สำคัญที่สุดในการกำหนดบุคลิกและการทำงานของ AI Agent เปรียบเสมือนชุดคำสั่งที่ระบุขอบเขตความรับผิดชอบ เพื่อให้ LLM ทำงานได้ตรงตามวัตถุประสงค์
 
-**ตัวอย่าง AI Agent:**
-
-```
-ผู้ใช้: "สวัสดี"
-AI: "สวัสดีครับ ยินดีให้บริการ มีอะไรให้ช่วยไหมครับ?"
-
-ผู้ใช้: "ราคาเท่าไหร่"
-AI: "ราคาสินค้าคือ 100 บาทครับ มีส่วนลด 10% สำหรับสมาชิก"
-
-ผู้ใช้: "ถ้าซื้อ 2 ชิ้นล่ะ"
-AI: "ถ้าซื้อ 2 ชิ้น ราคารวม 180 บาท (ลด 20 บาท) ครับ"
-```
-
-
-### Context (บริบท)
-
-**Context** คือข้อมูลที่เกี่ยวข้องกับการสนทนา:
-- **Conversation History**: ประวัติการสนทนาก่อนหน้า
-
-### Tool Calling (Function Calling)
-
-**Tool Calling** คือความสามารถของ AI Agent ในการเรียกใช้ tools:
-
-- **ค้นหาข้อมูล**: เรียก API เพื่อค้นหาข้อมูล
-- **คำนวณ**: เรียก function เพื่อคำนวณ
-- **บันทึกข้อมูล**: เรียก API เพื่อบันทึกข้อมูล
-- **ส่งขอ: เรียก service เพื่อส่งการแจ้งเตือน
-
-เมื่อผู้ใช้ถาม "ราคาสินค้า A เท่าไหร่" AI Agent จะ:
-1. เรียก `get_product_price("A")` → ได้ราคา 100 บาท
-2. ตอบกลับ: "ราคาสินค้า A คือ 100 บาทครับ"
+การเขียน Instruction ที่ดีสำหรับ AI Agent ควรกำหนดหัวข้อต่อไปนี้ให้ชัดเจน:
+* **Persona:** กำหนดบทบาทว่า Agent คือใคร (เช่น เจ้าหน้าที่ Support, ผู้เชี่ยวชาญเฉพาะด้าน)
+* **Objective:** ระบุเป้าหมายหลักของการทำงาน (เช่น การตอบคำถาม, การปิดการขาย)
+* **Constraints:** กำหนดข้อจำกัดหรือสิ่งที่ห้ามทำ (เช่น ห้ามตอบนอกเหนือข้อมูลที่มี, ห้ามใช้ภาษาที่ไม่สุภาพ)
 
 
 
-### ตัวอย่าง Use case ของ AI Agent บน LINE
+### ความสามารถเสริม: Context และ Tool Calling
 
-### 1. Customer Service Agent
 
-**หน้าที่:**
-- ตอบคำถามเกี่ยวกับสินค้าและบริการ
-- ช่วยแก้ไขปัญหา
-- ให้คำแนะนำ
+**Tool Calling (Function Calling)**  คือความสามารถของ AI ในการเลือกใช้เครื่องมือหรือฟังก์ชันเพื่อกระทำสิ่งต่างๆ นอกเหนือจากการคุยตอบโต้ปกติ เช่น:
+* **ค้นหาข้อมูล:** เรียก API เพื่อดึงข้อมูล Real-time
+* **คำนวณ:** ใช้ฟังก์ชันทางคณิตศาสตร์หรือตรรกะที่ซับซ้อน
+* **บันทึกข้อมูล:** เชื่อมต่อ Database เพื่อบันทึกสถานะ
 
-**ตัวอย่าง:**
-```
-ผู้ใช้: "สินค้าชำรุดจะคืนได้ไหม"
-AI: "ได้ครับ คุณสามารถคืนสินค้าได้ภายใน 7 วันหลังจากได้รับสินค้า 
-     กรุณาเตรียมใบเสร็จและสินค้าให้พร้อม แล้วติดต่อเราได้ที่..."
-```
+### ตัวอย่าง Use Case ของ AI Agent
 
-### 2. E-commerce Shopping Assistant
+การกำหนด Instruction ที่แตกต่างกัน จะทำให้ได้ AI Agent ที่มีหน้าที่แตกต่างกันอย่างสิ้นเชิง ดังตัวอย่างต่อไปนี้:
 
-**หน้าที่:**
-- แนะนำสินค้า
-- ช่วยเลือกสินค้า
-- ตอบคำถามเกี่ยวกับสินค้า
+#### 1. Customer Service Agent
+* **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่บริการลูกค้า ให้ข้อมูลด้วยความสุภาพและถูกต้องตามนโยบาย
+* **การทำงาน:** ตอบคำถามเกี่ยวกับสินค้า แก้ไขปัญหาเบื้องต้น และให้คำแนะนำการใช้งาน
 
-**ตัวอย่าง:**
-```
-ผู้ใช้: "อยากได้เสื้อผ้าสำหรับไปเที่ยวทะเล"
-AI: "แนะนำเสื้อผ้าที่ทำจากผ้าแห้งเร็วและกัน UV ครับ 
-     มีสินค้าให้เลือกดังนี้..."
-```
+#### 2. E-commerce Shopping Assistant
+* **Instruction:** กำหนดบทบาทเป็นผู้ช่วยช้อปปิ้ง แนะนำสินค้าโดยวิเคราะห์จากความต้องการของผู้ใช้
+* **การทำงาน:** สอบถามสไตล์ที่ชอบ แนะนำสินค้าที่เกี่ยวข้อง และช่วยเปรียบเทียบคุณสมบัติ
 
-### 3. Order Tracking Agent
+#### 3. Appointment Booking Agent
+* **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่รับจองคิว ตรวจสอบตารางเวลาว่างและยืนยันนัดหมาย
+* **การทำงาน:** รับเรื่องการจอง ตรวจสอบ Slot เวลาว่างจากระบบ และบันทึกการนัดหมาย
 
-**หน้าที่:**
-- ตอบคำถามเกี่ยวกับสถานะออเดอร์
-- แจ้งเตือนการจัดส่ง
-- ช่วยแก้ไขปัญหาการสั่งซื้อ
+ ## สร้าง AI Agent Node บน n8n
 
-**ตัวอย่าง:**
-```
-ผู้ใช้: "ออเดอร์ #12345 อยู่ไหน"
-AI: "ออเดอร์ #12345 กำลังจัดส่งอยู่ครับ 
-     คาดว่าจะถึงวันพรุ่งนี้ เวลา 14:00-16:00 น."
-```
+ขั้นตอนการเพิ่มสมองให้บอทด้วยการใช้ AI Agent Node เพื่อประมวลผลข้อความจาก LINE และตอบกลับด้วย Google Gemini
 
-### 4. Appointment Booking Agent
-
-**หน้าที่:**
-- จองนัดหมาย
-- ยืนยันการจอง
-- แจ้งเตือนก่อนนัด
-
-**ตัวอย่าง:**
-```
-ผู้ใช้: "อยากจองนัดวันพรุ่งนี้ 14:00"
-AI: "มีเวลาว่างให้จองได้ครับ ยืนยันการจองหรือไม่?"
-```
+### ขั้นตอนทั้งหมด
+1. เพิ่ม AI Agent Node
+2. ตั้งค่า Prompt (รับข้อความ)
+3. เชื่อมต่อ Chat Model
+4. ตั้งค่า Google Gemini API Key และเลือกโมเดล
+5. ตั้งค่า Memory (เพื่อให้บอทจำบริบท)
+6. Save และ Publich workflow และทำการทดสอบ
 
 
 
-### สร้าง AI Agent บน n8n ด้วย Gemini
-
-### ภาพรวม Gemini และความสามารถด้าน Agent
-
-### Google Gemini คืออะไร
-
-**Google Gemini** เป็น Large Language Model (LLM) ที่พัฒนาโดย Google:
-
-- **Multimodal**: รองรับ text, image, audio, video
-- **Fast**: ตอบกลับเร็ว
-- **Free Tier**: มี free tier สำหรับทดสอบ
-- **API**: มี REST API ที่ใช้งานง่าย
-
-
-
-
-## สร้าง AI Agent Node บน n8n
+---
 
 ### ขั้นตอนที่ 1: เพิ่ม AI Agent Node
-  messageText: `{{ $("Line Messaging Trigger").item.json.message.text }}`
-  
-{{ $("Line Messaging Trigger").item.json.source.userId }}
+1. ในหน้า Workflow ให้กดปุ่ม **"+"** (หรือวงกลมบวกที่เส้นเชื่อม) เพื่อแทรก Node ใหม่
+2. เลือกเมนู **AI**
+3. เลือก **AI Agent**
 
-### ขั้นตอนที่ 1: รับ Gemini API Key
-1. ไปที่ [Google AI Studio](https://aistudio.google.com/)
-2. ไปที่หน้า API Key และ คัดลอก API Key และเก็บไว้อย่างปลอดภัย
+![Insert Node](images/8.1.png)
+![Select AI Category](images/8.2.png)
+![Select AI Agent](images/8.3.png)
 
+### ขั้นตอนที่ 2: ตั้งค่า Prompt (รับข้อความ)
+กำหนดให้ AI รับข้อความที่ผู้ใช้พิมพ์เข้ามาผ่าน LINE
+1. ที่ช่อง **Source for Prompt (User Message)** เลือกเป็น `Define below`
+2. ที่ช่อง **Prompt (User Message)** ให้ใส่ Expression เพื่อดึงข้อความจาก LINE:
+   `{{ $("Line Messaging Trigger").item.json.message.text }}`
 
+![Set Define Below](images/8.4.png)
+![Input Expression](images/8.5.png)
+![Check Expression](images/8.6.png)
 
-### 11.1 เพิ่ม Context/Memory
+### ขั้นตอนที่ 3: เชื่อมต่อ Chat Model
+เพิ่มโมเดลภาษา (LLM) ให้กับ Agent เพื่อใช้ในการประมวลผลคำตอบ
+1. กดปุ่ม **"+"** ที่ช่อง **Chat Model** ด้านล่างของ Node
+2. ค้นหาและเลือก **Google Gemini Chat Model**
 
-เพื่อให้บอทจำบริบทการสนทนา:
+![Select Gemini Model](images/8.7.png)
+
+### ขั้นตอนที่ 4: ตั้งค่า Google Gemini API Key และเลือกโมเดล
+การเชื่อมต่อกับ Google Gemini จำเป็นต้องใช้ API Key
+1. ไปที่ [Google AI Studio](https://aistudio.google.com/) เพื่อสร้างและคัดลอก **API Key**
+   ![Google AI Studio](images/8.9.png)
+
+2. กลับมาที่ n8n ในหน้าต่างตั้งค่า Google Gemini Chat Model ตรงช่อง **Credential to connect with** ให้เลือก **Create new credential**
+   ![Create Credential](images/8.8.png)
+
+3. นำ API Key ที่คัดลอกมา วางลงในช่อง **API Key** แล้วกด Save
+   ![Paste API Key](images/8.10.png)
+
+4. ที่ช่อง **Model** ให้เลือกโมเดลที่ต้องการ เช่น `models/gemini-2.5-flash-lite`
+   ![Select Gemini Model Version](images/8.11.png)
+
+### ขั้นตอนที่ 5: ตั้งค่า Memory (เพื่อให้บอทจำบริบท)
+ใช้ Simple Memory เพื่อให้บอทจำบทสนทนาได้
+1. กดปุ่ม **"+"** ที่ช่อง **Memory** แล้วเลือก **Simple Memory**
+   ![Select Simple Memory](images/8.12.png)
+
+2. ที่ช่อง **Session ID** เลือก `Define below`
+   ![Set Session ID Define Below](images/8.13.png)
+
+3. ใส่ Expression เพื่อระบุตัวตนผู้ใช้ (User ID):
+   `{{ $("Line Messaging Trigger").item.json.source.userId }}`
+   *(สามารถกำหนด Context Window Length ได้ตามต้องการ ในตัวอย่างคือ 5)*
+   ![Input Session ID Expression](images/8.14.png)
+
+### ขั้นตอนที่ 6: Save และ Publich workflow และทำการทดสอบ
+
+เมื่อตั้งค่าครบแล้ว หน้าตาของ Workflow จะมีเส้นเชื่อมต่อระหว่าง AI Agent, Google Gemini Model และ Simple Memory ดังรูป พร้อมสำหรับการทดสอบ
+    ![Completed Workflow](images/8.15.png)
+    ![Completed Workflow](images/8.16.png)
 
 
 ## เพิ่ม Agents Tools ในการส่ง Flex Message
 ## ปรับปรุง Instruction ให้ Agent ตอบได้ตามโจทย์ธุรกิจ
+![n8n Test Chat](images/10.1.png)
+System Message
 
+```
 
-
-
+```
 
 
 ## Congratulations
@@ -599,12 +599,14 @@ Duration: 0:05:00
 - ปรับปรุง prompt engineering เพื่อให้ได้ผลลัพธ์ที่ดีขึ้น
 - พิจารณา upgrade Render plan สำหรับ production
 
-### ทรัพยากรเพิ่มเติม
+### Reference docs
 
 - [LINE Messaging API Documentation](https://developers.line.biz/en/docs/messaging-api/)
 - [n8n Documentation](https://docs.n8n.io/)
+- [n8n Docker Hub](https://hub.docker.com/r/n8nio/n8n)
 - [Render Documentation](https://render.com/docs)
-- [OpenAI API Documentation](https://platform.openai.com/docs/)
+- [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
+- [Google AI Studio Documentation](https://ai.google.dev/gemini-api/docs/ai-studio-quickstart)
 
 
 
