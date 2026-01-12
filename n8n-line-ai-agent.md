@@ -570,11 +570,168 @@ Instruction (หรือ System Prompt) คือส่วนประกอบ
 
 
 ## เพิ่ม Agents Tools ในการส่ง Flex Message
+
+**หัวข้อในส่วนนี้**
+1. ทำความรู้จัก LINE Flex Message
+2. ทำความรู้จักกับ LINE Flex message simulator
+3. สร้าง Node LINE Messaging Tool
+4. ตั้งค่า Flex Message JSON
+5. ทดสอบผลลัพธ์ใน LINE
+
+---
+
+### 1. ทำความรู้จัก LINE Flex Message
+Flex Message คือรูปแบบข้อความใน LINE ที่เราสามารถปรับแต่ง Layout ได้อย่างอิสระ ไม่ว่าจะเป็นการจัดวางรูปภาพ ปุ่มกด หรือข้อความ ซึ่งแตกต่างจากข้อความ Text ธรรมดา ช่วยให้ Chatbot ของเราดูมีความเป็นมืออาชีพและน่าใช้งานมากยิ่งขึ้น
+![LINE Flex Message](images/9.0.png)
+
+### 2. ทำความรู้จักกับ LINE Flex message simulator
+เพื่อให้ง่ายต่อการออกแบบ เราจะใช้เครื่องมืออย่างเป็นทางการของ LINE
+* เข้าไปที่ [LINE Flex Message Simulator](https://developers.line.biz/flex-simulator/)
+* เลือก **"Showcase"** หรือ **"New"** เพื่อดูตัวอย่าง Template
+* ในตัวอย่างนี้ ให้เลือก Template แบบ **"Restaurant"** ซึ่งจะเป็นรูปแบบ Carousel (เลื่อนสไลด์ด้านข้างได้) เหมาะสำหรับแสดงรายการเมนูอาหาร
+
+![Selecting Template](images/9.1.png)
+
+* เมื่อเลือกแล้ว คุณสามารถแก้ไขข้อความ ราคา หรือรูปภาพได้ที่แถบด้านขวามือ
+* เมื่อพอใจกับการออกแบบแล้ว ให้กดปุ่ม **"View as JSON"** หรือ **"Copy"** เพื่อเตรียมโค้ด JSON ไว้ใช้งาน
+
+![Customizing Flex Message](images/9.1-2.png)
+
+### 3. สร้าง Node LINE Messaging Tool
+กลับมาที่ Workflow ใน n8n ของเรา เพื่อเชื่อมต่อเครื่องมือนี้เข้ากับ AI Agent
+* ไปที่โหนด **AI Agent**
+* คลิกที่เครื่องหมาย **`+`** ในส่วนของการเชื่อมต่อ **Tools** (Memory/Tool)
+* ค้นหาคำว่า `LINE` และเลือก **"Line Messaging Tool"** (สังเกตคำอธิบาย: *Interact with the Line Messaging API*)
+
+![Adding LINE Tool](images/9.2.png)
+
+### 4. ตั้งค่า Flex Message JSON
+เมื่อได้โหนด Line Messaging Tool มาแล้ว ให้ทำการตั้งค่าดังนี้:
+* **Alt Text:** ใส่ข้อความที่จะแสดงใน Notification เมื่อมีข้อความเข้า (เช่น "เมนูอาหารแนะนำ")
+* **Flex Message JSON:** นำโค้ด JSON ที่เราคัดลอกมาจากขั้นตอนที่ 2 มาวางลงในช่องนี้
+
+**ตัวอย่างโค้ด JSON สำหรับเมนูอาหาร:**
+```json
+{"type":"carousel","contents":[
+{"type":"bubble","size":"micro","hero":{"type":"image","url":"https://images.unsplash.com/photo-1627308595186-e6bb36712645","size":"full","aspectMode":"cover","aspectRatio":"20:13","action":{"type":"uri","uri":"http://linecorp.com/"}},"body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"กะเพราหมูไข่ดาว","weight":"bold","size":"sm","wrap":true},{"type":"box","layout":"baseline","contents":[{"type":"icon","size":"xs","url":"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"},{"type":"text","text":"4.8","size":"xs","color":"#999999","margin":"xs","flex":0},{"type":"text","text":"50.-","size":"sm","color":"#e03e3e","align":"end","weight":"bold","flex":1}]}],"spacing":"sm","paddingAll":"13px"},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"primary","action":{"type":"message","label":"สั่งเลย","text":"สั่งกะเพราหมู"},"height":"sm","color":"#E34A32"}]}},
+{"type":"bubble","size":"micro","hero":{"type":"image","url":"https://plus.unsplash.com/premium_photo-1661611585910-77ae42f0c71d","size":"full","aspectMode":"cover","aspectRatio":"20:13","action":{"type":"uri","uri":"http://linecorp.com/"}},"body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"ข้าวผัดกุ้ง","weight":"bold","size":"sm","wrap":true},{"type":"box","layout":"baseline","contents":[{"type":"icon","size":"xs","url":"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"},{"type":"text","text":"4.5","size":"xs","color":"#999999","margin":"xs","flex":0},{"type":"text","text":"60.-","size":"sm","color":"#e03e3e","align":"end","weight":"bold","flex":1}]}],"spacing":"sm","paddingAll":"13px"},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"primary","action":{"type":"message","label":"สั่งเลย","text":"สั่งข้าวผัดกุ้ง"},"height":"sm","color":"#E34A32"}]}},
+{"type":"bubble","size":"micro","hero":{"type":"image","url":"https://images.unsplash.com/photo-1559314809-0d155014e29e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80","size":"full","aspectMode":"cover","aspectRatio":"20:13","action":{"type":"uri","uri":"http://linecorp.com/"}},"body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"ผัดไทยกุ้งสด","weight":"bold","size":"sm","wrap":true},{"type":"box","layout":"baseline","contents":[{"type":"icon","size":"xs","url":"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"},{"type":"text","text":"4.9","size":"xs","color":"#999999","margin":"xs","flex":0},{"type":"text","text":"80.-","size":"sm","color":"#e03e3e","align":"end","weight":"bold","flex":1}]}],"spacing":"sm","paddingAll":"13px"},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"primary","action":{"type":"message","label":"สั่งเลย","text":"สั่งผัดไทย"},"height":"sm","color":"#E34A32"}]}}
+]}
+```
+
+![Completed Workflow](images/9.3.png)
+
+### 5. ทดสอบผลลัพธ์ใน LINE
+เมื่อตั้งค่าเสร็จเรียบร้อย ให้กด Execute Workflow แล้วลองไปทดสอบคุยกับ Chatbot ใน LINE
+
+ลองพิมพ์ประโยคที่กระตุ้นให้ AI ใช้เครื่องมือ เช่น "ขอเมนูอาหารหน่อย" หรือ "มีอะไรแนะนำบ้าง"
+
+AI จะวิเคราะห์และเรียกใช้ Tool เพื่อส่ง Flex Message ที่เราตั้งค่าไว้กลับมาอย่างสวยงาม ดังภาพ
+![Completed Workflow](images/9.4.png)
+
 ## ปรับปรุง Instruction ให้ Agent ตอบได้ตามโจทย์ธุรกิจ
 ![n8n Test Chat](images/10.1.png)
 System Message
 
 ```
+# Instruction: น้องเอไอ – ผู้ช่วยร้านอาหารไทย
+
+## 1. Persona & Tone
+1.1 น้องเอไอเป็นผู้ช่วยแชตบอตสำหรับร้านอาหารไทย  
+1.2 บุคลิก: สุภาพ อบอุ่น เป็นกันเอง 
+1.3 ใช้ภาษาไทยเท่านั้น ห้ามใช้ภาษาอังกฤษ  
+1.4 สื่อสารด้วยน้ำเสียงใจดี ไม่เร่งรัด ไม่กดดันลูกค้า  
+---
+
+## 2. Core Responsibilities
+2.1 แนะนำเมนูอาหารไทยตามหมวดหมู่  
+2.2 รับออร์เดอร์อาหาร (ทานที่ร้าน / สั่งกลับบ้าน)  
+2.3 จัดการการจองโต๊ะล่วงหน้า  
+2.4 ตอบคำถามเกี่ยวกับเวลาเปิด–ปิดร้าน: 9:00 - 18:00 
+2.5 หากข้อมูลจากลูกค้าไม่ครบ ต้องถามต่ออย่างสุภาพเสมอ  
+
+---
+
+
+3.2 Trigger: **“ขอเมนู”**  
+- Response:
+> Action: Tool: Send Flex Menu
+
+3.3 Trigger: ลูกค้าพิมพ์ว่า **“มีอะไรอีก”**, **“อยากดูเมนูอื่น ๆ”**  
+- Action: แสดงหมวดถัดไปตามลำดับจากหมวดล่าสุดที่แสดง
+
+3.4 Trigger: ลูกค้าระบุหมวดชัดเจน เช่น  
+- “อยากกินเมนูข้าวแกง”  
+- “ขอดูเมนูตำ”  
+- Action: แสดงเฉพาะหมวดที่ลูกค้าระบุ โดยดูข้อมูลจากข้อ 4.
+
+---
+
+## 4. Menu Definition
+
+### 4.1 เมนูข้าวแกง
+- ข้าวแกงเขียวหวานไก่ — 60 บาท  
+- ข้าวแกงเผ็ดหมู — 55 บาท  
+- ข้าวผัดกะเพราหมูสับ — 50 บาท  
+- ข้าวผัดกุ้ง — 65 บาท  
+
+### 4.2 เมนูตำ / ยำ
+- ส้มตำไทย — 45 บาท  
+- ส้มตำปูปลาร้า — 50 บาท  
+- ยำวุ้นเส้นหมูสับ — 60 บาท  
+- ลาบหมู — 65 บาท  
+
+### 4.3 เครื่องดื่ม
+- น้ำอัญชันมะนาว — 25 บาท  
+- น้ำเก๊กฮวย — 20 บาท  
+- น้ำลำไย — 20 บาท  
+- น้ำเปล่า — 10 บาท  
+
+---
+
+## 5. Ordering Flow
+5.1 เมื่อผู้ใช้แสดงความต้องการสั่งอาหาร  
+ป้าติ๋มต้องถามตามลำดับ:
+1) เมนูที่ต้องการ  
+2) จำนวน  
+3) รูปแบบการรับอาหาร  
+   - ทานที่ร้าน  
+   - สั่งกลับบ้าน  
+   - เดลิเวอรี่  
+4) ชื่อผู้สั่ง  
+5) เบอร์ติดต่อ  
+
+5.2 ถ้าข้อมูลใดยังไม่ครบ  
+- ถามเฉพาะข้อมูลที่ขาด  
+- ห้ามถามซ้ำในสิ่งที่ลูกค้าให้มาแล้ว  
+
+---
+
+## 6. Reservation Flow
+6.1 เมื่อผู้ใช้ขอจองโต๊ะ  
+ป้าติ๋มต้องถาม:
+1) จำนวนลูกค้า (กี่ท่าน)  
+2) วันที่ต้องการจอง  
+3) เวลาที่ต้องการ  
+4) ชื่อผู้จอง  
+5) เบอร์ติดต่อ  
+
+6.2 ตอบรับด้วยน้ำเสียงสุภาพและเป็นกันเอง  
+
+---
+
+## 7. Recommendation Behavior
+7.1 สามารถแนะนำเมนูยอดนิยมได้อย่างสุภาพ เช่น  
+- “วันนี้ป้าขอแนะนำแกงเขียวหวานไก่ค่ะ เข้มข้นกำลังดีเลยนะ”  
+7.2 ห้ามบังคับหรือขายตรงเกินไป  
+
+
+---
+
+## 8. Constraints
+8.1 ห้ามแต่งเมนูหรือราคาเพิ่มจากที่กำหนด  
+8.2 ห้ามใช้ภาษาอังกฤษ  
+8.3 ถ้าไม่มั่นใจข้อมูล ให้ถามลูกค้าแทนการเดา  
 
 ```
 
@@ -602,11 +759,14 @@ Duration: 0:05:00
 ### Reference docs
 
 - [LINE Messaging API Documentation](https://developers.line.biz/en/docs/messaging-api/)
+- [LINE Flex Messgae](https://developers.line.biz/en/docs/messaging-api/using-flex-messages/)
 - [n8n Documentation](https://docs.n8n.io/)
 - [n8n Docker Hub](https://hub.docker.com/r/n8nio/n8n)
 - [Render Documentation](https://render.com/docs)
 - [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
 - [Google AI Studio Documentation](https://ai.google.dev/gemini-api/docs/ai-studio-quickstart)
+
+### บอกเราหน่อยว่า Codelab ชุดนี้เป็นอย่างไรบ้าง
 
 
 
