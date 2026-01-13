@@ -854,7 +854,14 @@ Duration: 0:05:00
 - พิจารณา upgrade Render plan สำหรับ production
 
 ### เรียนรู้เพิ่มเติม
-[บทความเกี่ยวกับ LINE Chatbot](https://medium.com/linedevth/all?topic=chatbots)
+
+- [บทความเกี่ยวกับ LINE Chatbot](https://medium.com/linedevth/all?topic=chatbots)
+- [Workflow n8n แบบสมบูรณ์ - ดาวน์โหลดเพื่อนำเข้าใน n8n](https://raw.githubusercontent.com/punsiriboo/my-codelabs/refs/heads/main/n8n-line-ai-agent/%5Bn8n-Workflow%5D%20Build%20a%20Smart%20AI%20Chatbot%20without%20Coding%20using%20n8n.json)
+- [Exporting and importing workflows](https://docs.n8n.io/courses/level-one/chapter-6/)
+<aside class="positive">
+<strong>Tip:</strong> คุณสามารถดาวน์โหลด workflow file ด้านบนเพื่อนำเข้าใน n8n ได้โดยการคลิกที่ลิงก์ และใน n8n ให้ไปที่ **Workflows > Import from File** เพื่อนำเข้า workflow
+</aside>
+
 
 ### Reference docs
 
