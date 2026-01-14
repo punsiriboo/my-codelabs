@@ -1,8 +1,13 @@
-# n8n LINE AI Agent Codelab
+# Punsiri's Codelabs
 
 Code lab สำหรับการสร้าง LINE AI Chatbot โดยใช้ n8n และ Google Gemini โดยไม่ต้องเขียนโค้ด
 
-## 📋 สิ่งที่ต้องเตรียม
+## Codelabs
+📁 `n8n-line-ai-agent/`
+📁 `n8n-line-ai-chatbot-multimodal/`
+
+
+## สิ่งที่ต้องเตรียม
 
 ก่อนที่จะ build code lab คุณต้องมีสิ่งต่อไปนี้:
 Ref: https://github.com/googlecodelabs/tools/tree/main/claat
@@ -13,11 +18,12 @@ Ref: https://github.com/googlecodelabs/tools/tree/main/claat
 
 ## วิธี Build Code Lab
 
-### วิธีที่ 1: ใช้ build.sh (แนะนำ)
+### Build Codelab แรก (พื้นฐาน)
 
-รันคำสั่ง:
+#### วิธีที่ 1: ใช้ build.sh (แนะนำ)
 
 ```bash
+cd n8n-line-ai-agent
 ./build.sh
 ```
 
@@ -28,11 +34,10 @@ Ref: https://github.com/googlecodelabs/tools/tree/main/claat
 3. ✅ Export markdown file (`n8n-line-ai-agent.md`) เป็น HTML
 4. ✅ สร้างโฟลเดอร์ `codelab/` ที่มีไฟล์ HTML พร้อมใช้งาน
 
-### วิธีที่ 2: Build แบบ Manual
-
-หากคุณมี `claat` ติดตั้งอยู่แล้ว สามารถรันคำสั่งได้เลย:
+#### วิธีที่ 2: Build แบบ Manual
 
 ```bash
+cd n8n-line-ai-agent
 claat export n8n-line-ai-agent.md
 mv n8n-line-ai-agent codelab
 ```
@@ -51,39 +56,40 @@ go install github.com/googlecodelabs/tools/claat@latest
 export PATH="$PATH:$HOME/go/bin"
 ```
 
-## 📁 โครงสร้างโปรเจค
-
+## โครงสร้างโปรเจค
 ```
 n8n-line-ai-agent/
-├── build.sh                    # สคริปต์สำหรับ build code lab
-├── n8n-line-ai-agent.md        # ไฟล์ markdown หลักของ code lab
-├── images/                     # รูปภาพที่ใช้ใน code lab
-├── codelab/                    # โฟลเดอร์ผลลัพธ์หลังจาก build (HTML)
-│   ├── index.html             # ไฟล์ HTML หลัก
-│   ├── codelab.json           # ไฟล์ metadata
-│   └── img/                   # รูปภาพที่ถูก copy มา
-└── README.md                   # ไฟล์นี้
+├── n8n-line-ai-agent/                    # Codelab แรก (พื้นฐาน)
+│   ├── build.sh                         # สคริปต์สำหรับ build codelab แรก
+│   ├── n8n-line-ai-agent.md             # ไฟล์ markdown หลักของ codelab แรก
+│   ├── images/                          # รูปภาพที่ใช้ใน codelab แรก
+│   ├── codelab/                         # โฟลเดอร์ผลลัพธ์หลังจาก build (HTML)
+│   │   ├── index.html                  # ไฟล์ HTML หลัก
+│   │   ├── codelab.json                # ไฟล์ metadata
+│   │   └── img/                        # รูปภาพที่ถูก copy มา
+│   └── [n8n-Workflow] ... .json        # Workflow file สำหรับ import
+│
+├── n8n-line-ai-chatbot-multimodal/      # Codelab ที่สอง (Multimodal)
+│   ├── multimodal-ai-chatbot.md        # ไฟล์ markdown หลักของ codelab ที่สอง
+│   └── (images/)                        # รูปภาพที่ใช้ใน codelab ที่สอง (ถ้ามี)
+│
+└── README.md                             # ไฟล์นี้
 ```
 
 ## 📖 วิธีใช้งาน Code Lab
 
 หลังจาก build เสร็จแล้ว:
 
-1. เปิดไฟล์ `codelab/index.html` ในเว็บเบราว์เซอร์
-2. หรือใช้ local web server:
+### สำหรับ Codelab แรก
 
 ```bash
-# ใช้ Python
-cd codelab
+cd n8n-line-ai-agent/codelab
 python3 -m http.server 8000
-
-# ใช้ Node.js (http-server)
-npx http-server codelab -p 8000
+# หรือ
+npx http-server . -p 8000
 ```
 
-จากนั้นเปิดเบราว์เซอร์ไปที่: http://localhost:8000
-
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### ปัญหา: claat command not found
 
@@ -102,16 +108,18 @@ chmod +x build.sh
 ### ปัญหา: Build ล้มเหลว
 
 **แก้ไข:**
-- ตรวจสอบว่าไฟล์ `n8n-line-ai-agent.md` มีอยู่
+- ตรวจสอบว่าไฟล์ markdown มีอยู่ (`n8n-line-ai-agent.md` หรือ `multimodal-ai-chatbot.md`)
 - ตรวจสอบว่ามีรูปภาพในโฟลเดอร์ `images/` ครบถ้วน
 - ตรวจสอบ error message จาก claat
+- ตรวจสอบว่า path ของรูปภาพใน markdown ถูกต้อง (เช่น `images/xxx.png`)
 
-## 📝 หมายเหตุ
+## หมายเหตุ
 
-- โฟลเดอร์ `codelab/` จะถูกสร้างใหม่ทุกครั้งที่ build
+- โฟลเดอร์ `codelab/` ในแต่ละ codelab จะถูกสร้างใหม่ทุกครั้งที่ build
 - ไฟล์ใน `codelab/` จะถูกเขียนทับทุกครั้งที่ build ใหม่
-- ควร commit และ push ไฟล์ `n8n-line-ai-agent.md` และ `images/` เท่านั้น ไม่จำเป็นต้อง commit `codelab/`
+- ควร commit และ push เฉพาะไฟล์ markdown (`.md`) และ `images/` เท่านั้น ไม่จำเป็นต้อง commit `codelab/`
+- สำหรับ Codelab ที่สอง ต้องทำ Codelab แรกให้เสร็จก่อน เพราะต่อเนื่องกัน
+
 
 ## ลิงก์ที่เกี่ยวข้อง
 - [Google Codelabs Tools (claat)](https://github.com/googlecodelabs/tools)
-

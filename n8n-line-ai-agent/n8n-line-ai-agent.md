@@ -79,8 +79,8 @@ Duration: 0:10:00
    ![LINE Messaging API](images/3.3.png)
 
 ### การสร้าง Webhook Server ด้วย n8n
-![LINE Messaging API](images/3.4.png)
 ภาพรวมการทำงานเมื่อนำ n8n มาใช้เป็น Webhook Server เพื่อประมวลผล Chatbot
+![LINE Messaging API](images/3.4.png)
 
 ขั้นตอนการทำงานตามภาพประกอบ:
 
@@ -751,7 +751,7 @@ Duration: 0:5:00
 
 ### ขั้นตอนทั้งหมด
 1. แก้ไข System Instruction โดยใช้ ตัวอย่าง Prompt สำหรับร้านอาหาร
-2. Save และ Publish workflow และ ทดสอบผลลัพธ์ใน LINE
+2. ทดสอบผลลัพธ์ใน LINE
 
 ---
 
@@ -778,7 +778,7 @@ Duration: 0:5:00
 
 ## 3. Food Menu 
 Trigger: ลูกค้าต้องการดูเมนู เช่น ขอเมนู, มีเมนูอะไรแนะนำ 
-- Action: แสดงเฉพาะหมวดที่ลูกค้าระบุ โดยดูข้อมูลจากข้อ 4. หากไม่มีให้แจ้งลูกค้า
+- Action: แสดงเฉพาะหมวดที่ลูกค้าระบุ โดยดูข้อมูลจากข้อ 3. หากไม่มีให้แจ้งลูกค้า
 - Mandatory Action: Call Tool: Send Flex Message เพื่อแสดงเมนูแนะนำเสมอ
 
 ### 3.1 เมนูข้าวแกง
@@ -827,7 +827,7 @@ Trigger: ลูกค้าต้องการดูเมนู เช่น 
 ![n8n Test Chat](images/11.2.png)
 
 
-### 2. Save และ Publish workflow และ ทดสอบผลลัพธ์ใน LINE
+### 2. ทดสอบผลลัพธ์ใน LINE
 กด **Save** และ **Publish** เพื่อบันทึก Workflow ก่อนทดสอบการทำงานของ Chatbot ใน LINE โดยลองถามคำถามต่างๆ เพื่อดูว่าบอทตอบตาม Instruction ที่เรากำหนดไว้หรือไม่
 
 ![n8n Test Chat](images/11.3.png)
