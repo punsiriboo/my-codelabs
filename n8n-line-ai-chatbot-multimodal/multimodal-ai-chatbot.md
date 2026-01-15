@@ -23,7 +23,7 @@ Duration: 0:05:00
 Codelab นี้เป็นส่วนต่อจาก Codelab แรก **"Build a Smart AI Chatbot without Coding using n8n"** ซึ่งคุณควรจะได้สร้าง LINE AI Chatbot พื้นฐานที่สามารถ:
 - รับและตอบข้อความจากผู้ใช้
 - ใช้ Google Gemini เพื่อประมวลผลและตอบคำถาม
-- ส่ง Flex Message ได้
+- ส่ง LINE Flex Message ได้
 
 ใน Codelab นี้ คุณจะได้เรียนรู้วิธีเพิ่มความสามารถให้บอทสามารถ:
 - **วิเคราะห์รูปภาพ**: อธิบายเนื้อหาในรูปภาพ, อ่านข้อความในรูปภาพ (OCR), วิเคราะห์เมนูอาหารจากรูปภาพ
@@ -583,7 +583,7 @@ Duration: 0:15:00
 
 1. ปรับ System Prompt สำหรับวิเคราะห์เมนู
 2. เพิ่ม Logic สำหรับแนะนำเมนู
-3. สร้าง Flex Message สำหรับแสดงเมนูที่แนะนำ
+3. สร้าง LINE Flex Message สำหรับแสดงเมนูที่แนะนำ
 4. ทดสอบ Use Case
 
 ---
@@ -637,7 +637,7 @@ Duration: 0:15:00
 
 ![System Prompt for Menu](images/11.1.png)
 
-### 2. เพิ่ม Tool สำหรับส่ง Flex Message
+### 2. เพิ่ม Tool สำหรับส่ง LINE Flex Message
 
 2.1. ไปที่ **AI Agent Node** ใน Image branch
 
@@ -646,7 +646,7 @@ Duration: 0:15:00
 2.3. ตั้งค่า Tool:
    - **Operation**: `Send`
    - **User ID**: `{{ $("Line Messaging Trigger").item.json.source.userId }}`
-   - **Messages**: Flex Message (ใช้ JSON เดิมจาก Codelab แรก)
+   - **Messages**: LINE Flex Message (ใช้ JSON เดิมจาก Codelab แรก)
 
 ### 3. ปรับ System Prompt ให้เรียกใช้ Tool
 
@@ -656,7 +656,7 @@ Duration: 0:15:00
 ## 5. การใช้ Tools
 เมื่อวิเคราะห์เมนูเสร็จแล้ว:
 - หากผู้ใช้ถามเกี่ยวกับเมนู หรือต้องการดูเมนู
-- ให้เรียกใช้ Tool: Send Flex Message เพื่อแสดงเมนูแนะนำ
+- ให้เรียกใช้ Tool: Send LINE Flex Message เพื่อแสดงเมนูแนะนำ
 ```
 
 ![Tool Integration](images/11.2.png)
@@ -670,7 +670,7 @@ Duration: 0:15:00
 4.3. ตรวจสอบว่า:
    - Chatbot อ่านเมนูจากรูปภาพได้ถูกต้อง
    - Chatbot แนะนำเมนูที่เกี่ยวข้อง
-   - Chatbot สามารถส่ง Flex Message ได้
+   - Chatbot สามารถส่ง LINE Flex Message ได้
 
 ![Test Menu Analysis](images/11.3.png)
 
