@@ -375,56 +375,59 @@ Duration: 0:15:00
 
 
 ### 2. ติดตั้งและเพิ่ม Node LINE Messaging
-เนื่องจาก Node ของ LINE ไม่ได้มีติดมากับตัวตั้งต้น เราต้องทำการติดตั้งผ่าน Community Nodes ก่อน
+เนื่องจาก Node ของ LINE ไม่ได้มีติดมากับตัวตั้งต้น เราต้องทำการติดตั้งผ่าน Verified Community Nodes ก่อน
 
-2.1. คลิกปุ่ม **"+"** (Add first step) หรือปุ่มบวกมุมขวาบน
+* คลิกปุ่ม **"+"** (Add first step) หรือปุ่มบวกมุมขวาบน
    ![n8n Add Node](images/6.2.png)
-2.2. ในช่องค้นหา พิมพ์ว่า `Line Messaging`
+* ในช่องค้นหา พิมพ์ว่า `Line Messaging`
    ![n8n Search Line](images/6.3.png)
-2.3. คุณจะเห็น "Line Messaging" ให้คลิกเลือก จะปรากฏหน้าต่างรายละเอียด Node ให้กดปุ่ม **"Install node"**
+* คุณจะเห็น "Line Messaging" ให้คลิกเลือก จะปรากฏหน้าต่างรายละเอียด Node 
+   * ให้กดปุ่ม **"Install node"**
    ![n8n Install Node](images/6.4.png)
-2.4. เมื่อติดตั้งเสร็จ ในส่วนของ Triggers เลือก **On all** ซึ่งจะเป็นการทำงานเมื่อได้รับ events ต่างๆ จาก LINE webhook
+* เมื่อติดตั้งเสร็จ ในส่วนของ Triggers 
+   * เลือก **On all** ซึ่งจะเป็นการทำงานเมื่อได้รับ events ต่างๆ จาก LINE webhook
    ![n8n Install Node](images/6.5.png)
 
 ### 3. ตั้งค่าการเชื่อมต่อ (Credentials)
 
-3.1. ที่ช่อง **Credential to connect with** ให้เลือก **"Create new credential"**
+* ที่ช่อง **Credential to connect with** ให้เลือก **"Create new credential"**
    ![n8n Fill Credential](images/6.6.png)
-3.2. นำข้อมูลจาก LINE Developers Console มากรอก:
-   - **Channel Access Token**
-   - **Channel Secret**
-   
-   เมื่อกรอกครบกด **Save** และ ปิดเพื่อที่จะทำการเพิ่ม node ถัดไปในการตอบกลับ
+* นำข้อมูลจาก LINE Developers Console มากรอก:
+   * **Channel Access Token**
+   * **Channel Secret**
+   * เมื่อกรอกครบกด **Save** และ ปิดเพื่อที่จะทำการเพิ่ม node ถัดไปในการตอบกลับ
    ![n8n Fill Credential](images/6.7.png)
    ![n8n Fill Credential](images/6.8.png)
    ![n8n Fill Credential](images/6.9.png)
-   ![n8n Fill Credential](images/6.10.png)
    ![n8n Fill Credential](images/6.10.2.png)
 
 ### 4. เพิ่ม Reply Node
 
-4.1. จาก Node LINE Messaging Trigger กด **+** เพื่อเพิ่ม Node ใหม่ที่เป็นการตอบกลับข้อความจาก LINE
-   โดยให้ทำการค้นหา `LINE Messaging`
+* จาก Node `LINE Messaging Trigger` 
+   * กด **+** เพื่อเพิ่ม Node ใหม่ที่เป็นการตอบกลับข้อความจาก LINE
+   * โดยให้ทำการค้นหา `LINE Messaging`
+   * ในส่วนของ LINE Messaging เลือก **"Reply to a message using a reply token"**
    ![n8n Fill Credential](images/6.11.png)
-4.2. ในส่วนของ LINE Messaging เลือก **"Reply to a message using a reply token"**
    ![n8n Fill Credential](images/6.12.png)
-4.3. ตั้งค่า **Reply Token** และ **Text**
+* ตั้งค่า **Reply Token** และ **Text**
    - ในช่อง Reply Token ให้ใส่ค่า:
       - `{{ $("Line Messaging Trigger").item.json.replyToken }}`
-   ![n8n Fill Credential](images/6.13.png)
-
-   - ในส่วนของการตอบกลับ ให้กดปุ่ม **"Add Message"** 
+   - ในส่วนของการตอบกลับจะต้องทำการเพิ่มข้อความอัตโนมัติในการตอบ
+      - กดปุ่ม **"Add Message"** 
       - แล้วพิมพ์ข้อความ `Hello from n8n` ในช่อง Text
+   ![n8n Fill Credential](images/6.13.png)
    ![n8n Fill Credential](images/6.13.1.png)
    
 
 ### 5. ตั้งค่า Webhook URL ใน LINE Developer Console
 
-5.1. ในหน้าตั้งค่า Node ส่วนของ **Webhook URLs** ให้คลิกเลือก **"Production URL"**
+* จาก Node `LINE Messaging Trigger` ให้ทำการดับเบิ่ลคลิกเพื่อดูรายเอียด
+   - ส่วนของ **Webhook URLs** ให้คลิกเลือก **"Production URL"**
+   - คลิกที่ URL เพื่อคัดลอก (จะเป็น `https://[ชื่อแอป].onrender.com/webhook/...`)
    ![n8n Fill Credential](images/6.15.png)
-5.2. คลิกที่ URL เพื่อคัดลอก (จะเป็น `https://[ชื่อแอป].onrender.com/webhook/...`)
    ![n8n Fill Credential](images/6.16.png)
-5.3. กดปุ่ม **Save** มุมขวาบนแล้วตั้งชื่อ Workflow จากนั้นกด **Publish** (หรือเปิดสวิตช์ Active)
+
+* กดปุ่ม **Save** มุมขวาบนแล้วจากนั้นกด **Publish** เพื่อให้ n8n สามารถทำงานเป็น Webhook Server ได้
     ![n8n Save Workflow](images/6.17-1.png)
     ![n8n Publish Workflow](images/6.17-2.png)
    <aside class="positive">
@@ -433,9 +436,10 @@ Duration: 0:15:00
    
    ![n8n Publish Workflow](images/6.17-3.png)
    
-5.4. นำ URL ที่คัดลอกไว้ ไปวางในช่อง **Webhook settings** ที่หน้า LINE Developers Console โดยอย่าลืมเปิดสวิตช์ **Use webhook** แล้วกด **Verify**
-    ![n8n Verify Webhook](images/6.18.png)
-5.5. เมื่อ Verify ผ่าน จะขึ้น Success หมายความว่า webhook server n8n เชื่อมต่อกับ LINE แล้วพร้อมรับทุก events ที่ส่งมาที่ LINE OA ของเรา
+* นำ Webhook URL ที่คัดลอกไว้ ไปวางในช่อง **Webhook settings** ที่หน้า LINE Developers Console 
+   * โดยอย่าลืมเปิดสวิตช์ **Use webhook** แล้วกด **Verify**
+   ![n8n Verify Webhook](images/6.18.png)
+* เมื่อ Verify ผ่าน จะขึ้น Success หมายความว่า webhook server n8n เชื่อมต่อกับ LINE แล้วพร้อมรับทุก events ที่ส่งมาที่ LINE OA ของเรา
     ![n8n Use Webhook](images/6.19.png)
 
 ### 6. ทดสอบผ่าน LINE บนมือถือ
@@ -456,22 +460,23 @@ Duration: 0:15:00
 ## ทำความรู้จัก AI Agent
 Duration: 0:15:00
 
-AI Agent คือระบบบอทที่มีความสามารถสูงกว่า Chatbot ทั่วไป โดยใช้เทคโนโลยี Generative AI และ LLM (Large Language Model) เป็นแกนหลักในการประมวลผล ทำให้มีความสามารถในการทำความเข้าใจภาษาและบริบทที่ซับซ้อน ได้แก่:
-- **เข้าใจความหมาย (Understand Meaning):** สามารถตีความเจตนาของผู้ใช้งานได้ แม้ว่าจะมีการใช้คำศัพท์หรือรูปประโยคที่หลากหลาย
-- **ตอบตามบริบท (Context Aware):** สามารถจดจำและเชื่อมโยงข้อมูลจากการสนทนาก่อนหน้า ทำให้การโต้ตอบมีความต่อเนื่องและเป็นธรรมชาติ
-![n8n Test Chat](images/7.1.png)
+**AI Agent** คือระบบบอทที่มีความสามารถสูงกว่า Chatbot ทั่วไป โดยใช้เทคโนโลยี Generative AI และ LLM (Large Language Model) เป็นแกนหลักในการประมวลผล ทำให้มีความสามารถในการทำความเข้าใจภาษาและบริบทที่ซับซ้อน ได้แก่:
+- **เข้าใจความหมาย (Understand Meaning):** สามารถตีความเจตนาของผู้ใช้งานได้ และตอบกลับตามโจทย์ธุรกิจ
+- **ตอบตามบริบท (Context Aware):** สามารถจดจำและเชื่อมโยงข้อมูลจากการสนทนาก่อนหน้า ทำให้การโต้ตอบมีความต่อเนื่อง
+![n8n Test Chat](images/7.1.1.png)
 ### องค์ประกอบหลักของ AI Agent
-โครงสร้างการทำงานของ AI Agent ประกอบด้วย 4 ส่วนสำคัญ คือ:
-1. **LLM Model:** โมเดลภาษาที่เป็นหน่วยประมวลผลหลักและคลังความรู้
-2. **Instruction:** คำสั่งกำกับดูแลเพื่อกำหนดพฤติกรรมของ Agent
-3. **Memory:** หน่วยความจำสำหรับเก็บประวัติการสนทนา เข้าใจความต่อเนื่องของบทสนทนา
-4. **Tools:** เครื่องมือสำหรับเชื่อมต่อกับระบบภายนอกเพื่อทำภารกิจต่างๆ
+
+โครงสร้างการทำงานของ AI Agent ประกอบด้วย 5 ส่วนสำคัญ คือ:
+1. **User Message** คำถามที่ผู้ใช้ต้องการถามหรือสนทนากับ Agent
+2. **LLM Model:** โมเดลภาษาที่เป็นหน่วยประมวลผลหลักและคลังความรู้
+3. **System Prompt:** คำสั่งกำกับดูแลเพื่อกำหนดพฤติกรรมของ Agent
+4. **Memory:** หน่วยความจำสำหรับเก็บประวัติการสนทนา เข้าใจความต่อเนื่องของบทสนทนา
+5. **Tools:** เครื่องมือสำหรับเชื่อมต่อกับระบบภายนอกเพื่อทำภารกิจต่างๆ
 
 ---
 
-### เจาะลึก Instruction Prompt
-
-Instruction (หรือ System Prompt) คือส่วนประกอบที่สำคัญที่สุดในการกำหนดบุคลิกและการทำงานของ AI Agent เปรียบเสมือนชุดคำสั่งที่ระบุขอบเขตความรับผิดชอบ เพื่อให้ LLM ทำงานได้ตรงตามวัตถุประสงค์
+### เจาะลึก System Prompt
+**System Prompt** (หรือ Instruction Prompt) คือส่วนประกอบที่สำคัญที่สุดในการกำหนดบุคลิกและการทำงานของ AI Agent เปรียบเสมือนชุดคำสั่งที่ระบุขอบเขตความรับผิดชอบ เพื่อให้ LLM ทำงานได้ตรงตามวัตถุประสงค์
 
 การเขียน Instruction ที่ดีสำหรับ AI Agent ควรกำหนดหัวข้อต่อไปนี้ให้ชัดเจน:
 * **Persona:** กำหนดบทบาทว่า Agent คือใคร (เช่น เจ้าหน้าที่ Support, ผู้เชี่ยวชาญเฉพาะด้าน)
@@ -494,19 +499,19 @@ Instruction (หรือ System Prompt) คือส่วนประกอบ
 
 การกำหนด Instruction ที่แตกต่างกัน จะทำให้ได้ AI Agent ที่มีหน้าที่แตกต่างกันอย่างสิ้นเชิง ดังตัวอย่างต่อไปนี้:
 ![AI Agent](images/7.4.png)
-#### 1. Customer Service Agent
-* **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่บริการลูกค้า ให้ข้อมูลด้วยความสุภาพและถูกต้องตามนโยบาย
-* **การทำงาน:** ตอบคำถามเกี่ยวกับสินค้า แก้ไขปัญหาเบื้องต้น และให้คำแนะนำการใช้งาน
+1. Customer Service Agent
+   * **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่บริการลูกค้า ให้ข้อมูลด้วยความสุภาพและถูกต้องตามนโยบาย
+   * **การทำงาน:** ตอบคำถามเกี่ยวกับสินค้า แก้ไขปัญหาเบื้องต้น และให้คำแนะนำการใช้งาน
 
-#### 2. E-commerce Shopping Assistant
-* **Instruction:** กำหนดบทบาทเป็นผู้ช่วยช้อปปิ้ง แนะนำสินค้าโดยวิเคราะห์จากความต้องการของผู้ใช้
-* **การทำงาน:** สอบถามสไตล์ที่ชอบ แนะนำสินค้าที่เกี่ยวข้อง และช่วยเปรียบเทียบคุณสมบัติ
+2. E-commerce Shopping Assistant
+   * **Instruction:** กำหนดบทบาทเป็นผู้ช่วยช้อปปิ้ง แนะนำสินค้าโดยวิเคราะห์จากความต้องการของผู้ใช้
+   * **การทำงาน:** สอบถามสไตล์ที่ชอบ แนะนำสินค้าที่เกี่ยวข้อง และช่วยเปรียบเทียบคุณสมบัติ
 
-#### 3. Appointment Booking Agent
-* **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่รับจองคิว ตรวจสอบตารางเวลาว่างและยืนยันนัดหมาย
-* **การทำงาน:** รับเรื่องการจอง ตรวจสอบ Slot เวลาว่างจากระบบ และบันทึกการนัดหมาย
+3. Appointment Booking Agent
+   * **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่รับจองคิว ตรวจสอบตารางเวลาว่างและยืนยันนัดหมาย
+   * **การทำงาน:** รับเรื่องการจอง ตรวจสอบ Slot เวลาว่างจากระบบ และบันทึกการนัดหมาย
 
- ## สร้าง AI Agent Node บน n8n
+## สร้าง AI Agent Node บน n8n
 
 ขั้นตอนการเพิ่มสมองให้บอทด้วยการใช้ AI Agent Node เพื่อประมวลผลข้อความจาก LINE และตอบกลับด้วย Google Gemini
 
