@@ -5,6 +5,9 @@ summary: สร้าง AI Chatbot บน LINE โดยไม่ต้อง�
 authors: Punsiri Boonyakiat
 categories: 
   - LINE Messaging API
+  - LINE Chatbot
+URL:
+n8n-line-ai-agent
 tags: 
   - LINE Messaging API
   - n8n
@@ -57,7 +60,7 @@ Duration: 0:05:00
 
 - **แอปพลิเคชัน LINE บนสมาร์ทโฟน** ที่เข้าสู่ระบบเรียบร้อยแล้ว – สำหรับใช้สร้างและจัดการ LINE Official Account
 
-- [**บัญชี Google**](https://accounts.google.com/lifecycle/steps/signup/) – สำหรับเข้าใช้งาน Google AI Studio เพื่อกดรับ Gemini API Key ในการเชื่อมต่อกับ AI
+- [**บัญชี Google**](https://accounts.google.com/signup) – สำหรับเข้าใช้งาน Google AI Studio เพื่อกดรับ Gemini API Key ในการเชื่อมต่อกับ AI
 
 - **[บัญชี Render (สมัครฟรี)](https://dashboard.render.com/register)** – สำหรับใช้เป็น Server ในการ Deploy และรัน n8n
 
