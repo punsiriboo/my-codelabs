@@ -511,44 +511,70 @@ Duration: 0:15:00
    * **Instruction:** กำหนดบทบาทเป็นเจ้าหน้าที่รับจองคิว ตรวจสอบตารางเวลาว่างและยืนยันนัดหมาย
    * **การทำงาน:** รับเรื่องการจอง ตรวจสอบ Slot เวลาว่างจากระบบ และบันทึกการนัดหมาย
 
+## ทำความรู้จัก AI Studio และ Gemini
+
+**Google AI Studio** เป็นแพลตฟอร์มที่ Google จัดทำขึ้นเพื่อให้ผู้พัฒนาสามารถทดสอบและใช้งาน Google Gemini AI models ได้อย่างง่ายดาย โดยสามารถสร้าง API Key เพื่อใช้เชื่อมต่อกับ Gemini models ผ่าน API ได้
+
+**Google Gemini** เป็น Large Language Model (LLM) ที่พัฒนาโดย Google ที่มีความสามารถในการประมวลผลภาษาและสร้างข้อความตอบกลับที่มีความหมายและเป็นธรรมชาติ
+
+### ขั้นตอนการสร้าง Gemini API Key
+
+1. **สร้าง Project**
+   * ไปที่ [Google AI Studio](https://aistudio.google.com/)
+   * เข้าสู่ระบบด้วยบัญชี Google ของคุณ
+   * สร้าง Project ใหม่หรือเลือก Project ที่มีอยู่แล้ว
+
+2. **สร้าง Gemini API Key**
+   * คลิกที่เมนู **Get API Key** หรือไปที่ [API Keys](https://aistudio.google.com/app/apikey)
+   * คลิกปุ่ม **Create API Key**
+   * เลือก Project ที่ต้องการใช้
+   * คัดลอก API Key ที่สร้างขึ้นมา (เก็บไว้ใช้ในขั้นตอนถัดไป)
+
+<aside class="negative">
+<strong>⚠️ Important:</strong> API Key เป็นข้อมูลสำคัญที่ใช้ในการเข้าถึง Gemini API ควรเก็บรักษาให้ปลอดภัยและไม่เปิดเผยให้ผู้อื่นทราบ
+</aside>
+
 ## สร้าง AI Agent Node บน n8n
 
 ขั้นตอนการเพิ่มสมองให้บอทด้วยการใช้ AI Agent Node เพื่อประมวลผลข้อความจาก LINE และตอบกลับด้วย Google Gemini
 
 ### ขั้นตอนทั้งหมด
 1. เพิ่ม AI Agent Node
-2. ตั้งค่า Prompt (รับข้อความ)
+2. ตั้งค่า Prompt (User Message) ในการรับข้อความจากผู้ใช้งาน LINE OA
 3. เชื่อมต่อ Chat Model
 4. ตั้งค่า Google Gemini API Key และเลือกโมเดล
 
 ---
 
 ### 1. เพิ่ม AI Agent Node
-1. ในหน้า Workflow ให้กดปุ่ม **"+"** (หรือวงกลมบวกที่เส้นเชื่อม) เพื่อแทรก Node ใหม่
-2. เลือกเมนู **AI**
-3. เลือก **AI Agent**
+* ในหน้า Workflow ให้กดปุ่ม **"+"** ระหว่างที่เส้นเชื่อม Node 'Line Messaging Trigger' เพื่อแทรก Node ใหม่
+   * เลือกเมนู **AI**
+   * เลือก **AI Agent**
 
 ![Insert Node](images/8.1.png)
 ![Select AI Category](images/8.2.png)
 ![Select AI Agent](images/8.3.png)
 
-### 2. ตั้งค่า Prompt (รับข้อความ)
+### 2. ตั้งค่า Prompt (User Message) ในการรับข้อความจากผู้ใช้งาน LINE OA
 กำหนดให้ AI รับข้อความที่ผู้ใช้พิมพ์เข้ามาผ่าน LINE มาประมวลผลต่อและคิดคำตอบที่ควรตอบตามที่เราจะระบุในคำสั่งการทำงานของ AI
-1. ที่ช่อง **Source for Prompt (User Message)** เลือกเป็น `Define below`
-2. ที่ช่อง **Prompt (User Message)** ให้ใส่ Expression เพื่อดึงข้อความจาก LINE:
-   `{{ $("Line Messaging Trigger").item.json.message.text }}`
+* ที่ช่อง **Source for Prompt (User Message)** 
+   *เลือกเป็น `Define below`
+* ที่ช่อง **Prompt (User Message)** ให้ใส่ Expression เพื่อดึงข้อความจาก LINE:
+   * Prompt (User Message): `{{ $("Line Messaging Trigger").item.json.message.text }}`
 
-![Set Define Below](images/8.4.png)
-![Input Expression](images/8.5.png)
+   ![Set Define Below](images/8.4.png)
+   ![Input Expression](images/8.5.png)
 
-3. ในส่วนของ Option ให้เราทำการกดเพิ่ม และเลือก **System message** เพื่อเป็นการเพิ่มคำสั่งการทำงาน
+* ในส่วนของ **Add Option** ให้เราทำการกดเพิ่ม 
+   * เลือก **System message** เพื่อเป็นการเพิ่มคำสั่งการทำงาน
+   *  จะเห็นว่า System message พื้นฐานนั้นคือ `You are a helpful assistant` ซึ่งเราสามารถแก้ไขได้ในขั้นตอนถัดไป
    ![System message](images/8.6.png)
    ![System message](images/8.6.1.png)
-   จะเห็นว่า System message พื้นฐานนั้นคือ `You are a helpful assistant` ซึ่งเราสามารถแก้ไขได้ในขั้นตอนถัดไป
+
 ### 3. เชื่อมต่อ Chat Model
 เพิ่มโมเดลภาษา (LLM) ให้กับ Agent เพื่อใช้ในการประมวลผลคำตอบ
-1. กดปุ่ม **"+"** ที่ช่อง **Chat Model** ด้านล่างของ Node
-2. ค้นหาและเลือก **Google Gemini Chat Model**
+* กดปุ่ม **"+"** ที่ช่อง **Chat Model** ด้านล่างของ Node `AI Agent`
+* ค้นหาและเลือก **Google Gemini Chat Model**
 
 ![Select Gemini Model](images/8.7.png)
 
@@ -575,8 +601,8 @@ Duration: 0:15:00
    
 5. ในส่วนของ Option ให้ตั้งค่า **Max output token** เป็น 500
    
-   <aside class="positive">
-   <strong>Note:</strong> การตั้งค่า Max output token เป็น 500 เพื่อป้องกันไม่ให้คำตอบยาวเกินไป เนื่องจาก LINE text response มี max character 5,000 ตัวอักษร
+   <aside class="negative">
+   <strong>Importance:</strong> การตั้งค่า Max output token เป็น 500 เพื่อป้องกันไม่ให้คำตอบยาวเกินไป เนื่องจาก LINE text response มี max character 5,000 ตัวอักษร
    </aside>
 
 ![Select Gemini Model Version](images/8.11.png)
