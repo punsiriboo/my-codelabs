@@ -76,19 +76,6 @@ n8n-line-ai-agent/
 └── README.md                             # ไฟล์นี้
 ```
 
-## 📖 วิธีใช้งาน Code Lab
-
-หลังจาก build เสร็จแล้ว:
-
-### สำหรับ Codelab แรก
-
-```bash
-cd n8n-line-ai-agent/codelab
-python3 -m http.server 8000
-# หรือ
-npx http-server . -p 8000
-```
-
 ## Troubleshooting
 
 ### ปัญหา: claat command not found
@@ -123,3 +110,4 @@ chmod +x build.sh
 
 ## ลิงก์ที่เกี่ยวข้อง
 - [Google Codelabs Tools (claat)](https://github.com/googlecodelabs/tools)
+- [Guide](https://github.com/googlecodelabs/tools/blob/main/FORMAT-GUIDE.md)

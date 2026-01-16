@@ -1,18 +1,13 @@
 
 id: n8n-line-ai-agent
 title: Build a Smart AI Chatbot without Coding using n8n
-summary: สร้าง AI Chatbot บน LINE โดยไม่ต้องเขียนโค้ด โดยใช้ n8n self-hosted บน Render
+summary: Codelab นี้คุณจะได้เรียนรู้การสร้าง LINE AI Chatbot แบบ Step-by-Step โดยใช้ n8n เป็น Webhook Server เชื่อมต่อ Generative AI อย่าง Gemini เพื่อให้บอทเข้าใจภาษาและตอบโต้ได้เองอย่างชาญฉลาด โดยทั้งหมดนี้ไม่ต้องเขียนโค้ด
 authors: Punsiri Boonyakiat
-categories: 
-  - LINE Messaging API
-  - LINE Chatbot
-URL:
-n8n-line-ai-agent
-tags: 
-  - LINE Messaging API
-  - n8n
-  - AI Chatbot
+categories: LINE Messaging API, LINE Chatbot
+tags: LINE Messaging API, LINE Chatbot
 status: Published
+url: n8n-line-ai-agent
+Feedback Link: https://forms.gle/xXkqeFE3vLSubP1f9
 
 
 # Build a Smart AI Chatbot without Coding using n8n
@@ -21,7 +16,7 @@ status: Published
 ## บทนำ
 Duration: 0:05:00
 
-![Title](images/title.png)
+![Title](images/1.1.png)
 
 "ในยุคที่ AI เข้ามามีบทบาทสำคัญ การสร้าง Chatbot ที่ 'ฉลาด' และ 'เข้าใจบริบท' ไม่จำเป็นต้องเขียนโค้ดที่ซับซ้อนอีกต่อไป"
 
@@ -32,8 +27,6 @@ Duration: 0:05:00
 - n8n (Workflow Automation): เครื่องมือ Low-Code เพื่อเชื่อมต่อระบบต่างๆ เข้าด้วยกัน
 - Render: Cloud Hosting สำหรับรัน n8n (Deployment)
 
-![Title](images/1.1.png)
-![Architecture](images/architecture.png)
 
 ### สิ่งที่คุณจะได้ลงมือทำ
 - Deploy n8n ขึ้นบน Cloud (Render) ฟรี
@@ -42,19 +35,12 @@ Duration: 0:05:00
 - เชื่อมต่อ Google Gemini เพื่อให้บอทตอบคำถามได้อย่างเป็นธรรมชาติ
 
 ### สิ่งที่คุณจะได้เรียนรู้
-
-- **เข้าใจระบบ**: เรียนรู้หลักการทำงานของ LINE Messaging API และ AI Automation
-
-- **เตรียมความพร้อม**: สร้าง LINE OA และตั้งค่า Messaging API ให้พร้อมใช้งาน
-
-- **ติดตั้งเครื่องมือ**: รู้จัก n8n และวิธี Deploy แบบ Self-hosted บน Render
-
-- **เชื่อมต่อ**: สร้าง Webhook ด้วย n8n เพื่อรับ-ส่งข้อความกับผู้ใช้
-
-- **สร้างบอท**: พัฒนา AI Chatbot ตัวแรกบน LINE ที่ใช้งานได้จริง
-
-- **ปรับแต่ง AI**: เทคนิคการเขียนคำสั่ง (Prompt) ให้ AI เข้าใจบริบทและตอบโจทย์ธุรกิจ
-
+- เข้าใจระบบ: เรียนรู้หลักการทำงานของ LINE Messaging API และ AI Automation
+- เตรียมความพร้อม: สร้าง LINE OA และตั้งค่า Messaging API ให้พร้อมใช้งาน
+- ติดตั้งเครื่องมือ: รู้จัก n8n และวิธี Deploy แบบ Self-hosted บน Render
+- เชื่อมต่อ: สร้าง Webhook ด้วย n8n เพื่อรับ-ส่งข้อความกับผู้ใช้
+- สร้างบอท: พัฒนา AI Chatbot ตัวแรกบน LINE ที่ใช้งานได้จริง
+- ปรับแต่ง AI: เทคนิคการเขียนคำสั่ง (System Prompt) ให้ AI เข้าใจบริบทและตอบโจทย์ธุรกิจ
 
 ### สิ่งที่คุณต้องเตรียมพร้อมก่อนเริ่ม Codelab 
 
@@ -71,24 +57,31 @@ Duration: 0:10:00
 
 ### LINE Messaging API คืออะไร?
 **LINE Messaging API** คือ API ที่ให้บริการโดย LINE Corporation ที่จะทำหน้าที่เป็นตัวกลางที่จะเชื่อมต่อ Server ของเราเข้ากับ LINE Official Account ทำให้เราสามารถเขียนโปรแกรมเพื่อสร้างบริการที่เราต้องการ ผ่านการข้อความและโต้ตอบกับผู้ใช้ในลักษณะ Chatbot ได้นั่นเอง โดยสามารถโต้ตอบกับผู้ใช้หลักๆ ได้ 2 แบบได้แก่ push และ reply
+
 #### **Push messages**
-   ![LINE Messaging API](images/3.1.png)
+![LINE Messaging API](images/3.1.png)
+
 การส่งข้อความจาก Chatbot ไปหาผู้ใช้ โดยที่ผู้ใช้อยู่เฉยๆไม่ได้มีการ request อะไรมาที่ Chatbot (ลักษณะ One-way communication) เช่น Chatbot ส่งข้อความโปรโมชั่นไปหาผู้ใช้
+
 #### **Reply messages**
-   ![LINE Messaging API](images/3.2.png)
+![LINE Messaging API](images/3.2.png)
+
 เป็นการโต้ตอบกับ Chatbot โดยผู้ใช้เป็นคน request มาที่ Chatbot ก่อนและตัว Chatbot ทำการตอบข้อความกลับไปหาผู้ใช้ เช่น ผู้ใช้ส่งข้อความเข้ามา หรือ ผู้ใช้ทำการ Add Chatbot เป็นเพื่อน (ผู้ใช้เป็นคนทักหา Account เราก่อน ลักษณะ Two-way communication)
+
 ### Webhook events คืออะไร?
-**Webhook events** คือเหตุการณ์ event ต่างๆ ที่เกิดขึ้นกับ Chatbot ของเรา (event trigger) โดยเมื่อ event เกิดขึ้นแล้วจะมีสัญญาณพร้อมกับข้อมูลในรูปแบบที่เป็น JSON วิ่งมาที่ Webhook ที่เราผูกไว้ ซึ่งภายใน JSON นั้นจะมี replyToken ที่ไว้สำหรับการ Reply messages เพื่อตอบกลับผู้ใช้ได้นั่นเอง
+**Webhook events** คือเหตุการณ์ event ต่างๆ ที่เกิดขึ้นกับ Chatbot ของเรา (event trigger) เมื่อผู้ใช้มีการโต้ตอบหรือใช้งาน LINE OA โดย event เกิดขึ้นจะมีสัญญาณพร้อมกับข้อมูลในรูปแบบที่เป็น JSON วิ่งมาที่ Webhook ที่เราผูกไว้กับ LINE OA  ซึ่งภายใน JSON นั้นจะมี replyToken ที่ไว้ใช้สำหรับการ Reply messages เพื่อตอบกลับผู้ใช้ได้นั่นเอง
    ![LINE Messaging API](images/3.3.png)
 
 ### การสร้าง Webhook Server ด้วย n8n
-ภาพรวมการทำงานเมื่อนำ n8n มาใช้เป็น Webhook Server เพื่อประมวลผล Chatbot
-![LINE Messaging API](images/3.4.png)
+ในการพัฒนา Webhook Server เพื่อจะรอรับ events และทำการตอบกลับเพื่อสร้างเป็น LINE Chatbot นั้นสามารถทำได้หลายวิธี แต่ในบทความนี้จะใช้ n8n ในการเป็น Webhook Server 
 
-ขั้นตอนการทำงานตามภาพประกอบ:
+#### ภาพรวมการทำงานเมื่อนำ n8n มาใช้เป็น Webhook Server
+![Architecture](images/3.4.png)
+
+**ขั้นตอนการทำงานตามภาพประกอบ:**
 
 1. **LINE APP: ผู้ใช้งาน (User)**
-   - เริ่มต้นการกระทำ เช่น ส่งข้อความ หรือเพิ่มเพื่อน
+   - เริ่มต้นการกระทำ เช่น ส่งข้อความ ส่งรูปภาพ หรือเพิ่มเพื่อน
 
 2. **LINE Platform (LINE Bot Platform)**
    - ทำหน้าที่เป็นตัวกลาง จัดการการรับส่งข้อความ
@@ -115,7 +108,7 @@ Duration: 0:15:00
 2. เข้าสู่ระบบด้วยบัญชี LINE ของคุณให้เรียบร้อย
 3. กดสร้าง LINE OA จากปุ่ม **Create LINE official account** สำหรับผู้ที่สร้าง LINE OA ครั้งแรก หรือกด **Create new** ทางด้านซ้ายสำหรับผู้ที่เคยสร้าง LINE OA แล้ว
 ![LINE Manager Dashboard](images/4.2.png)
- 4. ให้ระบุข้อมูลต่างๆ ลงไปในฟอร์ม แล้วกด **ตกลง**
+4. ให้ระบุข้อมูลต่างๆ ลงไปในฟอร์ม แล้วกด **ตกลง**
 ![Create LINE OA](images/4.3.png)
 5. จากนั้นให้ยืนยันรายละเอียดในการสร้าง LINE OA เป็นอันเสร็จสิ้น
 ![LINE OA Form](images/4.4.png)
@@ -196,11 +189,9 @@ Duration: 0:15:00
 ## ทำความรู้จักกับ n8n
 Duration: 0:10:00
 
-### n8n คืออะไร และเหมาะกับงานแบบไหน
-
+### n8n คืออะไร?
 **[n8n](https://n8n.io/)** (pronounced "n-eight-n") เป็น open-source workflow automation tool ที่ช่วยให้คุณสามารถเชื่อมต่อ services และ APIs ต่างๆ เข้าด้วยกันได้โดยไม่ต้องเขียนโค้ดมาก
-![Nodes](images/n8n-page.png)
-![Nodes](images/n8n.png)
+![n8n](images/n8n-page.png)
 #### ฟีเจอร์หลัก
 
 - **Visual Workflow Editor**: สร้าง workflow ด้วยการ drag-and-drop
@@ -210,7 +201,7 @@ Duration: 0:10:00
 - **Workflow Templates**: มี templates สำเร็จรูปให้ใช้
 
 
-#### เหมาะกับงานแบบไหน?
+### เหมาะกับงานแบบไหน?
 
 
 1. **Automation Tasks** - จัดการข้อมูลระหว่าง services, สร้าง reports อัตโนมัติ, Sync ข้อมูลระหว่าง systems
@@ -228,8 +219,8 @@ Duration: 0:10:00
 - ประมวลผลข้อมูล
 - ส่งข้อมูลไปยัง node ถัดไป
 
-### ตัวอย่าง Workflow
-![Workflow](images/1.1.png)
+#### ตัวอย่าง Workflow
+![Workflow](images/n8n-example-workflow.png)
 
 #### ประเภทของ Nodes
 ![Nodes](images/n8n-node-types.png)
@@ -239,7 +230,7 @@ Duration: 0:10:00
 4. **Data Nodes**: จัดการข้อมูล (Set, Code, Function)
 5. **AI Nodes**: เชื่อมต่อกับ AI services (Gemini, OpenAI, Anthropic)
 
-### ข้อดีของ Workflow-based
+#### ข้อดีของ Workflow-based
 
 - **Visual**: เห็น flow ทั้งหมดได้ชัดเจน
 - **No Code / Low Code**: ไม่ต้องเขียนโค้ดมาก
@@ -255,105 +246,112 @@ Duration: 0:10:00
 4. **Control**: ควบคุมข้อมูลและ infrastructure ได้เต็มที่
 5. **Cost-effective**: ประหยัดเมื่อเทียบกับ SaaS solutions
 
-<aside class="positive">
-<strong>Note:</strong> คุณสามารถใช้งาน n8n ได้ทั้งแบบ <strong>n8n Cloud</strong> และ <strong>n8n Self-hosted</strong>(ฟรี) ใน Codelab นี้เราจะใช้ Self-hosted บน Render
-</aside>
 
 
 ## ใช้งาน n8n แบบ Self-host บน Render
 Duration: 0:20:00
+โดยทั่วไปคุณสามารถเลือกใช้ n8n ได้สองรูปแบบ คือ n8n Cloud หรือ n8n Self-hosted ซึ่งแบบ Self-hosted นั้นใช้งานได้ฟรี ใน Codelab นี้ เราจะดำเนินการ deploy n8n บน Render ด้วยการใช้ Docker image ที่มีอยู่แล้ว
 
-เราจะ deploy n8n บน Render โดยใช้ Docker image ที่มีอยู่แล้ว ซึ่งเป็นวิธีที่ง่ายและเร็วที่สุด
-
+![Architecture](images/architecture.png)
 ### ขั้นตอนทั้งหมด
 
 1. เข้าสู่ระบบ Render Dashboard
 2. สร้าง Web Service บน Render
 3. ตั้งชื่อ Service และเลือก Plan
-4. ตั้งค่า Environment Variables และ Deploy Service
+4. ตั้งค่า Environment Variables และ Deploy
 5. เริ่มต้นใช้งาน n8n บน Render
 
 ---
 
 ### 1. เข้าสู่ระบบ Render Dashboard
 
-1. ไปที่ [Render Register](https://dashboard.render.com/register)
-2. ในหน้าการเข้าสู่ระบบ **Create an account** ให้เลือกเข้าสู่ระบบด้วย Google เพื่อใช้บัญชี Google ของคุณ
+* ไปที่ [Render Register](https://dashboard.render.com/register)
+* ในหน้าการเข้าสู่ระบบ **Create an account** 
+   * เลือกเข้าสู่ระบบด้วย **Google** เพื่อใช้งาน​ Render ด้วยบัญชี Google ของคุณ
+   * Choose an account: เลือกบัญชี Google ที่จะใช้งาน
+
+* เมื่อเข้าสู่ระบบสำเร็จ ระบบจะพาคุณไปยังหน้า Render Dashboard
    ![Render Dashboard - Login](images/5.1.png)
-3. เลือกบัญชี Google ที่ต้องการใช้สำหรับเข้าสู่ระบบ
    ![Render Dashboard - Login](images/5.2.png)
-4. เมื่อเข้าสู่ระบบสำเร็จ ระบบจะพาคุณไปยังหน้า Render Dashboard
-   ![Render Dashboard - Login](images/5.3.png)
 
 ### 2. สร้าง Web Service บน Render
 
-1. ที่หน้า Render Dashboard ให้ดูที่หัวข้อ **Web Services** แล้วคลิกปุ่ม **"New Web Service"** (หรือคลิก **"New +"** ที่มุมขวาบนแล้วเลือก **Web Service**)
+* ที่หน้า Render Dashboard ให้ดูที่หัวข้อ **Web Services** 
+   * คลิกปุ่ม **"New Web Service"** (หรือคลิก **"New +"** ที่มุมขวาบนแล้วเลือก **Web Service**)
    ![Render Dashboard - New Web Service](images/5.4.png)
 
-2. ในหน้าถัดมา หัวข้อ **Source Code** ทางด้านขวา:
-   - เลือกแท็บ **"Existing Image"**
-   - ในช่อง **Image URL** ให้พิมพ์หรือวางโค้ด: `n8nio/n8n:latest`
-   - คลิกปุ่ม **"Connect"**
+* ในหน้าถัดมา หัวข้อ **Source Code**:
+   * เลือกแท็บ **"Existing Image"**
+   * ในช่อง **Image URL** ใส่: `n8nio/n8n:latest`
+   * คลิกปุ่ม **"Connect"**
    ![Render Dashboard - New Web Service](images/5.5.png)
 
 ### 3. ตั้งชื่อ Service และเลือก Plan
 
-1. **Name**: ตั้งชื่อ Service ของคุณ (เช่น `my-first-n8n-server-2026`)
-2. **Region**: เลือกภูมิภาคของเซิร์ฟเวอร์ที่ใกล้ที่สุด (แนะนำ Singapore เพื่อความเร็วในการเชื่อมต่อจากไทย)
-3. **Instance Type**:
-   - เลือก **Free** สำหรับการทดสอบ
-
-<aside class="positive">
-<strong>Tip:</strong> แนะนำใช้แผน Starter สำหรับ production เพื่อความเสถียรและไม่ sleep และมี persistent storage สำหรับบันทึก workflow
-</aside>
+* **Name**: ตั้งชื่อ Service ของคุณ 
+   * เช่น Name: `YOURNAME-n8n-server-yyyy`
+* **Region**: เลือกภูมิภาคของเซิร์ฟเวอร์ที่ใกล้ที่สุดเพื่อความเร็วในการเชื่อมต่อ
+   * แนะนำ `Singapore  (Southeast Asia)`
+* **Instance Type**:
+   * เลือก **Free** สำหรับการทดสอบ
+* เลื่อนลงมาด้านล่างสุดของเพจ และกด ** Deploy
 
 ![Render Dashboard - New Web Service](images/5.6.png)
+![Render Dashboard - New Web Service](images/5.7.png)
 
-### 4. ตั้งค่า Environment Variables
+### 4. ตั้งค่า Environment Variables และ Deploy 
 
-1. คลิกที่ปุ่ม **"Advanced"** และเลือก **"Add Environment Variable"**
-2. เพิ่ม Environment Variables ตามตารางด้านล่าง:
+* คลิกเลือกเมนู **"Environment"** เพื่อทำการตั้งค่าตัวแปรสำคัญในการใช้งาน Webhook และคลิก **"Add Environment Variable"**
+* เพิ่ม Environment Variables ตามตารางด้านล่าง:
 
-    | **Key** | **Value** | **Description** |
-    | :--- | :--- | :--- |
-    | `N8N_PROTOCOL` | `https` | Protocol สำหรับ webhook |
-    | `WEBHOOK_URL` | `https://[ชื่อแอปของคุณ].onrender.com/` | Webhook URL สำหรับ n8n เช่น `https://my-first-n8n-server-2026.onrender.com/` |
 
-3. หลังจากนั้นให้กดปุ่ม **"Create Web Service"** (หรือ **Deploy Web Service**)
-   ![Render Dashboard - New Web Service](images/5.7.png)
+   | **Key** | **Value** | **Description** |
+   |---------|-----------|-----------------|
+   | `N8N_PROTOCOL` | `https` | Protocol สำหรับ webhook |
+   | `WEBHOOK_URL` | `https://[ชื่อแอปของคุณ].onrender.com/` | Webhook URL สำหรับ n8n เช่น `https://beat-server-2026.onrender.com/` |
 
-4. รอจนกว่า Deployment จะเสร็จสมบูรณ์ (ประมาณ 2-5 นาที)
+
+* กด **Save and Deploy**
    ![Render Dashboard - New Web Service](images/5.8.png)
 
-5. หลังจาก Deploy เสร็จ ให้เปิด URL ด้านบนซ้ายเพื่อเริ่มต้นใช้งาน n8n คุณจะพบหน้า n8n Register ที่ให้กรอกข้อมูลสำหรับสร้าง account n8n
+* หลังจากนั้นให้คลิกไปยังเมนู **Events** และรอจนกว่า Deployment จะเสร็จสมบูรณ์ (ประมาณ 2-5 นาที)
    ![Render Dashboard - New Web Service](images/5.9.png)
 
-### 5. เริ่มต้นใช้งาน n8n บน Render
 
-1. **ตั้งค่าบัญชีผู้ดูแลระบบ (Owner Account)**
+
+### 5. เริ่มต้นใช้งาน n8n บน Render
+หลังจาก Deploy เสร็จ ให้เปิด URL ด้านบนซ้ายเพื่อเริ่มต้นใช้งาน n8n คุณจะพบหน้า n8n Register ที่ให้กรอกข้อมูลสำหรับสร้าง account n8n
+
+<aside class="negative">
+<strong>⚠️ Important:</strong> Instance Type แบบฟรีจะหยุดทำงานเมื่อไม่มีการใช้งาน และจะทำให้การเรียกใช้งานครั้งแรกล่าช้า 50 วินาทีหรือมากกว่า
+</aside>
+
+<aside class="negative">
+<strong>⚠️ Important</strong> Render Free plan ไม่มี persistent storage ซึ่งหมายความว่า **workflow ที่คุณสร้างไว้จะไม่ถูกบันทึก** เมื่อ server ถูก sleep หรือ restart เนื่องจากไม่มี persistent memory ดังนั้นควรพิจารณา upgrade เป็นแผน Starter หรือสูงกว่าเพื่อให้ workflow ถูกบันทึกถาวร
+</aside>
+
+* เข้าสู่ n8n หลังจาก Deploy เสร็จสมบูรณ์
+   ![n8n Setup Owner Account](images/5.9.2.png)
+* ตั้งค่าบัญชีผู้ดูแลระบบ (Owner Account)
    เมื่อเปิด URL ขึ้นมาครั้งแรก จะปรากฏหน้า **Set up owner account** ให้กรอกข้อมูลเพื่อสร้างบัญชี Admin:
    - **Email**: อีเมลของคุณ
    - **First Name / Last Name**: ชื่อและนามสกุล
    - **Password**: ตั้งรหัสผ่าน (ต้องมีอย่างน้อย 8 ตัวอักษร, ตัวเลข, และตัวพิมพ์ใหญ่)
-   
-   คลิกปุ่ม **"Next"**
+   - คลิกปุ่ม **"Next"**
+
+<aside class="positive">
+<strong>Tip: </strong> เนื่องจาก n8n server นี้เป็น Self-hosted ที่เราใช้เพียงคนเดียว เราไม่จำเป็นต้องใส่ข้อมูลจริงๆ ก็ได้
+</aside>
+
    ![n8n Setup Owner Account](images/5.10.png)
 
-2. ระบบจะสอบถามข้อมูลการใช้งานเบื้องต้น (เช่น บทบาทของคุณ, ขนาดบริษัท) ให้เลือกคำตอบที่ตรงกับคุณ
-   
-   คลิกปุ่ม **"Get started"**
+* ระบบจะสอบถามข้อมูลการใช้งานเบื้องต้น (เช่น บทบาทของคุณ, ขนาดบริษัท) โดยในส่วนนี้ให้คุณข้ามไปได้เลย
+   * คลิกปุ่ม **Get started**
+   * คลิกปุ่ม **Skip**
    ![n8n Customize](images/5.11.png)
 
-3. เมื่อเข้าสู่หน้า Dashboard หลัก จะพบข้อความต้อนรับ **Welcome [ชื่อของคุณ]!**  และหน้า canvas ที่พร้อมสำหรับเริ่มงาน
-   คุณสามารถคลิกที่ **"Start from scratch"** เพื่อเริ่มสร้าง Workflow แรกได้ทันที
-   ![n8n Welcome](images/5.12.png)
+* เมื่อเข้าสู่หน้า Dashboard หลัก จะพบข้อความต้อนรับ **Welcome [ชื่อของคุณ]!**  และหน้า canvas ที่พร้อมสำหรับเริ่มงาน
 
-<aside class="negative">
-<strong>Important:</strong> Instance Type แบบฟรีจะหยุดทำงานเมื่อไม่มีการใช้งาน และจะทำให้การเรียกใช้งานครั้งแรกล่าช้า 50 วินาทีหรือมากกว่า
-
-<strong>⚠️ ข้อควรระวัง</strong> Render Free plan ไม่มี persistent storage ซึ่งหมายความว่า **workflow ที่คุณสร้างไว้จะไม่ถูกบันทึก** เมื่อ server ถูก sleep หรือ restart เนื่องจากไม่มี persistent memory ดังนั้นควรพิจารณา upgrade เป็นแผน Starter หรือสูงกว่าเพื่อให้ workflow ถูกบันทึกถาวร
-
-</aside>
 
 ## สร้าง LINE Webhook Node บน n8n และเชื่อมต่อกับ LINE Chatbot
 Duration: 0:15:00
