@@ -34,27 +34,6 @@ cd n8n-line-ai-agent
 3. ✅ Export markdown file (`n8n-line-ai-agent.md`) เป็น HTML
 4. ✅ สร้างโฟลเดอร์ `codelab/` ที่มีไฟล์ HTML พร้อมใช้งาน
 
-#### วิธีที่ 2: Build แบบ Manual
-
-```bash
-cd n8n-line-ai-agent
-claat export n8n-line-ai-agent.md
-mv n8n-line-ai-agent codelab
-```
-
-### ติดตั้ง claat แบบ Manual
-
-หากต้องการติดตั้ง `claat` ด้วยตัวเอง:
-
-```bash
-go install github.com/googlecodelabs/tools/claat@latest
-```
-
-และตรวจสอบว่า `$HOME/go/bin` อยู่ใน PATH:
-
-```bash
-export PATH="$PATH:$HOME/go/bin"
-```
 
 ## โครงสร้างโปรเจค
 ```

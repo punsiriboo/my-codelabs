@@ -258,7 +258,7 @@ Duration: 0:20:00
 1. เข้าสู่ระบบ Render Dashboard
 2. สร้าง Web Service บน Render
 3. ตั้งชื่อ Service และเลือก Plan
-4. ตั้งค่า Environment Variables และ Deploy
+4. ตั้งค่า Environment และ Deploy
 5. เริ่มต้นใช้งาน n8n บน Render
 
 ---
@@ -299,16 +299,16 @@ Duration: 0:20:00
 ![Render Dashboard - New Web Service](images/5.6.png)
 ![Render Dashboard - New Web Service](images/5.7.png)
 
-### 4. ตั้งค่า Environment Variables และ Deploy 
+### 4. ตั้งค่า Environment และ Deploy 
 
-* คลิกเลือกเมนู **"Environment"** เพื่อทำการตั้งค่าตัวแปรสำคัญในการใช้งาน Webhook และคลิก **"Add Environment Variable"**
-* เพิ่ม Environment Variables ตามตารางด้านล่าง:
+* คลิกเลือกเมนู **"Environment"** เพื่อทำการตั้งค่าตัวแปรสำคัญในการใช้งาน Webhook 
+   * และคลิก **"Add"** เพิ่ม Variables ตามตารางด้านล่าง:
 
 
    | **Key** | **Value** | **Description** |
    |---------|-----------|-----------------|
-   | `N8N_PROTOCOL` | `https` | Protocol สำหรับ webhook |
-   | `WEBHOOK_URL` | `https://[ชื่อแอปของคุณ].onrender.com/` | Webhook URL สำหรับ n8n เช่น `https://beat-server-2026.onrender.com/` |
+   | **N8N_PROTOCOL** | `https`| Protocol สำหรับ webhook |
+   | **WEBHOOK_URL** | `https://[ชื่อแอปของคุณ].onrender.com/` | Webhook URL สำหรับ n8n เช่น `https://beat-server-2026.onrender.com/` ซึ่งต้อง copy มาจากด้านบน|
 
 
 * กด **Save and Deploy**
@@ -406,8 +406,8 @@ Duration: 0:15:00
 * จาก Node `LINE Messaging Trigger` 
    * กด **+** เพื่อเพิ่ม Node ใหม่ที่เป็นการตอบกลับข้อความจาก LINE
    * โดยให้ทำการค้นหา `LINE Messaging`
-   * ในส่วนของ LINE Messaging เลือก **"Reply to a message using a reply token"**
    ![n8n Fill Credential](images/6.11.png)
+  * ในส่วนของ LINE Messaging เลือก **"Reply to a message using a reply token"**
    ![n8n Fill Credential](images/6.12.png)
 * ตั้งค่า **Reply Token** และ **Text**
    - ในช่อง Reply Token ให้ใส่ค่า:
@@ -415,6 +415,8 @@ Duration: 0:15:00
    - ในส่วนของการตอบกลับจะต้องทำการเพิ่มข้อความอัตโนมัติในการตอบ
       - กดปุ่ม **"Add Message"** 
       - แล้วพิมพ์ข้อความ `Hello from n8n` ในช่อง Text
+   - แก้ไขชื่อ node เป็น `Reply Message`
+
    ![n8n Fill Credential](images/6.13.png)
    ![n8n Fill Credential](images/6.13.1.png)
    
@@ -660,9 +662,9 @@ Duration: 0:15:00
 ### 3. ส่งคำตอบที่ได้จาก AI Agent กลับไปยังผู้ใช้
 
 หลังจากที่ AI Agent ประมวลผลและสร้างคำตอบแล้ว เราต้องเชื่อมต่อกับ LINE Messaging Reply Node เพื่อส่งคำตอบกลับไปยังผู้ใช้
-จาก node Reply ที่มีอยู่แล้วเราจะเข้าไปทำการแก้ไขข้อความตอบกลับ
-โดย ตั้งค่า **Text** จะใส่ Expression เพื่อดึงคำตอบจาก AI Agent:
-     `{{ $("AI Agent").item.json.output }}`
+* จาก node Reply ที่มีอยู่แล้วเราจะเข้าไปทำการแก้ไขข้อความตอบกลับ
+* โดย ตั้งค่า **Text** จะใส่ Expression เพื่อดึงคำตอบจาก AI Agent:
+     * Text: `{{ $("AI Agent").item.json.output }}`
 
 ![Completed Workflow](images/8.15.png)
 ![Completed Workflow](images/8.15.1.png)
@@ -723,16 +725,18 @@ Duration: 0:10:00
       - `{{ $("Line Messaging Trigger").item.json.source.userId }}`
    - **Messages:** กดปุ่ม **"Add Message"** 
       - เลือก **type: Flex Message**
+   - **Rename node:** ตั้งชื่อ node เพื่อให้เข้าใจง่ายว่า node นี้ทำหน้าที่อะไร
+      -  ชื่อ node: `Send LINE Flex Message - Menu`
 
 ![Adding LINE Tool](images/9.3.png)
 
 ### 3. ตั้งค่า LINE Flex Message JSON
 
-* **Rename node:** ตั้งชื่อ node เป็น `Send LINE Flex Message` (เพื่อให้เข้าใจง่ายว่า node นี้ทำหน้าที่อะไร)
-* **Alt Text:** ใส่ข้อความที่จะแสดงใน Notification เมื่อมีข้อความเข้า เช่น `เมนูอาหารแนะนำ`
+* **Alt Text:** ใส่ข้อความที่จะแสดงใน Notification เมื่อมีข้อความเข้า 
+   * เช่น `เมนูอาหารแนะนำ`
 * **LINE Flex Message JSON:** นำโค้ด JSON ที่เตรียมไว้ด้านล่างมาวางลงในช่องนี้
 
-**LINE Flex Message JSON: ตัวอย่างโค้ด JSON สำหรับเมนูอาหาร:**
+**ตัวอย่างโค้ด JSON สำหรับเมนูอาหาร** (`LINE Flex Message JSON`):
 ```json
 {"type":"carousel","contents":[
 {"type":"bubble","size":"micro","hero":{"type":"image","url":"https://images.unsplash.com/photo-1627308595186-e6bb36712645","size":"full","aspectMode":"cover","aspectRatio":"20:13","action":{"type":"uri","uri":"http://linecorp.com/"}},"body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"กะเพราหมูไข่ดาว","weight":"bold","size":"sm","wrap":true},{"type":"box","layout":"baseline","contents":[{"type":"icon","size":"xs","url":"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"},{"type":"text","text":"4.8","size":"xs","color":"#999999","margin":"xs","flex":0},{"type":"text","text":"50.-","size":"sm","color":"#e03e3e","align":"end","weight":"bold","flex":1}]}],"spacing":"sm","paddingAll":"13px"},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"primary","action":{"type":"message","label":"สั่งเลย","text":"สั่งกะเพราหมู"},"height":"sm","color":"#E34A32"}]}},
@@ -741,20 +745,18 @@ Duration: 0:10:00
 ]}
 ```
 
-![Completed Workflow](images/9.4.png)
 
 ### 4. แก้ไข System prompt ให้เรียกใช้งาน Tools
 
 เพื่อให้ AI Agent รู้ว่าควรเรียกใช้ Tool (Send LINE Flex Message) เมื่อไหร่ เราต้องเพิ่มคำสั่งใน System prompt
 
-* ไปที่ node **Google Gemini Chat Model** (หรือ Model ที่คุณเลือกใช้)
+* ไปที่ node **AI Agent**
 * ในส่วนของ **System Instruction**  ให้เพิ่มคำสั่งเกี่ยวกับการใช้งาน Tool:
 
 ```
 Trigger: ลูกค้าต้องการดูเมนู เช่น ขอเมนู, มีเมนูอะไรแนะนำ 
-- Action: Tool: Send LINE Flex Message
+- Action: Tool: Send LINE Flex Message - Menu
 ```
-
 
 <aside class="positive">
 <strong>Note:</strong> การเพิ่มคำสั่งนี้จะทำให้ AI รู้ว่าควรเรียกใช้ Tool เมื่อผู้ใช้ถามเกี่ยวกับเมนูอาหาร ซึ่งจะทำให้สามารถส่ง LINE Flex Message ที่สวยงามได้
@@ -766,8 +768,7 @@ Trigger: ลูกค้าต้องการดูเมนู เช่น 
 เมื่อตั้งค่าเสร็จเรียบร้อย ให้กด Save & Publish แล้วลองไปทดสอบคุยกับ Chatbot ใน LINE
 ![Completed Workflow](images/9.6.png)
 
-ลองพิมพ์ประโยคที่กระตุ้นให้ AI ใช้เครื่องมือ เช่น "ขอเมนูอาหารหน่อย" หรือ "มีอะไรแนะนำบ้าง"
-
+ลองพิมพ์ประโยคที่กระตุ้นให้ AI ใช้เครื่องมือ เช่น `ขอเมนูอาหารหน่อย` หรือ `มีเมนูอะไรอร่อยๆแนะนำบ้าง`
 AI จะวิเคราะห์และเรียกใช้ Tool เพื่อส่ง LINE Flex Message ที่เราตั้งค่าไว้กลับมาอย่างสวยงาม ดังภาพ
 
 ![Completed Workflow](images/9.7.png)
@@ -786,8 +787,7 @@ Duration: 0:5:00
 ---
 
 ### 1. แก้ไข System Prompt โดยใช้ ตัวอย่าง Prompt สำหรับร้านอาหาร
-
-ไปที่ node **Google Gemini Chat Model** ใน workflow ของคุณ
+* ไปที่ node **AI Agent** ใน workflow ของคุณ
 มองหาช่องที่เขียนว่า **System Message** เพื่อใส่คำสั่งที่ระบุตัวตนและหน้าที่ของ AI ลงไปให้ชัดเจน
 
 **ตัวอย่าง Prompt สำหรับร้านอาหาร:**
@@ -807,9 +807,9 @@ Duration: 0:5:00
 2.5 หากข้อมูลจากลูกค้าไม่ครบ ต้องถามต่ออย่างสุภาพเสมอ  
 
 ## 3. Food Menu 
-Trigger: ลูกค้าต้องการดูเมนู เช่น ขอเมนู, มีเมนูอะไรแนะนำ 
+Trigger: ลูกค้าต้องการดูเมนู เช่น ขอเมนู, มีเมนูอะไรแนะนำ, มีอะไรกินบ้าง
 - Action: แสดงเฉพาะหมวดที่ลูกค้าระบุ โดยดูข้อมูลจากข้อ 3. หากไม่มีให้แจ้งลูกค้า
-- Mandatory Action: Call Tool: Send LINE Flex Message เพื่อแสดงเมนูแนะนำเสมอ
+- Mandatory Action: Call Tool: `Send LINE Flex Message - Menu` เพื่อแสดงเมนูแนะนำเสมอ
 
 ### 3.1 เมนูข้าวแกง
 - ข้าวกระเพราไข่ดาว — 50 บาท  
@@ -850,7 +850,7 @@ Trigger: ลูกค้าต้องการดูเมนู เช่น 
 น้องเอไอ: "สวัสดีค่ะคุณลูกค้า ร้านเปิดให้บริการตั้งแต่ 9:00 ถึง 18:00 น. ค่ะ สนใจสั่งอาหารไว้ทานมื้อไหนดีคะ?"
 
 ลูกค้า: "ขอเมนูหน่อย"
-น้องเอไอ: "ได้เลยค่ะ นี่คือเมนูความอร่อยของทางร้านเรานะคะ" (Action: เรียกใช้ Tool: Send LINE Flex Message)
+น้องเอไอ: "ได้เลยค่ะ นี่คือเมนูความอร่อยของทางร้านเรานะคะ" (Action: เรียกใช้ Tool: Send LINE Flex Message - Menu)
 ```
 
 ![n8n Test Chat](images/11.1.png)
