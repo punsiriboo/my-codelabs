@@ -294,14 +294,14 @@ Duration: 0:20:00
    * แนะนำ `Singapore  (Southeast Asia)`
 * **Instance Type**:
    * เลือก **Free** สำหรับการทดสอบ
-* เลื่อนลงมาด้านล่างสุดของเพจ และกด **Deploye**
+* เลื่อนลงมาด้านล่างสุดของเพจ และกด **Deploy**
 
 ![Render Dashboard - New Web Service](images/5.6.png)
 ![Render Dashboard - New Web Service](images/5.7.png)
 
 ### 4. ตั้งค่า Environment และ Deploy 
 
-* คลิกเลือกเมนู **"Environment"** เพื่อทำการตั้งค่าตัวแปรสำคัญในการใช้งาน Webhook 
+* คลิกเลือกเมนู **Environment** เพื่อทำการตั้งค่าตัวแปรสำคัญในการใช้งาน Webhook 
    * และคลิก **"Add"** เพิ่ม Variables ตามตารางด้านล่าง:
 
 
@@ -558,7 +558,7 @@ Duration: 0:15:00
 ---
 
 ### 1. เพิ่ม AI Agent Node
-* ในหน้า Workflow ให้กดปุ่ม **"+"** ระหว่างที่เส้นเชื่อม Node 'Line Messaging Trigger' เพื่อแทรก Node ใหม่
+* ในหน้า Workflow ให้กดปุ่ม **"+"** ระหว่างที่เส้นเชื่อม Node `Line Messaging Trigger` เพื่อแทรก Node ใหม่
    * เลือกเมนู **AI**
    * เลือก **AI Agent**
 
@@ -613,7 +613,7 @@ Duration: 0:15:00
    </aside>
 
    <aside class="negative">
-   <strong>⚠️ Quota ของ Gemini Model:</strong> Gemini model แต่ละตัวมี quota จำกัด โดยแต่ละ model ต่อ project เรียกได้แค่ **20 ครั้งต่อวัน ต่อ model (RPD)**  หาก quota เต็มจะทำให้ bot ไม่ตอบ วิธีแก้ให้เปลี่ยน model  ซึ่งสามารถตรวจสอบ quota ที่ <a href="https://aistudio.google.com/usage?timeRange=last-28-days&tab=rate-limit">Gemini Usage</a>
+   <strong>⚠️ Quota ของ Gemini Model:</strong> Gemini model แต่ละตัวมี quota จำกัด โดยแต่ละ model ต่อ project เรียกได้  <strong>20 ครั้งต่อวัน ต่อ model (RPD)</strong>  หาก quota เต็มจะทำให้ bot ไม่ตอบ วิธีแก้ให้เปลี่ยน model  ซึ่งสามารถตรวจสอบ quota ที่ <a href="https://aistudio.google.com/usage?timeRange=last-28-days&tab=rate-limit">Gemini Usage</a>
    </aside>
 
    ![Select Gemini Model Version](images/8.12.1.png)
