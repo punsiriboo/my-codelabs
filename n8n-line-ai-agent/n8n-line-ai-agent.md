@@ -422,7 +422,7 @@ Duration: 0:15:00
    
 
 ### 5. ตั้งค่า Webhook URL ใน LINE Developer Console
-* คลิกที่ Node `LINE Messaging Trigger` ให้ทำการดับเบิ่ลคลิกเพื่อดูรายเอียด
+* คลิกที่ Node `LINE Messaging Trigger` ให้ทำการดับเบิ้ลคลิกเพื่อดูรายเอียด
    - ไปเปิดแทป **Webhook URLs** 
    - คลิกเลือก **"Production URL"**
    - คลิกที่ Webhook URL เพื่อคัดลอก (จะเป็น `https://[ชื่อแอป].onrender.com/webhook/...`)
