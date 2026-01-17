@@ -20,7 +20,7 @@ Duration: 0:05:00
 
 "ในยุคที่ AI เข้ามามีบทบาทสำคัญ การสร้าง Chatbot ที่ 'ฉลาด' และ 'เข้าใจบริบท' ไม่จำเป็นต้องเขียนโค้ดที่ซับซ้อนอีกต่อไป"
 
-ใน Codelab นี้ คุณจะได้เรียนรู้วิธีสร้าง LINE AI Chatbot แบบ Step-by-Step และที่สำคัญคือไม่ต้องเขียนโค้ดโดยใช้ Technology Stack ที่ทรงพลังและเริ่มต้นได้ฟรี:
+ใน Codelab นี้ คุณจะได้เรียนรู้วิธีสร้าง LINE AI Chatbot แบบ Step-by-Step และที่สำคัญคือไม่ต้องเขียนโค้ด โดยใช้ Technology Stack ที่ทรงพลังและเริ่มต้นได้ฟรี:
 
 - LINE: แพลตฟอร์มแชทที่เราคุ้นเคย ทำหน้าที่เป็นหน้าบ้าน (User Interface) สำหรับรับ-ส่งข้อความกับผู้ใช้งาน
 - Google Gemini: ทำหน้าที่เป็น "สมอง" ในการประมวลผลภาษาและคิดคำตอบ
@@ -73,7 +73,7 @@ Duration: 0:10:00
    ![LINE Messaging API](images/3.3.png)
 
 ### การสร้าง Webhook Server ด้วย n8n
-ในการพัฒนา Webhook Server เพื่อจะรอรับ events และทำการตอบกลับเพื่อสร้างเป็น LINE Chatbot นั้นสามารถทำได้หลายวิธี แต่ในบทความนี้จะใช้ n8n ในการเป็น Webhook Server 
+ในการพัฒนา Webhook Server เพื่อจะรอรับ events และทำการตอบกลับเพื่อสร้างเป็น LINE Chatbot นั้นสามารถทำได้หลายวิธี แต่ใน Codelab นี้จะใช้ n8n ในการเป็น Webhook Server 
 
 #### ภาพรวมการทำงานเมื่อนำ n8n มาใช้เป็น Webhook Server
 ![Architecture](images/3.4.png)
@@ -81,12 +81,12 @@ Duration: 0:10:00
 **ขั้นตอนการทำงานตามภาพประกอบ:**
 
 1. **LINE APP: ผู้ใช้งาน (User)**
-   - เริ่มต้นการกระทำ เช่น ส่งข้อความ ส่งรูปภาพ หรือเพิ่มเพื่อน
+   - เริ่มต้นจากการที่ผู้ใช้ LINE OA ใช้งาน Chatbot เช่น ส่งข้อความ ส่งรูปภาพ หรือเพิ่มเพื่อน
 
 2. **LINE Platform (LINE Bot Platform)**
    - ทำหน้าที่เป็นตัวกลาง จัดการการรับส่งข้อความ
    - เมื่อมีเหตุการณ์ (Event) เกิดขึ้น จะทำการส่ง Webhook (ข้อมูล JSON) ไปยัง URL ของ Server ที่เรากำหนดไว้
-   - รอรับ API requests จาก Server ของเรา เพื่อส่งข้อความตอบกลับ (Response) ไปยังผู้ใช้
+   - รอรับ API requests จาก Webhook Server ของเรา เพื่อส่งข้อความตอบกลับ (Response) ไปยังผู้ใช้
 
 3. **Webhook Server (n8n)**
    - ทำหน้าที่รอรับ Webhook events ที่ส่งมาจาก LINE Platform
@@ -157,7 +157,7 @@ Duration: 0:15:00
 
 ### เพิ่ม Chatbot เป็นเพื่อนและตั้งค่า Channel
 
-ขั้นตอนนี้เราจะเข้าไปใช้งาน LINE Developers Console ซึ่งเป็นเว็บไซต์สำหรับการบริหารจัดการ LINE Chatbot(LINE OA ที่เปิดใช้งาน Messaging API แล้ว) ในส่วนของนักพัฒนา
+ขั้นตอนนี้เราจะเข้าไปใช้งาน LINE Developers Console ซึ่งเป็นเว็บไซต์สำหรับการบริหารจัดการ LINE Chatbot (LINE OA ที่เปิดใช้งาน Messaging API แล้ว) ในส่วนของนักพัฒนา
 
 1. เข้าไปที่ [https://developers.line.biz/console/](https://developers.line.biz/console/)
    ให้กดเลือก **Provider** ที่ต้องการ
@@ -722,19 +722,20 @@ Duration: 0:10:00
 * ตั้งค่า Tool:
    - **Operation:** เลือก **Send**
    - **User ID:** ใส่ Expression เพื่อดึง User ID จาก LINE:
-      - `{{ $("Line Messaging Trigger").item.json.source.userId }}`
-   - **Messages:** กดปุ่ม **"Add Message"** 
-      - เลือก **type: Flex Message**
-   - **Rename node:** ตั้งชื่อ node เพื่อให้เข้าใจง่ายว่า node นี้ทำหน้าที่อะไร
-      -  ชื่อ node: `Send LINE Flex Message - Menu`
+      - User ID: `{{ $("Line Messaging Trigger").item.json.source.userId }}`
+      ![Adding LINE Tool](images/9.2.0.png)
+   - **Messages:** 
+      - กดปุ่ม **"Add Message"** 
+      - เลือก **Type: Flex Message**
+      ![Adding LINE Tool](images/9.2.1.png)
 
-![Adding LINE Tool](images/9.3.png)
 
 ### 3. ตั้งค่า LINE Flex Message JSON
-
-* **Alt Text:** ใส่ข้อความที่จะแสดงใน Notification เมื่อมีข้อความเข้า 
-   * เช่น `เมนูอาหารแนะนำ`
-* **LINE Flex Message JSON:** นำโค้ด JSON ที่เตรียมไว้ด้านล่างมาวางลงในช่องนี้
+- **Rename node:** ตั้งชื่อ node เพื่อให้เข้าใจง่ายว่า node นี้ทำหน้าที่อะไร
+   -  ชื่อ node: `Send LINE Flex Message - Menu`
+- **Alt Text:** ใส่ข้อความที่จะแสดงใน Notification เมื่อมีข้อความเข้า 
+   - เช่น `เมนูอาหารแนะนำ`
+- **LINE Flex Message JSON:** นำโค้ด JSON ที่เตรียมไว้ด้านล่างมาวางลงในช่องนี้
 
 **ตัวอย่างโค้ด JSON สำหรับเมนูอาหาร** (`LINE Flex Message JSON`):
 ```json
@@ -744,6 +745,7 @@ Duration: 0:10:00
 {"type":"bubble","size":"micro","hero":{"type":"image","url":"https://images.unsplash.com/photo-1559314809-0d155014e29e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80","size":"full","aspectMode":"cover","aspectRatio":"20:13","action":{"type":"uri","uri":"http://linecorp.com/"}},"body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"ผัดไทยกุ้งสด","weight":"bold","size":"sm","wrap":true},{"type":"box","layout":"baseline","contents":[{"type":"icon","size":"xs","url":"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"},{"type":"text","text":"4.9","size":"xs","color":"#999999","margin":"xs","flex":0},{"type":"text","text":"80.-","size":"sm","color":"#e03e3e","align":"end","weight":"bold","flex":1}]}],"spacing":"sm","paddingAll":"13px"},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"primary","action":{"type":"message","label":"สั่งเลย","text":"สั่งผัดไทย"},"height":"sm","color":"#E34A32"}]}}
 ]}
 ```
+![Adding LINE Tool](images/9.3.png)
 
 
 ### 4. แก้ไข System prompt ให้เรียกใช้งาน Tools
