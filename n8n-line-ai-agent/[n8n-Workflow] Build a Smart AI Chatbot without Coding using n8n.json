@@ -1,5 +1,5 @@
 {
-  "name": "My workflow",
+  "name": "Build a Smart AI Chatbot without Coding using n8n",
   "nodes": [
     {
       "parameters": {
@@ -10,15 +10,15 @@
       "type": "@aotoki/n8n-nodes-line-messaging.lineMessagingTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        528,
+        -208
       ],
-      "id": "e9916044-f83c-4a8a-8bb6-098c8f61937e",
+      "id": "39b2582d-786f-43df-b874-0ca5c7a0989f",
       "name": "Line Messaging Trigger",
       "webhookId": "0bc70ad9-6004-4d45-9a8c-e6d293685d50",
       "credentials": {
         "lineMessagingApi": {
-          "id": "80zhL8ysCvEGjG5Z",
+          "id": "XhnPRaC5pYq57tLB",
           "name": "Line Messaging account"
         }
       }
@@ -37,14 +37,14 @@
       "type": "@aotoki/n8n-nodes-line-messaging.lineMessaging",
       "typeVersion": 1,
       "position": [
-        544,
-        0
+        1104,
+        -208
       ],
-      "id": "4e8962cf-797e-4583-a787-1fecb6ea9ae3",
-      "name": "Line Messaging",
+      "id": "dd5f4584-424b-40da-821c-c84082ad9c3e",
+      "name": "Reply Message",
       "credentials": {
         "lineMessagingApi": {
-          "id": "80zhL8ysCvEGjG5Z",
+          "id": "XhnPRaC5pYq57tLB",
           "name": "Line Messaging account"
         }
       }
@@ -54,17 +54,36 @@
         "promptType": "define",
         "text": "={{ $(\"Line Messaging Trigger\").item.json.message.text }}",
         "options": {
-          "systemMessage": "# Instruction: น้องเอไอ – ผู้ช่วยร้านอาหารไทย\n\n## 1. Persona & Tone\n1.1 น้องเอไอเป็นผู้ช่วยแชตบอตสำหรับร้านอาหารไทย  \n1.2 บุคลิก: สุภาพ อบอุ่น เป็นกันเอง \n1.3 สื่อสารด้วยน้ำเสียงใจดี ไม่เร่งรัด ไม่กดดันลูกค้า ตอบรับด้วยน้ำเสียงสุภาพและเป็นกันเอง  \n\n## 2. Core Responsibilities\n2.1 แนะนำเมนูอาหารไทยตามหมวดหมู่  \n2.2 รับออร์เดอร์อาหาร (ทานที่ร้าน / สั่งกลับบ้าน)  \n2.3 จัดการการจองโต๊ะล่วงหน้า  \n2.4 ตอบคำถามเกี่ยวกับเวลาเปิด–ปิดร้าน: 9:00 - 18:00 \n2.5 หากข้อมูลจากลูกค้าไม่ครบ ต้องถามต่ออย่างสุภาพเสมอ  \n\n## 3. Food Menu \nTrigger: ลูกค้าต้องการดูเมนู เช่น ขอเมนู, มีเมนูอะไรแนะนำ \n- Action: แสดงเฉพาะหมวดที่ลูกค้าระบุ โดยดูข้อมูลจากข้อ 4. หากไม่มีให้แจ้งลูกค้า\n- Mandatory Action: Call Tool: Send Flex Message เพื่อแสดงเมนูแนะนำเสมอ\n\n### 3.1 เมนูข้าวแกง\n- ข้าวกระเพราไข่ดาว — 50 บาท  \n- ข้าวผัดกุ้ง — 60 บาท  \n- ผัดไทยกุ้งสด — 65 บาท  \n\n### 3.2 เมนูตำ / ยำ\n- ส้มตำไทย — 45 บาท  \n- ส้มตำปูปลาร้า — 50 บาท  \n- ลาบหมู — 65 บาท  \n\n### 3.3 เครื่องดื่ม\n- น้ำเก๊กฮวย — 20 บาท  \n- น้ำลำไย — 20 บาท  \n- น้ำเปล่า — 10 บาท  \n\n## 5. Ordering Flow\n5.1 เมื่อผู้ใช้แสดงความต้องการสั่งอาหาร  \nน้องเอไอต้องถามตามลำดับ:\n1) เมนูที่ต้องการ  \n2) รูปแบบการรับอาหาร  \n   - ทานที่ร้าน  \n   - สั่งกลับบ้าน  \n3) ชื่อผู้สั่ง  \n4) เบอร์ติดต่อ  \n\n5.2 ถ้าข้อมูลใดยังไม่ครบ  \n- ถามเฉพาะข้อมูลที่ขาด  \n- ห้ามถามซ้ำในสิ่งที่ลูกค้าให้มาแล้ว  \n\n## 6. Constraints\n6.1 ห้ามแต่งเมนูหรือราคาเพิ่มจากที่กำหนด  \n6.2 ห้ามใช้ภาษาอังกฤษ  \n6.3 ถ้าไม่มั่นใจข้อมูล ให้ถามลูกค้าแทนการเดา  \n\n### 7,. ตัวอย่างการตอบกลับ (Sample Dialogue)\nลูกค้า: \"ร้านเปิดกี่โมง\"\nน้องเอไอ: \"สวัสดีค่ะคุณลูกค้า ร้านเปิดให้บริการตั้งแต่ 9:00 ถึง 18:00 น. ค่ะ สนใจสั่งอาหารไว้ทานมื้อไหนดีคะ?\"\n\nลูกค้า: \"ขอเมนูหน่อย\"\nน้องเอไอ: \"ได้เลยค่ะ นี่คือเมนูความอร่อยของทางร้านเรานะคะ (Action: เรียกใช้ Tool: Send Flex Message) "
+          "systemMessage": "# Instruction: น้องเอไอ – ผู้ช่วยร้านอาหารไทย\n\n## 1. Persona & Tone\n1.1 น้องเอไอเป็นผู้ช่วยแชตบอตสำหรับร้านอาหารไทย  \n1.2 บุคลิก: สุภาพ อบอุ่น เป็นกันเอง \n1.3 สื่อสารด้วยน้ำเสียงใจดี ไม่เร่งรัด ไม่กดดันลูกค้า ตอบรับด้วยน้ำเสียงสุภาพและเป็นกันเอง  \n\n## 2. Core Responsibilities\n2.1 แนะนำเมนูอาหารไทยตามหมวดหมู่  \n2.2 รับออร์เดอร์อาหาร (ทานที่ร้าน / สั่งกลับบ้าน)  \n2.3 จัดการการจองโต๊ะล่วงหน้า  \n2.4 ตอบคำถามเกี่ยวกับเวลาเปิด–ปิดร้าน: 9:00 - 18:00 \n2.5 หากข้อมูลจากลูกค้าไม่ครบ ต้องถามต่ออย่างสุภาพเสมอ  \n\n## 3. Food Menu \nTrigger: ลูกค้าต้องการดูเมนู เช่น ขอเมนู, มีเมนูอะไรแนะนำ \n- Action: แสดงเฉพาะหมวดที่ลูกค้าระบุ โดยดูข้อมูลจากข้อ 3. หากไม่มีให้แจ้งลูกค้า\n- Mandatory Action: Call Tool: Send LINE Flex Message เพื่อแสดงเมนูแนะนำเสมอ\n\n### 3.1 เมนูข้าวแกง\n- ข้าวกระเพราไข่ดาว — 50 บาท  \n- ข้าวผัดกุ้ง — 60 บาท  \n- ผัดไทยกุ้งสด — 65 บาท  \n\n### 3.2 เมนูตำ / ยำ\n- ส้มตำไทย — 45 บาท  \n- ส้มตำปูปลาร้า — 50 บาท  \n- ลาบหมู — 65 บาท  \n\n### 3.3 เครื่องดื่ม\n- น้ำเก๊กฮวย — 20 บาท  \n- น้ำลำไย — 20 บาท  \n- น้ำเปล่า — 10 บาท  \n\n## 5. Ordering Flow\n5.1 เมื่อผู้ใช้แสดงความต้องการสั่งอาหาร  \nน้องเอไอต้องถามตามลำดับ:\n1) เมนูที่ต้องการ  \n2) รูปแบบการรับอาหาร  \n   - ทานที่ร้าน  \n   - สั่งกลับบ้าน  \n3) ชื่อผู้สั่ง  \n4) เบอร์ติดต่อ  \n\n5.2 ถ้าข้อมูลใดยังไม่ครบ  \n- ถามเฉพาะข้อมูลที่ขาด  \n- ห้ามถามซ้ำในสิ่งที่ลูกค้าให้มาแล้ว  \n\n## 6. Constraints\n6.1 ห้ามแต่งเมนูหรือราคาเพิ่มจากที่กำหนด  \n6.2 ห้ามใช้ภาษาอังกฤษ  \n6.3 ถ้าไม่มั่นใจข้อมูล ให้ถามลูกค้าแทนการเดา  \n\n### 7. ตัวอย่างการตอบกลับ (Sample Dialogue)\nลูกค้า: \"ร้านเปิดกี่โมง\"\nน้องเอไอ: \"สวัสดีค่ะคุณลูกค้า ร้านเปิดให้บริการตั้งแต่ 9:00 ถึง 18:00 น. ค่ะ สนใจสั่งอาหารไว้ทานมื้อไหนดีคะ?\"\n\nลูกค้า: \"ขอเมนูหน่อย\"\nน้องเอไอ: \"ได้เลยค่ะ นี่คือเมนูความอร่อยของทางร้านเรานะคะ\" (Action: เรียกใช้ Tool: Send LINE Flex Message)"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        224,
-        0
+        752,
+        -208
       ],
-      "id": "e959fd11-1ae5-45eb-bb3c-1281be54ed83",
+      "id": "2f962ef1-146e-4c0c-aba8-9299b81462a7",
       "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        672,
+        16
+      ],
+      "id": "6db6d3a2-2264-4b7e-89b3-779adfb95b79",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nhG0DqY7XVBw4GRg",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
@@ -74,10 +93,10 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        272,
-        192
+        848,
+        16
       ],
-      "id": "e5486588-d7bd-457b-854c-c82430d8c651",
+      "id": "9c268602-ea3b-4a4f-b1ac-2d0a083f4098",
       "name": "Simple Memory"
     },
     {
@@ -88,7 +107,7 @@
           "values": [
             {
               "altText": "เมนูอาหารแนะนำ",
-              "flexJson": "\n{\"type\":\"carousel\",\"contents\":[\n{\"type\":\"bubble\",\"size\":\"micro\",\"hero\":{\"type\":\"image\",\"url\":\"https://images.unsplash.com/photo-1627308595186-e6bb36712645\",\"size\":\"full\",\"aspectMode\":\"cover\",\"aspectRatio\":\"20:13\",\"action\":{\"type\":\"uri\",\"uri\":\"http://linecorp.com/\"}},\"body\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"กะเพราหมูไข่ดาว\",\"weight\":\"bold\",\"size\":\"sm\",\"wrap\":true},{\"type\":\"box\",\"layout\":\"baseline\",\"contents\":[{\"type\":\"icon\",\"size\":\"xs\",\"url\":\"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png\"},{\"type\":\"text\",\"text\":\"4.8\",\"size\":\"xs\",\"color\":\"#999999\",\"margin\":\"xs\",\"flex\":0},{\"type\":\"text\",\"text\":\"50.-\",\"size\":\"sm\",\"color\":\"#e03e3e\",\"align\":\"end\",\"weight\":\"bold\",\"flex\":1}]}],\"spacing\":\"sm\",\"paddingAll\":\"13px\"},\"footer\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"button\",\"style\":\"primary\",\"action\":{\"type\":\"message\",\"label\":\"สั่งเลย\",\"text\":\"สั่งกะเพราหมู\"},\"height\":\"sm\",\"color\":\"#E34A32\"}]}},\n{\"type\":\"bubble\",\"size\":\"micro\",\"hero\":{\"type\":\"image\",\"url\":\"https://plus.unsplash.com/premium_photo-1661611585910-77ae42f0c71d\",\"size\":\"full\",\"aspectMode\":\"cover\",\"aspectRatio\":\"20:13\",\"action\":{\"type\":\"uri\",\"uri\":\"http://linecorp.com/\"}},\"body\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"ข้าวผัดกุ้ง\",\"weight\":\"bold\",\"size\":\"sm\",\"wrap\":true},{\"type\":\"box\",\"layout\":\"baseline\",\"contents\":[{\"type\":\"icon\",\"size\":\"xs\",\"url\":\"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png\"},{\"type\":\"text\",\"text\":\"4.5\",\"size\":\"xs\",\"color\":\"#999999\",\"margin\":\"xs\",\"flex\":0},{\"type\":\"text\",\"text\":\"60.-\",\"size\":\"sm\",\"color\":\"#e03e3e\",\"align\":\"end\",\"weight\":\"bold\",\"flex\":1}]}],\"spacing\":\"sm\",\"paddingAll\":\"13px\"},\"footer\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"button\",\"style\":\"primary\",\"action\":{\"type\":\"message\",\"label\":\"สั่งเลย\",\"text\":\"สั่งข้าวผัดกุ้ง\"},\"height\":\"sm\",\"color\":\"#E34A32\"}]}},\n{\"type\":\"bubble\",\"size\":\"micro\",\"hero\":{\"type\":\"image\",\"url\":\"https://images.unsplash.com/photo-1559314809-0d155014e29e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80\",\"size\":\"full\",\"aspectMode\":\"cover\",\"aspectRatio\":\"20:13\",\"action\":{\"type\":\"uri\",\"uri\":\"http://linecorp.com/\"}},\"body\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"ผัดไทยกุ้งสด\",\"weight\":\"bold\",\"size\":\"sm\",\"wrap\":true},{\"type\":\"box\",\"layout\":\"baseline\",\"contents\":[{\"type\":\"icon\",\"size\":\"xs\",\"url\":\"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png\"},{\"type\":\"text\",\"text\":\"4.9\",\"size\":\"xs\",\"color\":\"#999999\",\"margin\":\"xs\",\"flex\":0},{\"type\":\"text\",\"text\":\"80.-\",\"size\":\"sm\",\"color\":\"#e03e3e\",\"align\":\"end\",\"weight\":\"bold\",\"flex\":1}]}],\"spacing\":\"sm\",\"paddingAll\":\"13px\"},\"footer\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"button\",\"style\":\"primary\",\"action\":{\"type\":\"message\",\"label\":\"สั่งเลย\",\"text\":\"สั่งผัดไทย\"},\"height\":\"sm\",\"color\":\"#E34A32\"}]}}\n]}",
+              "flexJson": "{\"type\":\"carousel\",\"contents\":[\n{\"type\":\"bubble\",\"size\":\"micro\",\"hero\":{\"type\":\"image\",\"url\":\"https://images.unsplash.com/photo-1627308595186-e6bb36712645\",\"size\":\"full\",\"aspectMode\":\"cover\",\"aspectRatio\":\"20:13\",\"action\":{\"type\":\"uri\",\"uri\":\"http://linecorp.com/\"}},\"body\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"กะเพราหมูไข่ดาว\",\"weight\":\"bold\",\"size\":\"sm\",\"wrap\":true},{\"type\":\"box\",\"layout\":\"baseline\",\"contents\":[{\"type\":\"icon\",\"size\":\"xs\",\"url\":\"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png\"},{\"type\":\"text\",\"text\":\"4.8\",\"size\":\"xs\",\"color\":\"#999999\",\"margin\":\"xs\",\"flex\":0},{\"type\":\"text\",\"text\":\"50.-\",\"size\":\"sm\",\"color\":\"#e03e3e\",\"align\":\"end\",\"weight\":\"bold\",\"flex\":1}]}],\"spacing\":\"sm\",\"paddingAll\":\"13px\"},\"footer\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"button\",\"style\":\"primary\",\"action\":{\"type\":\"message\",\"label\":\"สั่งเลย\",\"text\":\"สั่งกะเพราหมู\"},\"height\":\"sm\",\"color\":\"#E34A32\"}]}},\n{\"type\":\"bubble\",\"size\":\"micro\",\"hero\":{\"type\":\"image\",\"url\":\"https://plus.unsplash.com/premium_photo-1661611585910-77ae42f0c71d\",\"size\":\"full\",\"aspectMode\":\"cover\",\"aspectRatio\":\"20:13\",\"action\":{\"type\":\"uri\",\"uri\":\"http://linecorp.com/\"}},\"body\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"ข้าวผัดกุ้ง\",\"weight\":\"bold\",\"size\":\"sm\",\"wrap\":true},{\"type\":\"box\",\"layout\":\"baseline\",\"contents\":[{\"type\":\"icon\",\"size\":\"xs\",\"url\":\"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png\"},{\"type\":\"text\",\"text\":\"4.5\",\"size\":\"xs\",\"color\":\"#999999\",\"margin\":\"xs\",\"flex\":0},{\"type\":\"text\",\"text\":\"60.-\",\"size\":\"sm\",\"color\":\"#e03e3e\",\"align\":\"end\",\"weight\":\"bold\",\"flex\":1}]}],\"spacing\":\"sm\",\"paddingAll\":\"13px\"},\"footer\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"button\",\"style\":\"primary\",\"action\":{\"type\":\"message\",\"label\":\"สั่งเลย\",\"text\":\"สั่งข้าวผัดกุ้ง\"},\"height\":\"sm\",\"color\":\"#E34A32\"}]}},\n{\"type\":\"bubble\",\"size\":\"micro\",\"hero\":{\"type\":\"image\",\"url\":\"https://images.unsplash.com/photo-1559314809-0d155014e29e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80\",\"size\":\"full\",\"aspectMode\":\"cover\",\"aspectRatio\":\"20:13\",\"action\":{\"type\":\"uri\",\"uri\":\"http://linecorp.com/\"}},\"body\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"text\",\"text\":\"ผัดไทยกุ้งสด\",\"weight\":\"bold\",\"size\":\"sm\",\"wrap\":true},{\"type\":\"box\",\"layout\":\"baseline\",\"contents\":[{\"type\":\"icon\",\"size\":\"xs\",\"url\":\"https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png\"},{\"type\":\"text\",\"text\":\"4.9\",\"size\":\"xs\",\"color\":\"#999999\",\"margin\":\"xs\",\"flex\":0},{\"type\":\"text\",\"text\":\"80.-\",\"size\":\"sm\",\"color\":\"#e03e3e\",\"align\":\"end\",\"weight\":\"bold\",\"flex\":1}]}],\"spacing\":\"sm\",\"paddingAll\":\"13px\"},\"footer\":{\"type\":\"box\",\"layout\":\"vertical\",\"contents\":[{\"type\":\"button\",\"style\":\"primary\",\"action\":{\"type\":\"message\",\"label\":\"สั่งเลย\",\"text\":\"สั่งผัดไทย\"},\"height\":\"sm\",\"color\":\"#E34A32\"}]}}\n]}",
               "type": "flex"
             }
           ]
@@ -97,37 +116,15 @@
       "type": "@aotoki/n8n-nodes-line-messaging.lineMessagingTool",
       "typeVersion": 1,
       "position": [
-        416,
-        176
+        992,
+        0
       ],
-      "id": "fbf95ffe-0078-4c0e-9ba4-5af09dd6a262",
-      "name": "Send Flex Message",
+      "id": "085b03a4-3ab5-4a9a-b240-f65d0ecfa7cb",
+      "name": "Send LINE Flex Message - Menu",
       "credentials": {
         "lineMessagingApi": {
-          "id": "80zhL8ysCvEGjG5Z",
+          "id": "XhnPRaC5pYq57tLB",
           "name": "Line Messaging account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.5-flash-lite",
-        "options": {
-          "maxOutputTokens": 500
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        96,
-        208
-      ],
-      "id": "d3c5501d-44d0-4c7f-acc3-69ee11def2c4",
-      "name": "Google Gemini Chat Model",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "SeGFlZriOCkdQUqu",
-          "name": "Google Gemini(PaLM) Api account"
         }
       }
     }
@@ -149,8 +146,19 @@
       "main": [
         [
           {
-            "node": "Line Messaging",
+            "node": "Reply Message",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -167,23 +175,12 @@
         ]
       ]
     },
-    "Send Flex Message": {
+    "Send LINE Flex Message - Menu": {
       "ai_tool": [
         [
           {
             "node": "AI Agent",
             "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Gemini Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -195,11 +192,11 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "f8fe8d96-0f81-4db9-bda2-dbc5aa7eb1b3",
+  "versionId": "93e2a282-2846-47ce-9e8b-1050a21302a0",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "61024faf1a3fe623a62fb45097fa43cf14ef4c6452d15196a38f93fd894ec1e5"
+    "instanceId": "25e8415fb5eb63f486c4497afbb9aac958fe3afd80fad5a797e9845f849c5014"
   },
-  "id": "v5d9JtoOlQKROEc3emFfA",
+  "id": "j0sDE7Ue-q8LEGIkLiRSx",
   "tags": []
 }

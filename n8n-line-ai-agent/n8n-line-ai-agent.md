@@ -56,12 +56,12 @@ Duration: 0:05:00
 Duration: 0:10:00
 
 ### LINE Messaging API คืออะไร?
-**LINE Messaging API** คือ API ที่ให้บริการโดย LINE Corporation ที่จะทำหน้าที่เป็นตัวกลางที่จะเชื่อมต่อ Server ของเราเข้ากับ LINE Official Account ทำให้เราสามารถเขียนโปรแกรมเพื่อสร้างบริการที่เราต้องการ ผ่านการข้อความและโต้ตอบกับผู้ใช้ในลักษณะ Chatbot ได้นั่นเอง โดยสามารถโต้ตอบกับผู้ใช้หลักๆ ได้ 2 แบบได้แก่ push และ reply
+**LINE Messaging API** คือ API ที่ให้บริการโดย LINE Corporation ที่จะทำหน้าที่เป็นตัวกลางที่จะเชื่อมต่อ Server ของเราเข้ากับ LINE Official Account ทำให้เราสามารถเขียนโปรแกรมเพื่อสร้างบริการที่เราต้องการ ผ่านข้อความและโต้ตอบกับผู้ใช้ในลักษณะ Chatbot ได้นั่นเอง โดยสามารถโต้ตอบกับผู้ใช้หลักๆ ได้ 2 แบบ ได้แก่ push และ reply
 
 #### **Push messages**
 ![LINE Messaging API](images/3.1.png)
 
-การส่งข้อความจาก Chatbot ไปหาผู้ใช้ โดยที่ผู้ใช้อยู่เฉยๆไม่ได้มีการ request อะไรมาที่ Chatbot (ลักษณะ One-way communication) เช่น Chatbot ส่งข้อความโปรโมชั่นไปหาผู้ใช้
+การส่งข้อความจาก Chatbot ไปหาผู้ใช้ โดยที่ผู้ใช้อยู่เฉยๆ ไม่ได้มีการ request อะไรมาที่ Chatbot (ลักษณะ One-way communication) เช่น Chatbot ส่งข้อความโปรโมชั่นไปหาผู้ใช้
 
 #### **Reply messages**
 ![LINE Messaging API](images/3.2.png)
@@ -168,7 +168,7 @@ Duration: 0:15:00
 
 ![Select Channel](images/4.13.png)
 
-3. ให้ไปที่ Tab ชื่อ **Messaging API** และทำการแสกน **QR code** ด้วยแอป LINE เพื่อเพิ่ม Chatbot เป็นเพื่อน
+3. ให้ไปที่ Tab ชื่อ **Messaging API** และทำการสแกน **QR code** ด้วยแอป LINE เพื่อเพิ่ม Chatbot เป็นเพื่อน
 
 ![Scan QR Code](images/4.14.png)
 
@@ -206,7 +206,7 @@ Duration: 0:10:00
 
 1. **Automation Tasks** - จัดการข้อมูลระหว่าง services, สร้าง reports อัตโนมัติ, Sync ข้อมูลระหว่าง systems
 2. **API Integration** - เชื่อมต่อ APIs หลายตัวเข้าด้วยกัน, Transform และ enrich ข้อมูล, สร้าง API endpoints ใหม่
-3. **Chatbots & AI Agents** - สร้าง chatbot สำหรับ messaging platforms, เชื่อมต่อกับ AI/LLM services, จัดการ conversation flow
+3. **Chatbots & AI Agents** - สร้าง chatbot สำหรับ messaging platforms, เชื่อมต่อกับ AI/LLM services
 4. **Data Processing** - Process และ transform ข้อมูล, ส่งข้อมูลไปยัง database, สร้าง data pipelines
 5. **Notifications & Alerts** - ส่งการแจ้งเตือนเมื่อมี event เกิดขึ้น, สร้าง monitoring workflows, Integrate กับ notification services
 
@@ -294,7 +294,7 @@ Duration: 0:20:00
    * แนะนำ `Singapore  (Southeast Asia)`
 * **Instance Type**:
    * เลือก **Free** สำหรับการทดสอบ
-* เลื่อนลงมาด้านล่างสุดของเพจ และกด ** Deploy
+* เลื่อนลงมาด้านล่างสุดของเพจ และกด **Deploye**
 
 ![Render Dashboard - New Web Service](images/5.6.png)
 ![Render Dashboard - New Web Service](images/5.7.png)
@@ -327,7 +327,7 @@ Duration: 0:20:00
 </aside>
 
 <aside class="negative">
-<strong>⚠️ Important:</strong> Render Free plan ไม่มี persistent storage ซึ่งหมายความว่า **workflow ที่คุณสร้างไว้จะไม่ถูกบันทึก** เมื่อ server ถูก sleep หรือ restart เนื่องจากไม่มี persistent memory ดังนั้นควรพิจารณา upgrade เป็นแผน Starter หรือสูงกว่าเพื่อให้ workflow ถูกบันทึกถาวร Instance Type แบบฟรีจะหยุดทำงานเมื่อไม่มีการใช้งานติดต่อกันเป็นเวลา 15 นาที
+<strong>⚠️ Important:</strong> Render Free plan ไม่มี persistent storage ซึ่งหมายความว่า <strong>workflow ที่คุณสร้างไว้จะไม่ถูกบันทึก</strong> เมื่อ server ถูก sleep หรือ restart เนื่องจากไม่มี persistent memory ดังนั้นควรพิจารณา upgrade เป็นแผน Starter หรือสูงกว่าเพื่อให้ workflow ถูกบันทึกถาวร Instance Type แบบฟรีจะหยุดทำงานเมื่อไม่มีการใช้งานติดต่อกันเป็นเวลา 15 นาที
 </aside>
 
 * เข้าสู่ n8n หลังจาก Deploy เสร็จสมบูรณ์
@@ -698,7 +698,7 @@ Duration: 0:10:00
 ### 1. ทำความรู้จัก LINE Flex Message
 **LINE Flex Message** คือรูปแบบข้อความใน LINE ที่สามารถปรับแต่ง Layout ได้อย่างอิสระ (รูปภาพ, ปุ่ม, ข้อความ) ช่วยให้ Chatbot ดูเป็นมืออาชีพและน่าใช้งานมากขึ้น
 
-ในการออกแบบ LINE Flex Message ให้ส่วยงามนั้น เราสามารถใช้ **Flex Message Simulator** ซึ่งเป็นเครื่องมือที่ช่วยออกแบบและสร้าง LINE Flex Message สามารถแสดงตัวอย่างและคัดลอกโค้ด JSON ไปใช้งานได้ทันที
+ในการออกแบบ LINE Flex Message ให้สวยงามนั้น เราสามารถใช้ **Flex Message Simulator** ซึ่งเป็นเครื่องมือที่ช่วยออกแบบและสร้าง LINE Flex Message สามารถแสดงตัวอย่างและคัดลอกโค้ด JSON ไปใช้งานได้ทันที
 ![LINE Flex Message](images/9.1.png)
 
 * เข้าไปที่ [LINE Flex Message Simulator](https://developers.line.biz/flex-simulator/) เพื่อดูตัวอย่าง Template
@@ -778,7 +778,7 @@ Duration: 0:5:00
 
 ![n8n Test Chat](images/10.1.png)
 
-เนื่องจากในก่อนหน้านี้ AI Chatbot ของเรายังเป็นเพียงโมเดลภาษาทั่วไป ซึ่งอาจตอบคำถามกว้างๆ และยังไม่ตรงกับบริบทของธุรกิจร้านอาหารของเรา เพื่อให้บอททำงานได้สมบูรณ์แบบ เราจึงจำเป็นต้องแก้ไข **System Prompt** หรือ **Instruction** เพื่อกำหนดบทบาท (Persona) และขอบเขตการทำงานให้ชัดเจน
+เนื่องจากในก่อนหน้านี้ AI Chatbot ของเรายังเป็นเพียงโมเดลภาษาทั่วไป ซึ่งอาจตอบคำถามกว้างๆ และยังไม่ตรงกับบริบทของธุรกิจร้านอาหารของเรา เพื่อให้บอททำงานได้สมบูรณ์แบบ เราจึงจำเป็นต้องแก้ไข **System Prompt** หรือ **Instruction** เพื่อกำหนดบทบาท (Persona) และขอบเขตการทำงานให้ชัดเจน (Objetives)
 
 ### ขั้นตอนทั้งหมด
 1. แก้ไข System Prompt โดยใช้ ตัวอย่าง Prompt สำหรับร้านอาหาร
@@ -788,7 +788,8 @@ Duration: 0:5:00
 
 ### 1. แก้ไข System Prompt โดยใช้ ตัวอย่าง Prompt สำหรับร้านอาหาร
 * ไปที่ node **AI Agent** ใน workflow ของคุณ
-มองหาช่องที่เขียนว่า **System Message** เพื่อใส่คำสั่งที่ระบุตัวตนและหน้าที่ของ AI ลงไปให้ชัดเจน
+* มองหาช่องที่เขียนว่า **System Message** 
+* คัดลอก `ตัวอย่าง Prompt สำหรับร้านอาหาร` ลงไปในช่อง **System Message** 
 
 **ตัวอย่าง Prompt สำหรับร้านอาหาร:**
 ```
