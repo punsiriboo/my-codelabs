@@ -1,15 +1,13 @@
 
 id: n8n-line-ai-agent-multimodal
 title: Build a Smart AI Chatbot for Image & Document Understanding using n8n
-summary: พัฒนา LINE AI Chatbot ให้รองรับการวิเคราะห์รูปภาพและเอกสารด้วย Google Gemini Vision API
+summary:Codelab นี้คุณจะได้เรียนรู้การสร้าง พัฒนา LINE AI Chatbot ให้รองรับการวิเคราะห์รูปภาพและเอกสารด้วย Google Gemini Vision API
 authors: Punsiri Boonyakiat
-categories: 
-  - LINE Messaging API
-tags: 
-  - LINE Messaging API
-  - n8n
+categories: LINE Messaging API, LINE Chatbot
+tags: LINE Messaging API, LINE Chatbot
 status: Published
-
+url: n8n-line-ai-agent
+Feedback Link: https://forms.gle/xXkqeFE3vLSubP1f9
 
 # Build a Smart AI Chatbot for Image & Document Understanding using n8n
 
