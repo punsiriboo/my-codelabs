@@ -14,7 +14,7 @@ Feedback Link: https://forms.gle/xXkqeFE3vLSubP1f9
 ## บทนำ
 Duration: 0:05:00
 
-"ถ้าคุณมีเว็บไซต์ที่ใช้งานอยู่แล้ว — ไม่ว่าจะเป็นเว็บจองคิว ร้านค้า หรือบริการอื่น — คุณไม่จำเป็นต้องสร้างใหม่ตั้งแต่ศูนย์ แต่สามารถ **แปลงเว็บเดิมให้เป็น LINE MINI App** ด้วยการ Prompt ใน MINI AI Studio ได้"
+"ถ้าคุณมีเว็บไซต์ที่ใช้งานอยู่แล้ว — หรือสร้างเว็บจองร้านอาหารจาก Prompt ใน Google AI Studio — คุณสามารถ **แปลงเว็บให้เป็น LINE MINI App** ด้วยการ Prompt ใน MINI AI Studio ได้"
 
 Codelab นี้ออกแบบสำหรับ Workshop แบบ Hands-on เริ่มจาก **Prompt สร้างเว็บจองร้านอาหาร** ใน Google AI Studio จากนั้น **แปลงเว็บให้เป็น LINE MINI App** ด้วย MINI AI Studio ทุกขั้นตอนทำผ่านการ **ใส่ Prompt ใน AI Studio**:
 
@@ -33,7 +33,7 @@ Codelab นี้ออกแบบสำหรับ Workshop แบบ Hands-o
 - Deploy เว็บและแปลงให้เป็น LINE MINI App ด้วย Prompt ใน MINI AI Studio
 - เชื่อม LIFF API และ Deploy ไปยัง LINE MINI App Channel
 - ปรับ MINI App ให้รองรับ External Browser (PC / Desktop)
-- ตั้งค่า Service Message Template และส่งการแจ้งเตือนหลังผู้ใช้ทำ action สำเร็จ
+- ตั้งค่า Service Message Template และส่งการยืนยันการจองโต๊ะหลังผู้ใช้กด Reserve Now
 
 ### สิ่งที่คุณจะได้เรียนรู้
 
@@ -559,18 +559,18 @@ Duration: 0:45:00
 Implement server-side Service Message API for Restaurant Reservation MINI App.
 
 Requirements:
-1. Create API endpoint POST /api/service-message/send-booking-confirmation
-   - Input: { liffAccessToken, booking: { date, time, players, bookingId, customerName } }
+1. Create API endpoint POST /api/service-message/send-reservation-confirmation
+   - Input: { liffAccessToken, reservation: { date, time, guests, reservationId, customerName } }
    - Steps:
      a. Get stateless channel access token from LINE
      b. POST to https://api.line.me/message/v3/notifier/token with liffAccessToken
      c. POST to https://api.line.me/message/v3/notifier/send?target=service with:
         - templateName: "[YOUR_TEMPLATE_NAME]_th"
         - notificationToken from step b
-        - params: { date, time, players, booking_id, customer_name, button_uri_1 }
+        - params: { date, time, guests, reservation_id, customer_name, button_uri_1 }
      d. Return { success, notificationToken, remainingCount }
 
-2. Store notificationToken in database/local storage keyed by bookingId for future reminders
+2. Store notificationToken keyed by reservationId for future reminders
 
 3. Environment variables needed:
    - LINE_CHANNEL_ID
@@ -592,22 +592,22 @@ Do NOT hardcode channel access token — use stateless token API.
 ### ขั้นตอนที่ 2: Prompt เชื่อม MINI App Frontend กับ Service Message
 
 ```
-Update Restaurant Reservation MINI App frontend to send service message after successful booking:
+Update Restaurant Reservation MINI App frontend to send service message after successful reservation:
 
-1. After user submits booking and sees confirmation page:
+1. After user taps Reserve Now and createReservation() succeeds:
    - Get LIFF access token via liff.getAccessToken()
-   - Call POST /api/service-message/send-booking-confirmation with booking data
+   - Call POST /api/service-message/send-reservation-confirmation with reservation data
 
 2. UX flow:
-   - Show loading spinner: "กำลังส่งการยืนยันไป LINE..."
-   - On success: show "✅ ส่งการยืนยันไปที่แชท LINE MINI App Notice แล้ว"
-   - On failure: still show booking success but warn "ไม่สามารถส่งการแจ้งเตือนได้ กรุณาบันทึก Booking ID"
+   - Show loading spinner: "Sending confirmation to LINE..."
+   - On success: show "✅ Confirmation sent to LINE MINI App Notice"
+   - On failure: still show reservation success but warn "Could not send notification — please save your Reservation ID"
 
 3. Only send service message when liff.isLoggedIn() is true
 
-4. Pass button_uri_1 as permanent link to booking detail page with bookingId query param
+4. Pass button_uri_1 as permanent link to reservation detail page with reservationId query param
 
-Test that the full flow works: book → confirm → receive service message in LINE.
+Test that the full flow works: reserve → confirm → receive service message in LINE.
 ```
 
 ### ขั้นตอนที่ 3: Prompt สร้างหน้า Booking Detail สำหรับปุ่มใน Service Message
@@ -630,17 +630,17 @@ Features:
 ```
 Implement a follow-up service message (reminder) for Restaurant Reservation:
 
-Use case: Send reminder 1 day before booking time (for demo, add a "Send Test Reminder" button on booking detail page)
+Use case: Send reminder 1 day before dining time (for demo, add a "Send Test Reminder" button on reservation detail page)
 
 Requirements:
 1. Use the notificationToken saved from the first service message (do NOT re-issue token)
-2. Use a reminder template (e.g. reservation_reminder_th) — I will add this template in Console separately
+2. Use a reminder template (e.g. reservation_reminder_th)
 3. API: POST /api/service-message/send-reminder
-   - Input: { notificationToken, bookingId }
+   - Input: { notificationToken, reservationId }
    - Check remainingCount > 0 before sending
 4. Update stored notificationToken from API response after each send
 
-Add the "Send Test Reminder" button on booking detail page for workshop demo purposes.
+Add the "Send Test Reminder" button on reservation detail page for workshop demo purposes.
 ```
 
 ### ขั้นตอนที่ 5: Prompt Deploy และทดสอบ End-to-End
@@ -652,9 +652,9 @@ Deploy Restaurant Reservation MINI App with Service Message integration:
 2. Update Endpoint URL in LINE Developers Console if changed
 3. Run end-to-end test checklist:
    - Open MINI App in LINE on mobile
-   - Complete a booking
+   - Complete a reservation (select guests, date, time, tap Reserve Now)
    - Verify service message appears in "LINE MINI App Notice" chat
-   - Tap button in service message → opens booking detail page
+   - Tap button in service message → opens reservation detail page
    - Tap "Send Test Reminder" → second service message received
 4. Report any errors and fix them
 ```
@@ -663,9 +663,9 @@ Deploy Restaurant Reservation MINI App with Service Message integration:
 
 - [ ] Template ถูก Add ใน Console แล้ว
 - [ ] Test Message จาก Console Preview ส่งได้
-- [ ] จองคิวใน MINI App แล้วได้รับ Service Message
-- [ ] ข้อมูลใน Message ตรงกับการจอง (วัน, เวลา, จำนวนคน)
-- [ ] กดปุ่มใน Message เปิดหน้า Booking Detail ได้
+- [ ] จองโต๊ะใน MINI App แล้วได้รับ Service Message
+- [ ] ข้อมูลใน Message ตรงกับการจอง (วัน, เวลา, จำนวนแขก)
+- [ ] กดปุ่มใน Message เปิดหน้า Reservation Detail ได้
 - [ ] (Optional) ส่ง Reminder ข้อความที่ 2 ได้
 
 ### Troubleshooting — Prompt แก้ปัญหา
@@ -695,11 +695,11 @@ Duration: 0:05:00
 
 ```mermaid
 flowchart TB
-    subgraph Existing["เว็บที่มีอยู่แล้ว"]
-        A[URL เว็บเดิม]
+    subgraph Google["Google AI Studio"]
+        A[Prompt สร้างเว็บจองร้านอาหาร]
+        B[Deploy URL]
     end
     subgraph MINI["MINI AI Studio"]
-        B[Prompt วิเคราะห์เว็บ]
         C[Prompt แปลงเป็น MINI App]
         D[Prompt รองรับ PC]
         E[Prompt Service Message]
@@ -719,7 +719,7 @@ flowchart TB
 
 | ลำดับ | งาน | เครื่องมือ |
 |:---|:---|:---|
-| 1 | ทำความรู้จักและวิเคราะห์เว็บเดิม | MINI AI Studio |
+| 1 | สร้างเว็บจองร้านอาหาร | Google AI Studio |
 | 2 | แปลงเว็บเป็น LINE MINI App + LIFF | MINI AI Studio |
 | 3 | รองรับ External Browser (PC) | MINI AI Studio |
 | 4 | ตั้งค่า Service Message Template | LINE Developers Console |
@@ -745,6 +745,7 @@ flowchart TB
 
 ## อ้างอิง
 
+- [Google AI Studio](https://aistudio.google.com/)
 - MINI AI Studio — Build & Ship LINE MINI App with Prompt (Workshop Access)
 - [LINE MINI App Documentation](https://developers.line.biz/en/docs/line-mini-app/)
 - [Sending service messages](https://developers.line.biz/en/docs/line-mini-app/develop/service-messages/)
