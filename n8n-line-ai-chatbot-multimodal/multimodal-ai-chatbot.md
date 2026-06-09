@@ -14,24 +14,24 @@ Feedback Link: https://forms.gle/xXkqeFE3vLSubP1f9
 ## บทนำ
 Duration: 0:05:00
 
-"หลังจากที่คุณได้สร้าง LINE AI Chatbot พื้นฐานที่สามารถตอบข้อความได้แล้ว ใน Codelab นี้คุณจะได้เรียนรู้วิธีพัฒนาบอทให้มีความสามารถในการ **เข้าใจและวิเคราะห์รูปภาพและเอกสาร** ด้วย Google Gemini Vision API"
+"หลังจากที่คุณได้สร้าง LINE AI Chatbot พื้นฐานที่สามารถตอบข้อความได้แล้ว ใน Codelab นี้คุณจะได้เรียนรู้วิธีพัฒนาบอทให้มีความสามารถในการ **เข้าใจและวิเคราะห์รูปภาพและเอกสาร** ด้วย Google Gemini"
 
 Codelab นี้เป็นส่วนต่อจาก Codelab แรก **"Build a Smart AI Chatbot without Coding using n8n"** ซึ่งคุณควรจะได้สร้าง LINE AI Chatbot พื้นฐานที่สามารถ:
 - รับและตอบข้อความจากผู้ใช้
 - ใช้ Google Gemini เพื่อประมวลผลและตอบคำถาม
 - ส่ง LINE Flex Message ได้
 
+
 ใน Codelab นี้ คุณจะได้เรียนรู้วิธีเพิ่มความสามารถให้บอทสามารถ:
 - **วิเคราะห์รูปภาพ**: อธิบายเนื้อหาในรูปภาพ, อ่านข้อความในรูปภาพ (OCR), วิเคราะห์เมนูอาหารจากรูปภาพ
 - **วิเคราะห์เอกสาร**: อ่านและสรุปเอกสาร PDF, Word, Excel ที่ผู้ใช้ส่งมา
-- **Multimodal Understanding**: เข้าใจทั้งข้อความและรูปภาพพร้อมกัน
+
 
 ### สิ่งที่คุณจะได้ลงมือทำ
-- เรียนรู้การทำงานของ LINE Content API
+- import workflow
 - ตั้งค่า workflow เพื่อรับรูปภาพและเอกสารจาก LINE
 - ดึง Content URL จาก LINE Messaging API
 - เชื่อมต่อ Google Gemini Vision API เพื่อวิเคราะห์รูปภาพและเอกสาร
-- สร้าง AI Agent ที่สามารถประมวลผลทั้งข้อความและรูปภาพพร้อมกัน
 
 ### สิ่งที่คุณจะได้เรียนรู้
 
@@ -44,8 +44,7 @@ Codelab นี้เป็นส่วนต่อจาก Codelab แรก **
 
 - **LINE AI Chatbot ที่สร้างจาก Codelab แรก** – ต้องมี workflow พื้นฐานที่ทำงานได้แล้ว
 - **n8n instance ที่ deploy บน Render** – ต้องสามารถเข้าถึงและแก้ไข workflow ได้
-- **[บัญชี Google](https://accounts.google.com/lifecycle/steps/signup/)** – สำหรับใช้ Google Gemini API (ควรมี API Key อยู่แล้วจาก Codelab แรก)
-- **รูปภาพและเอกสารสำหรับทดสอบ** – เตรียมรูปภาพหรือไฟล์ PDF/Word/Excel เพื่อทดสอบ
+- **[บัญชี Google](https://accounts.google.com/signup)** – สำหรับใช้ Google Gemini API
 
 <aside class="positive">
 <strong>Note:</strong> Codelab นี้ต่อเนื่องจาก Codelab แรก หากคุณยังไม่ได้สร้าง LINE AI Chatbot พื้นฐาน กรุณาไปทำ Codelab แรกก่อน
