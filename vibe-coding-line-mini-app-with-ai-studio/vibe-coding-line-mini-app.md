@@ -25,7 +25,7 @@ Codelab นี้ออกแบบสำหรับ Workshop แบบ Hands-o
 - สร้างเว็บจองร้านอาหาร (Restaurant Reservation) ด้วย Prompt ใน [Google AI Studio](https://aistudio.google.com/)
 - แปลงเว็บให้เป็น LINE MINI App ด้วย Prompt ใน Google AI Studio
 - ดึงข้อมูล LINE User Profile มาแสดงบนหน้า MINI App ผ่านการเขียน Prompt
-- ปรับ MINI App ให้รองรับ External Browser (PC / Desktop)
+- แชร์การจองให้เพื่อนหรือกลุ่มด้วย **Share Target Picker** ผ่าน Prompt
 - ตั้งค่า Service Message Template และส่งการยืนยันการจองโต๊ะหลังผู้ใช้กด Reserve Now
 
 ### สิ่งที่คุณจะได้เรียนรู้
@@ -33,7 +33,7 @@ Codelab นี้ออกแบบสำหรับ Workshop แบบ Hands-o
 - **Vibe Coding**: แนวคิดและข้อดีของการสร้างแอปจาก Prompt
 - **Google AI Studio Build Mode**: สร้างและ Deploy เว็บจองร้านอาหารจาก Prompt
 - **LINE MINI App**: สร้าง Provider, Channel และตั้งค่า LIFF, Endpoint URL
-- **External Browser**: การทำให้ MINI App ทำงานบนเว็บเบราว์เซอร์ PC ได้
+- **Share Target Picker**: แชร์ข้อความการจองไปยังเพื่อนหรือกลุ่มใน LINE
 - **Service Message**: ส่งการแจ้งเตือนยืนยันให้ผู้ใช้ใน LINE ผ่าน LINE MINI App Service Message
 
 ### สิ่งที่คุณต้องเตรียมพร้อมก่อนเริ่ม Codelab
@@ -124,9 +124,7 @@ Reservation Flow:
 - Section title: "Select Preferred Time"
 
 Lunch Slots: every half hour from 11:30 - 14:00
-
 Dinner Slots: every half hour from 17:30 - 21:00
-
 Display each time slot as rounded selectable buttons.
 
 Selected state:
@@ -142,7 +140,7 @@ Fields:
 Functionality:
 - Users select date, time, enter customer details, tap Reserve Now
 
-Implement one mock function: createReservation()
+Implement one mock function: createReservation() via Server API
 ```
 
 <aside class="positive">
@@ -168,9 +166,6 @@ Keep the design clean, modern, and mobile-friendly.
 
 
 ### ทดสอบเว็บก่อนไปต่อ
-
-เปิด Deploy URL บนมือถือและทดสอบการจอง 1 ครั้ง ตรวจสอบว่า:
-
 - [ ] เลือกจำนวนแขก (+ / −) ได้
 - [ ] เลือกวันที่และช่วงเวลา (Lunch / Dinner) ได้
 - [ ] กรอกชื่อ เบอร์โทร และ Special Request ได้
@@ -241,14 +236,26 @@ Duration: 0:45:00
 หลัง AI สร้างแอปแล้ว ให้ Prompt สร้าง **User Profile Card** ที่ดึงข้อมูลจาก LINE (แทนที่ `YOUR_LIFF_ID` ด้วย LIFF ID จาก Console):
 
 ```
-Add MINI App and Create a User Profile Card at the top of the restaurant reservation app using LIFF API.
+Convert my existing restaurant reservation website into a LINE MINI App.
+
+Do not redesign or rebuild the website from scratch. Preserve the existing UI, pages, user flow, styling, and business logic as much as possible.
+
+Add LINE Login and LIFF integration using:
 
 LIFF ID: YOUR_LIFF_ID
 
-Add a LINE Profile Card at the top of the reservation page using LIFF.
+Requirements:
 
-- Show profile picture and display name
-- Auto-fill customer name from LINE profile
+Add a LINE User Profile Card at the top of the reservation page.
+Display the user's LINE profile picture and display name.
+Automatically populate the customer name field with the user's LINE display name.
+Keep the customer name field editable.
+Support automatic LINE Login when users open the MINI App from an external browser (Chrome, Safari, desktop browser, etc.).
+Detect whether the app is running inside the LINE application or in an external browser.
+Retrieve LINE environment information for app behavior and debugging purposes.
+If the LINE profile cannot be loaded, the reservation form must continue working normally without blocking the reservation process.
+Keep all existing reservation functionality unchanged.
+Maintain the current UI and user experience while adding LINE MINI App capabilities.
 ```
 
 
@@ -286,103 +293,41 @@ https://miniapp.line.me/xxxxxxxxxx-xxxxxxxx
 <strong>Note:</strong> สิ่งที่ตามหลัง <code>https://miniapp.line.me/</code> ทั้งหมดคือสิ่งที่เรียกว่า <strong>LIFF ID</strong> ซึ่งใช้ในการ initialize LIFF SDK เช่น <code>2007775907-73PXWwvy</code> — คัดลอก LIFF ID นี้ไว้ใช้ใน Prompt ขั้นตอนถัดไป
 </aside>
 
-| รายการ | ที่หา | ใช้ทำอะไร |
-|:---|:---|:---|
-| Endpoint URL | Web app settings → Developing | URL เว็บแอปที่ LINE โหลด |
-| LIFF URL | Web app settings → Developing | ลิงก์เปิด MINI App ทดสอบ |
-| LIFF ID | ส่วนหลัง `miniapp.line.me/` | ใส่ใน `liff.init({ liffId: "..." })` |
 
+## ส่งและแชร์ข้อความ
+Duration: 0:15:00
 
-### ขั้นตอนที่ 5: Prompt Deploy ไปยัง MINI App Channel
+**Share Target Picker** เป็นฟีเจอร์ของ LIFF ที่ให้ผู้ใช้เลือก **เพื่อนหรือกลุ่ม** ใน LINE เพื่อแชร์ข้อความจาก MINI App ได้ — เหมาะกับ Use Case ชวนเพื่อนมาร่วมจองโต๊ะที่ร้าน
 
-```
-Ship the converted LINE MINI App to my Developing channel:
-- Set Endpoint URL to the deployed app URL (adapted from my existing website)
-- Ensure LIFF SDK is properly integrated without breaking original web functionality
-- Test that the app opens from LINE MINI App LIFF URL
-- Verify the original reservation flow still works end-to-end inside LINE app
-```
-
-### ทดสอบ MINI App บนมือถือ
-
-1. เปิดแอป LINE บนมือถือ
-2. ไปที่ **Web app settings** → คัดลอก **LIFF URL** (Developing)
-3. เปิด LIFF URL ใน LINE
-4. ทดสอบจองโต๊ะ 1 ครั้ง และตรวจสอบว่า **User Profile Card** แสดงรูปและชื่อจาก LINE
-
-<aside class="positive">
-<strong>Tip:</strong> ถ้าแอปไม่แสดงผล ให้ Prompt ใน Google AI Studio: "Debug LIFF initialization error and fix CORS/endpoint configuration"
+<aside class="negative">
+<strong>Important:</strong> Share Target Picker ใช้งานได้เมื่อเปิด MINI App ผ่าน <strong>แอป LINE บนสมาร์ทโฟน</strong> เท่านั้น — ตรวจสอบด้วย <code>liff.isApiAvailable('shareTargetPicker')</code> ก่อนแสดงปุ่ม
 </aside>
 
-## ให้ MINI App ใช้งานบน PC ได้
-Duration: 0:20:00
+อ้างอิง: [Sharing targets with Share Target Picker](https://developers.line.biz/en/docs/liff/sharing-target-picker/)
 
-ตั้งแต่ **ตุลาคม 2025** LINE MINI App สามารถเปิดใช้งานผ่าน **External Browser** (Chrome, Edge บน PC) ได้แล้ว ในช่วงนี้คุณจะ Prompt ให้ Google AI Studio ปรับแอปให้รองรับ
+### Prompt Share Target Picker (Copy & Paste)
 
-### ทำความรู้จัก External Browser
-
-เมื่อผู้ใช้เปิด MINI App บน PC ผ่านเบราว์เซอร์:
-
-- `liff.init()` **จะไม่ Login อัตโนมัติ** เหมือนใน LINE App
-- ต้องตั้ง `withLoginOnExternalBrowser: true` หรือเรียก `liff.login()` เอง
-- ฟีเจอร์บางอย่าง (เช่น `liff.sendMessages`, `liff.scanCode`) ใช้ได้เฉพาะใน LINE App
-
-อ้างอิง: [Open a LINE MINI App in an external browser](https://developers.line.biz/en/docs/line-mini-app/develop/external-browser/)
-
-### ขั้นตอนที่ 1: Prompt รองรับ External Browser
-
-วาง Prompt นี้ใน Google AI Studio:
+วาง Prompt นี้ใน Google AI Studio หลัง MINI App และ User Profile Card ใช้งานได้แล้ว:
 
 ```
-Update Restaurant Reservation MINI App to support external browser (PC/desktop):
+Add Share Target Picker to the Restaurant Reservation LINE MINI App
 
-1. Update liff.init() config:
-   - Add withLoginOnExternalBrowser: true for automatic LINE Login on PC browser
-
-2. Detect environment:
-   - Use liff.isInClient() to check if running inside LINE app
-   - Use liff.getContext() to get environment info
-
-3. UI adjustments:
-   - If NOT in LINE client (external browser): show a banner at top:
-     "เปิดผ่าน LINE App เพื่อประสบการณ์ที่ดีที่สุด" with a link to open in LINE
-   - If in external browser AND not logged in: show login button that calls liff.login()
-   - Layout should work well on desktop screen (max-width container, centered)
-
-4. Graceful degradation:
-   - Booking flow must work on PC without features that require LINE in-app only
-   - Profile: if liff.getProfile() unavailable, let user type name manually
-
-5. Test checklist:
-   - Works in LINE mobile app (existing behavior)
-   - Works in Chrome on PC with LINE Login
-   - Responsive on both mobile and desktop widths
+Requirements:
+1. Add a "Share to Friends" button on the reservation confirmation / summary screen
+2. Show the button only when liff.isApiAvailable('shareTargetPicker') is true
+   - Short invitation text in Thai, e.g. "มาร่วมจองโต๊ะกับฉันที่ The Green Table"
 ```
 
-### ขั้นตอนที่ 2: Prompt ปรับ Layout สำหรับ Desktop
+### ทดสอบ Share Target Picker
 
-```
-Improve desktop layout for Restaurant Reservation:
-- On screens wider than 768px: show two-column layout (restaurant info + reservation form)
-- On mobile: keep single-column stacked layout
-- Increase font size and button size on desktop for readability
-- Add favicon and page title "The Green Table - Restaurant Reservation"
-```
+- [ ] เปิด MINI App ผ่านแอป LINE บนมือถือ
+- [ ] จองโต๊ะสำเร็จแล้วเห็นปุ่ม **Share to Friends**
+- [ ] กดปุ่มแล้วเลือกเพื่อนหรือกลุ่มได้
+- [ ] ข้อความที่แชร์แสดงวัน เวลา และจำนวนแขกถูกต้อง
+- [ ] ปุ่มไม่แสดง (หรือ disabled) เมื่อเปิดจาก External Browser
 
-### ขั้นตอนที่ 3: Deploy และทดสอบบน PC
 
-1. Prompt ใน Google AI Studio: `Deploy the updated app with external browser support`
-2. เปิด **Endpoint URL** ใน Chrome บน PC (ไม่ผ่าน LINE App)
-3. ตรวจสอบว่า LINE Login ทำงานและจองคิวได้
-
-### Checklist ทดสอบบน PC
-
-- [ ] เปิด Endpoint URL ใน Chrome ได้
-- [ ] จองโต๊ะครบ Flow ได้
-- [ ] Layout แสดงผลดีบนหน้าจอ Desktop
-- [ ] เปิดใน LINE App บนมือถือยังทำงานปกติ
-
-## แนะนำ Service Message + ตั้งค่า Template
+## เพิ่ม Template ของ Service Messages
 Duration: 0:30:00
 
 ### Service Message คืออะไร?
@@ -394,98 +339,39 @@ Duration: 0:30:00
 - แจ้งเตือนก่อนถึงเวลารับประทาน 1 วัน
 - แจ้งยกเลิกการจอง
 
-<aside class="negative">
-<strong>Important:</strong> Service Message ส่งได้เฉพาะเป็น **การตอบกลับ/ยืนยันจาก action ของผู้ใช้ใน MINI App** — ห้ามใช้ส่งโฆษณา โปรโมชัน หรือข้อมูลที่ไม่เกี่ยวกับ action นั้น
-</aside>
 
 
-อ้างอิง: [Sending service messages](https://developers.line.biz/en/docs/line-mini-app/develop/service-messages/)
+### ขั้นตอนที่ 1: เพิ่ม Template ของ Service Messages
 
-
-### Flow การส่ง Service Message
-
-```mermaid
-sequenceDiagram
-    participant User as ผู้ใช้
-    participant App as MINI App
-    participant Server as Backend
-    participant LINE as LINE Platform
-
-    User->>App: กด Reserve Now
-    App->>App: liff.getAccessToken()
-    App->>Server: ส่ง LIFF Access Token
-    Server->>LINE: POST /notifier/token
-    LINE-->>Server: Service Notification Token
-    Server->>LINE: POST /notifier/send
-    LINE-->>User: Service Message ใน LINE MINI App Notice
-```
-
-### ขั้นตอนที่ 1: Prompt ใน Google AI Studio — วางแผน Service Message
-
-ก่อนตั้งค่า Template ให้ Prompt วางแผน Implementation:
-
-```
-Plan Service Message integration for Restaurant Reservation MINI App.
-
-Use case: When a user taps Reserve Now and createReservation() succeeds, send a service message confirming the reservation.
-
-Define:
-1. Which template category fits best (store reservation / restaurant booking confirmation)
-2. Template variables needed: date, time, number of guests, reservation ID, customer name
-3. Server-side flow: issue notification token → send message → save token for follow-up
-4. API endpoints: POST /notifier/token and POST /notifier/send
-5. Error handling if token issuance fails
-
-Output the implementation plan only — do not code yet.
-```
-
-### ขั้นตอนที่ 2: ตั้งค่า Service Message Template ใน Console
+ขั้นตอนต่อไปเราจะมาสร้าง Template ของข้อความกัน โดยใน Channel ให้เราเลือกแท็บ **Service message template** แล้วกดปุ่ม **Add** สีเขียวทางด้านขวาล่าง
 
 1. ไปที่ [LINE Developers Console](https://developers.line.biz/console/)
 2. เลือก Channel **Restaurant Reservation** (Developing)
 3. เปิดแท็บ **Service message template**
-4. คลิก **Add**
-5. เลือก Template หมวด **Store reservation** หรือ **Booking confirmation** (ภาษา **Thai**)
-6. กรอก **Use Case**:
+4. คลิกปุ่ม **Add** (สีเขียว มุมขวาล่าง)
 
-```
-ใช้ส่งข้อความยืนยันการจองโต๊ะร้านอาหาร เมื่อผู้ใช้กด Reserve Now สำเร็จใน LINE MINI App เท่านั้น
-```
+#### เพิ่ม Template ที่ต้องการ
 
-7. กรอก JSON ตัวอย่าง Template Variables:
+ให้เลือก Template ที่ต้องการ โดยจะต้องเลือก **Category**, **Language**, และ **Template name** — เมื่อเลือกแล้วเราจะได้ **Template name สำหรับนำไปใช้กับ API** ในขั้นตอนต่อไป
 
-```json
-{
-  "date": "9 มิ.ย. 2026",
-  "time": "19:00",
-  "guests": "2",
-  "reservation_id": "RES-20260609-001",
-  "customer_name": "คุณสมชาย"
-}
-```
-
-8. คลิก **Send** ใน Preview เพื่อส่ง Test Message ไป LINE ของคุณ
-9. คลิก **Add** เพื่อบันทึก Template
-10. จด **Template name for API use** (รูปแบบ `{template_name}_th`)
+สำหรับ Codelab นี้ แนะนำให้เลือก:
+- **Category**: Store reservation หรือ Booking confirmation
+- **Language**: Thai
+- **Template name**: เลือก Template ที่เหมาะกับการยืนยันการจองโต๊ะ
 
 <aside class="positive">
-<strong>Tip:</strong> ขณะ Review ยังไม่เสร็จ คุณยัง **ส่ง Test Message จาก Simulator** และ **เพิ่ม Template ใหม่** ได้บน Developing channel
+<strong>Tip:</strong> จด **Template name for API use** ไว้ทันที (รูปแบบ <code>{template_name}_th</code>) — จะใช้ใน Prompt และ API ขั้นตอนถัดไป
 </aside>
 
-### ขั้นตอนที่ 3: Prompt สร้าง JSON params สำหรับ Template
+#### ทดสอบส่งข้อความด้วยตัวแปร (Template Variables)
 
-```
-Based on the restaurant reservation confirmation service message template I added to my LINE MINI App channel, generate the params JSON mapping for a reservation with these fields:
-- date (Thai format, e.g. "9 มิ.ย. 2026")
-- time (24h format, e.g. "19:00")
-- guests (number as string)
-- reservation_id (format: RES-YYYYMMDD-XXX)
-- customer_name (from LIFF profile or form input)
-- button_uri_1 (permanent link to reservation detail page in MINI App)
+ถัดลงมาในหน้าเดียวกัน เราจะพบกับส่วนของ **ตัวแปร (Template Variables)** ที่จะเอาไว้ใช้กับ API โดยที่เราสามารถทดสอบส่งข้อความได้
 
-Show the exact params object I should send to POST /notifier/send API.
-Template name: [paste your template name here]_th
-```
+
+<aside class="negative">
+<strong>Important:</strong> การส่งข้อความด้วย Service Messages จะสามารถเลือกประเภทของข้อความได้<strong>ตาม Template ที่ทาง LINE เตรียมไว้ให้เท่านั้น</strong>
+</aside>
+
 
 ## Implement Service Message ใน MINI App
 Duration: 0:45:00
@@ -519,53 +405,13 @@ Update Restaurant Reservation MINI App frontend to send service message after su
 </aside>
 
 
-
-### ขั้นตอนที่ 4: Prompt ส่ง Reminder Message (ข้อความที่ 2)
-
-```
-Implement a follow-up service message (reminder) for Restaurant Reservation:
-
-Use case: Send reminder 1 day before dining time (for demo, add a "Send Test Reminder" button on reservation detail page)
-
-Requirements:
-1. Use the notificationToken saved from the first service message (do NOT re-issue token)
-2. Use a reminder template (e.g. reservation_reminder_th)
-3. API: POST /api/service-message/send-reminder
-   - Input: { notificationToken, reservationId }
-   - Check remainingCount > 0 before sending
-4. Update stored notificationToken from API response after each send
-
-Add the "Send Test Reminder" button on reservation detail page for workshop demo purposes.
-```
-
 ### Checklist ทดสอบ Service Message
-
 - [ ] Template ถูก Add ใน Console แล้ว
 - [ ] Test Message จาก Console Preview ส่งได้
 - [ ] จองโต๊ะใน MINI App แล้วได้รับ Service Message
 - [ ] ข้อมูลใน Message ตรงกับการจอง (วัน, เวลา, จำนวนแขก)
-- [ ] กดปุ่มใน Message เปิดหน้า Reservation Detail ได้
-- [ ] (Optional) ส่ง Reminder ข้อความที่ 2 ได้
 
-### Troubleshooting — Prompt แก้ปัญหา
 
-ถ้า Service Message ไม่ส่ง ให้ Prompt ใน Google AI Studio:
-
-```
-Debug Service Message failure for Restaurant Reservation:
-
-Symptoms: [describe what happens, e.g. "API returns 400 template not found"]
-
-Check and fix:
-1. templateName format matches Console exactly ({name}_th)
-2. All required template variables are in params
-3. LIFF access token is fresh (call getAccessToken right before API call)
-4. Using stateless channel access token, not long-lived
-5. Channel is Developing and user is Admin/Tester
-6. Log full API request/response for debugging
-
-Fix the issue and redeploy.
-```
 
 
 ## Congratulations
@@ -579,7 +425,7 @@ Duration: 0:05:00
 ✅ การสร้างเว็บจองร้านอาหารด้วย Vibe Coding ใน Google AI Studio  
 ✅ การแปลงเว็บธรรมดาให้กลายเป็น LINE MINI App ด้วย Prompt  
 ✅ การดึงข้อมูลผู้ใช้งาน LINE (User Profile) ด้วย Prompt  
-✅ การทำให้ MINI App รองรับ External Browser บน PC ด้วย Prompt  
+✅ การแชร์ข้อความไปยังเพื่อนหรือกลุ่มด้วย Share Target Picker ผ่าน Prompt  
 ✅ การตั้งค่า Service Message Template ใน LINE Developers Console  
 ✅ การส่ง Service Message ยืนยันการจองด้วย Prompt ใน Google AI Studio  
 
@@ -594,6 +440,7 @@ Duration: 0:05:00
 - [LINE MINI App Documentation](https://developers.line.biz/en/docs/line-mini-app/)
 - [Sending service messages](https://developers.line.biz/en/docs/line-mini-app/develop/service-messages/)
 - [Open MINI App in external browser](https://developers.line.biz/en/docs/line-mini-app/develop/external-browser/)
+- [Share Target Picker](https://developers.line.biz/en/docs/liff/sharing-target-picker/)
 - [LINE MINI App API Reference](https://developers.line.biz/en/reference/line-mini-app/)
 
 ### บอกเราหน่อยว่า Codelab ชุดนี้เป็นอย่างไรบ้าง
