@@ -1,12 +1,12 @@
 
-id: vibe-coding-line-mini-app-with-ai-studio
+id: vibe-coding-line-mini-app
 title: Vibe Coding LINE MINI App with AI Studio
-summary: Codelab นี้สอนการสร้างเว็บจองร้านอาหารด้วย Google AI Studio แปลงเป็น LINE MINI App และส่ง Service Message ทั้งหมดด้วย Prompt ใน AI Studio
+summary: Codelab นี้สอนการสร้างเว็บจองร้านอาหาร แปลงเป็น LINE MINI App และส่ง Service Message ทั้งหมดด้วย Prompt ใน Google AI Studio
 authors: Punsiri Boonyakiat
 categories: LINE MINI App, AI Studio
 tags: LINE MINI App, AI Studio, Vibe Coding, Service Message
 status: Published
-url: vibe-coding-line-mini-app-with-ai-studio
+url: vibe-coding-line-mini-app
 Feedback Link: https://forms.gle/xXkqeFE3vLSubP1f9
 
 # Vibe Coding LINE MINI App with AI Studio
@@ -14,106 +14,126 @@ Feedback Link: https://forms.gle/xXkqeFE3vLSubP1f9
 ## บทนำ
 Duration: 0:05:00
 
-"ถ้าคุณมีเว็บไซต์ที่ใช้งานอยู่แล้ว — หรือสร้างเว็บจองร้านอาหารจาก Prompt ใน Google AI Studio — คุณสามารถ **แปลงเว็บให้เป็น LINE MINI App** ด้วยการ Prompt ใน MINI AI Studio ได้"
+"ถ้าคุณมีเว็บไซต์ที่ใช้งานอยู่แล้ว — หรือสร้างเว็บจองร้านอาหารจาก Prompt ใน Google AI Studio — คุณสามารถ **แปลงเว็บให้เป็น LINE MINI App** ด้วยการ Prompt ใน Google AI Studio ได้"
 
-Codelab นี้ออกแบบสำหรับ Workshop แบบ Hands-on เริ่มจาก **Prompt สร้างเว็บจองร้านอาหาร** ใน Google AI Studio จากนั้น **แปลงเว็บให้เป็น LINE MINI App** ด้วย MINI AI Studio ทุกขั้นตอนทำผ่านการ **ใส่ Prompt ใน AI Studio**:
-
-| ช่วง | หัวข้อ | ผู้นำ | เครื่องมือ |
-|:---|:---|:---|:---|
-| 1 | สร้างเว็บจองร้านอาหาร | P'Golf | [Google AI Studio](https://aistudio.google.com/) |
-| 2 | แปลงเว็บเป็น LINE MINI App | Sitthi | MINI AI Studio |
-| 3 | ให้ MINI App ใช้งานบน PC ได้ | Prompt | MINI AI Studio |
-| — | **พัก** | — | — |
-| 4 | แนะนำ Service Message + ตั้งค่า Template | — | LINE Developers Console |
-| 5 | Implement Service Message ใน MINI App | — | MINI AI Studio |
+Codelab นี้ออกแบบสำหรับ Workshop แบบ Hands-on เริ่มจาก **Prompt สร้างเว็บจองร้านอาหาร** ใน Google AI Studio จากนั้น **แปลงเว็บให้เป็น LINE MINI App** ด้วย Google AI Studio ทุกขั้นตอนทำผ่านการ **ใส่ Prompt ใน AI Studio**:
+![LINE Messaging API](img/title.png)
 
 ### สิ่งที่คุณจะได้ลงมือทำ
 
-- สร้างเว็บจองร้านอาหาร (Restaurant Reservation) ด้วย Prompt ใน Google AI Studio
-- Deploy เว็บและแปลงให้เป็น LINE MINI App ด้วย Prompt ใน MINI AI Studio
-- เชื่อม LIFF API และ Deploy ไปยัง LINE MINI App Channel
+- สร้าง **Provider** และ **LINE MINI App Channel** ใน [LINE Developers Console](https://developers.line.biz/console/)
+- สร้างเว็บจองร้านอาหาร (Restaurant Reservation) ด้วย Prompt ใน [Google AI Studio](https://aistudio.google.com/)
+- แปลงเว็บให้เป็น LINE MINI App ด้วย Prompt ใน Google AI Studio
+- ดึงข้อมูล LINE User Profile มาแสดงบนหน้า MINI App ผ่านการเขียน Prompt
 - ปรับ MINI App ให้รองรับ External Browser (PC / Desktop)
 - ตั้งค่า Service Message Template และส่งการยืนยันการจองโต๊ะหลังผู้ใช้กด Reserve Now
 
 ### สิ่งที่คุณจะได้เรียนรู้
 
-- **Vibe Coding**: สร้างและแปลงแอปจาก Prompt แทนการเขียนโค้ดเอง
+- **Vibe Coding**: แนวคิดและข้อดีของการสร้างแอปจาก Prompt
 - **Google AI Studio Build Mode**: สร้างและ Deploy เว็บจองร้านอาหารจาก Prompt
-- **LINE MINI App**: โครงสร้าง Channel, LIFF, Endpoint URL
-- **MINI AI Studio**: Multi-Agent ที่ช่วย Build & Ship MINI App จากเว็บเดิม
-- **External Browser**: ให้ MINI App ทำงานบนเว็บเบราว์เซอร์ PC ได้
-- **Service Message**: ส่งการแจ้งเตือนยืนยันให้ผู้ใช้ใน LINE
+- **LINE MINI App**: สร้าง Provider, Channel และตั้งค่า LIFF, Endpoint URL
+- **External Browser**: การทำให้ MINI App ทำงานบนเว็บเบราว์เซอร์ PC ได้
+- **Service Message**: ส่งการแจ้งเตือนยืนยันให้ผู้ใช้ใน LINE ผ่าน LINE MINI App Service Message
 
 ### สิ่งที่คุณต้องเตรียมพร้อมก่อนเริ่ม Codelab
-
-- **เว็บไซต์ที่ Deploy แล้ว** – สร้างจาก Session 1 หรือใช้ URL เว็บของคุณเอง (HTTPS)
 - **แอปพลิเคชัน LINE บนสมาร์ทโฟน** ที่เข้าสู่ระบบเรียบร้อยแล้ว
 - [**บัญชี Google**](https://accounts.google.com/signup) – สำหรับ Google AI Studio
 - [**บัญชี LINE Developers**](https://developers.line.biz/console/) – สำหรับสร้าง LINE MINI App Channel
-- **สิทธิ์เข้าใช้ MINI AI Studio** – เครื่องมือ Build & Ship LINE MINI App ด้วย Prompt (ขอ Access จากทีมงาน Workshop)
 - **เบราว์เซอร์ Chrome หรือ Edge** บนคอมพิวเตอร์
 
-<aside class="positive">
-<strong>Note:</strong> ถ้ามีเว็บจองของตัวเองอยู่แล้ว สามารถข้าม Session 1 และใช้ URL เว็บเดิมแทนได้
-</aside>
 
 ## ทำความรู้จัก Vibe Coding และ AI Studio
-Duration: 0:10:00
+Duration: 0:15:00
 
 ### Vibe Coding คืออะไร?
 
-**Vibe Coding** คือวิธีพัฒนาแอปพลิเคชันโดยอธิบาย "สิ่งที่ต้องการ" ด้วยภาษาธรรมชาติ (Prompt) แล้วให้ AI สร้าง UI, Logic และการเชื่อมต่อระบบให้แทน
+**Vibe Coding** (ไวบ์ โค้ดดิ้ง) คือแนวทางการพัฒนาแอปพลิเคชันโดย **อธิบาย "สิ่งที่ต้องการ" ด้วยภาษาธรรมชาติ (Prompt)** แล้วให้ AI สร้าง UI, Logic และการเชื่อมต่อระบบให้แทน — ไม่ต้องเริ่มจากการเขียนโค้ดทีละบรรทัด
 
-แทนที่จะ:
-1. อ่านโค้ดเว็บเดิม → เขียน LIFF integration เอง → Deploy → แก้ bug ทีละจุด
+คำว่า *Vibe* หมายถึงการสื่อสาร **"ความรู้สึก" หรือ "เป้าหมาย"** ของแอปที่ต้องการ เช่น "อยากได้เว็บจองร้านอาหารแบบ Premium สีเขียว ใช้งานง่ายบนมือถือ" แทนที่จะระบุ HTML, CSS หรือ JavaScript ทีละไฟล์
 
-คุณจะ:
-1. ระบุ URL เว็บเดิม + Spec → Prompt ใน MINI AI Studio → AI แปลงเป็น MINI App → ทดสอบ → ปรับ Prompt ซ้ำจนพอใจ
 
-### เครื่องมือที่ใช้ใน Workshop นี้
+### Tools ยอดนิยมสำหรับ Vibe Coding
 
-#### Google AI Studio (Build Mode)
-ใช้สร้าง **เว็บจองร้านอาหาร** ตั้งแต่ UI จนถึง Deploy บน Cloud
+ปัจจุบันมีเครื่องมือ Vibe Coding หลายตัวที่ได้รับความนิยม แต่ละตัวมีจุดเด่นต่างกัน:
 
-- เข้าได้ที่ [aistudio.google.com](https://aistudio.google.com/)
-- เลือก **Build** หรือ **Vibe Code** แล้ววาง Prompt จาก Session P'Golf
+| เครื่องมือ | จุดเด่น | เหมาะกับ |
+|:---|:---|:---|
+| [Google AI Studio](https://aistudio.google.com/) | สร้าง Full-stack App จาก Prompt, Deploy ได้ทันที | Web App, Prototype, Demo |
+| [Cursor](https://cursor.com/) | AI-powered IDE ช่วยเขียนและแก้โค้ดในโปรเจกต์จริง | Developer ที่ต้องการควบคุมโค้ดมากขึ้น |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | AI Agent ทำงานใน Terminal / IDE | Automation, Refactoring, CLI workflow |
+| [Windsurf](https://windsurf.com/) | AI IDE เน้น Flow การพัฒนาแบบ Agentic | Full-stack development |
+| [Bolt.new](https://bolt.new/) | สร้าง Web App ใน Browser จาก Prompt | Prototype เร็ว, Full-stack demo |
 
-#### MINI AI Studio
-ใช้สำหรับ **Build & Ship LINE MINI App** โดย AI ทำงานเป็น Multi-Agent:
+<aside class="positive">
+<strong>Note:</strong> ใน Workshop นี้เราใช้ <strong>Google AI Studio</strong> สร้างเว็บจองร้านอาหาร และแปลงเป็น LINE MINI App — แต่หลักการ Vibe Coding ใช้ได้กับเครื่องมืออื่นๆ ด้านบนเช่นกัน
+</aside>
 
-| Agent | หน้าที่ |
+### ข้อดีของ Vibe Coding
+
+| ข้อดี | รายละเอียด |
 |:---|:---|
-| Supervisor Agent | วิเคราะห์ Prompt และแจกงาน |
-| UI/Logic Agent | สร้าง UI และ Business Logic |
-| LIFF Agent | เชื่อมต่อ LIFF API |
-| Validator Agent | ตรวจสอบและแก้ไขจนกว่าจะผ่าน |
+| **Prototype ได้เร็วมาก** | จากที่เคยใช้หลายวัน เหลือไม่กี่ชั่วโมง |
+| **คนที่ไม่ใช่ Developer ก็สร้าง App ได้** | Product Owner, Designer หรือ Entrepreneur ลองสร้าง MVP เองได้ |
+| **เหมาะกับ MVP, Hackathon, Demo** | ทดสอบไอเดียและ pitch ได้เร็วก่อนลงมือพัฒนาจริงจัง |
+| **สร้าง UI ได้เร็วมาก** | อธิบาย Style, Layout, Flow แล้วให้ AI generate ให้ทันที |
 
-#### LINE Developers Console
-ใช้จัดการ **LINE MINI App Channel**, ตั้งค่า Endpoint URL และ **Service Message Template**
 
-### ภาพรวม Flow ของ Workshop
+## สร้าง Provider และ Channel
+Duration: 0:20:00
 
-```mermaid
-flowchart LR
-    A[Prompt Google AI Studio] --> B[เว็บจองร้านอาหาร]
-    B --> C[Deploy URL]
-    C --> D[Prompt MINI AI Studio]
-    D --> E[LINE MINI App + LIFF]
-    E --> F[Prompt รองรับ PC]
-    F --> G[Prompt Service Message]
-    G --> H[แจ้งเตือนใน LINE]
-```
+ก่อนสร้างเว็บและแปลงเป็น LINE MINI App คุณต้องมี **Provider** และ **LINE MINI App Channel** ใน [LINE Developers Console](https://developers.line.biz/console/) ก่อน
 
-## สร้างเว็บจองร้านอาหาร (P'Golf)
+### สมัครเป็น LINE Developer
+
+จุดเริ่มต้นสำหรับการพัฒนาแอปพลิเคชันต่างๆ บนแพลตฟอร์มของ LINE คือคุณจะต้องสมัครเป็น **LINE Developer** ก่อน
+
+1. เข้าไปที่ [https://developers.line.biz/console/](https://developers.line.biz/console/) แล้วเลือก **Log in with LINE account** (สีเขียว) เพื่อเข้าสู่ระบบ
+2. เข้าสู่ระบบด้วยบัญชี LINE ของคุณให้เรียบร้อย
+3. กรอกชื่อและอีเมล พร้อมกดยอมรับ Agreement จากนั้นกดปุ่ม **Create my account** — เสร็จสิ้นขั้นตอนการสมัครเป็น LINE Developer
+
+### สร้าง Provider
+
+**Provider** คือ superset ของแอปทั้งหลายที่เราจะพัฒนาขึ้น รวมถึง LINE MINI App ด้วย โดยการสร้างเพียงให้ระบุชื่อของ Provider ลงไป ซึ่งอาจจะตั้งเป็นชื่อตัวเอง, ชื่อบริษัท, ชื่อทีม หรือชื่อกลุ่มก็ได้
+
+1. ในหน้า Console คลิก **Create a new provider**
+2. ระบุชื่อ Provider แล้วกด **Create**
+
+<aside class="negative">
+<strong>Important:</strong> 1 Account สามารถมี Provider สูงสุดได้ 10 Providers และ<strong>ไม่สามารถมีคำว่า LINE ในชื่อ Provider</strong> ได้
+</aside>
+
+### สร้าง Channel
+
+**Channel** คือ subset ของ Provider ซึ่งเปรียบเสมือนแอปพลิเคชัน
+
+ใน Codelab นี้เราจะต้องเลือก **Create a LINE MINI App channel**
+
+1. เลือก Provider ที่สร้างไว้ → คลิก **Create a new channel**
+2. เลือก **LINE MINI App**
+3. กรอกรายละเอียด Channel:
+   - **Channel name**: `Restaurant Reservation`
+   - **Channel description**: `บริการจองโต๊ะร้านอาหาร The Green Table`
+   - **Category**: เลือกหมวดที่เหมาะสม (เช่น Food & Drink)
+4. กดสร้าง Channel
+
+<aside class="positive">
+<strong>Note:</strong> ส่วนของ Channel icon และ Terms of Use สามารถระบุภายหลังได้
+</aside>
+
+บันทึก **Channel ID** และ **LIFF ID** จากแท็บ **Web app settings** ไว้ใช้ในขั้นตอนถัดไป
+
+
+## สร้างเว็บจองร้านอาหาร
 Duration: 0:45:00
 
-ในช่วงนี้ P'Golf จะใช้ **Google AI Studio** สร้างเว็บจองร้านอาหารแบบ Premium ด้วย Prompt — ไม่ต้องเขียนโค้ดเอง
+ในช่วงนี้คุณจะใช้ **Google AI Studio** สร้างเว็บจองร้านอาหารแบบ ด้วย Prompt — ไม่ต้องเขียนโค้ดเอง
 
 ### ขั้นตอนที่ 1: เปิด Google AI Studio
 
 1. ไปที่ [Google AI Studio](https://aistudio.google.com/)
 2. เข้าสู่ระบบด้วยบัญชี Google
-3. คลิก **Build** หรือ **Vibe Code** เพื่อเริ่มโปรเจกต์ใหม่
+3. คลิก **Build** เพื่อเริ่มโปรเจกต์ใหม่
 
 ### ขั้นตอนที่ 2: Prompt สร้างเว็บจองร้านอาหาร (Copy & Paste)
 
@@ -127,7 +147,6 @@ Design Style:
 - White background
 - Soft gray cards and borders
 - Green accent color (#00C853)
-- Rounded corners (20-24px)
 - Spacious layout
 - Large touch-friendly controls
 - Premium restaurant feel
@@ -137,38 +156,21 @@ Reservation Flow:
 
 1. Guest Selector Card
 - Display "Number of Guests"
-- Minus button
-- Guest count in center
-- Plus button
+- Plus/Minus button
 - Default value = 2
 
 2. Dining Date Section
 - Section title: "Select Dining Date"
 - Horizontal date picker cards
 - Today highlighted in green
-- Other dates in white
 - Display selected full date above the date cards
 
 3. Preferred Time Section
 - Section title: "Select Preferred Time"
 
-Lunch Slots:
-- 11:30
-- 12:00
-- 12:30
-- 13:00
-- 13:30
-- 14:00
+Lunch Slots: every half hour from 11:30 - 14:00
 
-Dinner Slots:
-- 17:30
-- 18:00
-- 18:30
-- 19:00
-- 19:30
-- 20:00
-- 20:30
-- 21:00
+Dinner Slots: every half hour from 17:30 - 21:00
 
 Display each time slot as rounded selectable buttons.
 
@@ -176,35 +178,14 @@ Selected state:
 - Green background
 - White text
 
-Unselected state:
-- White background
-- Dark gray text
-- Light gray border
-
 4. Customer Details Section
 Fields:
 - Full Name
 - Mobile Number
 - Special Request (optional)
 
-5. Reservation Summary Card
-Display:
-- Date
-- Time
-- Number of Guests
-- Customer Name
-
-6. Reserve Now Button
-- Full width
-- Green background
-- Fixed at bottom on mobile
-- Large rounded button
-
 Functionality:
-- Users select date
-- Users select time
-- Users enter customer details
-- Users tap Reserve Now
+- Users select date, time, enter customer details, tap Reserve Now
 
 Implement one mock function: createReservation()
 ```
@@ -213,19 +194,16 @@ Implement one mock function: createReservation()
 <strong>Tip:</strong> ถ้า UI ยังไม่ตรงใจ ให้ใช้ **Annotation Mode** วาดวงรอบส่วนที่ต้องการแก้ แล้ว Prompt เพิ่ม เช่น "เปลี่ยนชื่อร้านเป็น The Green Table" หรือ "เพิ่มโลโก้ร้านด้านบน"
 </aside>
 
-### ขั้นตอนที่ 3: Prompt ปรับปรุง (ถ้าจำเป็น)
+### ขั้นตอนที่ 3: Prompt เพื่อปรับปรุงเว็ป
 
 ```
-Improve the restaurant reservation app:
-- Add restaurant name "The Green Table" and tagline at the top
-- Validate mobile number must be 10 digits
-- Disable past dates in date picker
-- Show confirmation screen after Reserve Now with reservation ID
-- Store reservations in localStorage for demo
-- All labels can stay in English or translate key labels to Thai
+Add the restaurant name "The Green Table" and a tagline at the top of the page.
+Display a sample menu in a carousel format.
+Use high-quality food images and show the dish name, short description, and price for each menu item.
+Keep the design clean, modern, and mobile-friendly.
 ```
 
-### ขั้นตอนที่ 4: Deploy เว็บ
+### ขั้นตอนที่ 4: Deploy เว็บ (optional)
 
 เมื่อ Preview ใช้งานได้แล้ว ให้ Deploy เพื่อได้ URL สาธารณะ:
 
@@ -233,9 +211,6 @@ Improve the restaurant reservation app:
 2. เลือก Deploy ไปยัง **Google Cloud Run** (หรือตัวเลือกที่ AI Studio แนะนำ)
 3. รอจน Deploy สำเร็จ แล้ว **คัดลอก URL** ไว้ใช้ในขั้นตอนถัดไป
 
-<aside class="negative">
-<strong>Important:</strong> เก็บ Deploy URL ไว้ให้ดี — คุณจะใช้ URL นี้แปลงเป็น LINE MINI App ใน Session ถัดไป
-</aside>
 
 ### ทดสอบเว็บก่อนไปต่อ
 
@@ -245,45 +220,28 @@ Improve the restaurant reservation app:
 - [ ] เลือกวันที่และช่วงเวลา (Lunch / Dinner) ได้
 - [ ] กรอกชื่อ เบอร์โทร และ Special Request ได้
 - [ ] กด Reserve Now แล้วเห็น Summary / Confirmation
-- [ ] `createReservation()` ทำงานและบันทึกข้อมูลได้
 
-### ข้อกำหนดของเว็บก่อนแปลงเป็น MINI App
 
-| ข้อกำหนด | รายละเอียด |
-|:---|:---|
-| HTTPS | URL ต้องเป็น `https://` (LINE MINI App บังคับ) |
-| Public URL | เข้าถึงได้จากอินเทอร์เน็ต ไม่ใช่ localhost |
-| Mobile-friendly | แสดงผลได้ดีบนมือถือ (Responsive) |
-| Core flow ทำงานได้ | จองครบ Flow ก่อนแปลงเป็น MINI App |
 
-## แปลงเว็บเป็น LINE MINI App (Sitthi)
+## แปลงเว็บเป็น LINE MINI App
 Duration: 0:45:00
 
-ในช่วงนี้คุณจะใช้ **MINI AI Studio** เพื่อ **แปลงเว็บที่มีอยู่แล้ว** ให้ทำงานเป็น **LINE MINI App** ผ่าน LIFF — ทุกขั้นตอนทำด้วย Prompt
+ในช่วงนี้คุณจะใช้ **Google AI Studio** เพื่อ **แปลงเว็บที่มีอยู่แล้ว** ให้ทำงานเป็น **LINE MINI App** ผ่าน LIFF — ทุกขั้นตอนทำด้วย Prompt
 
-### ขั้นตอนที่ 1: สร้าง LINE MINI App Channel
+<aside class="positive">
+<strong>Note:</strong> ใช้ Channel <strong>Restaurant Reservation</strong> ที่สร้างไว้ในขั้นตอน <strong>สร้าง Provider และ Channel</strong> — ตรวจสอบว่ามี Channel ID และ LIFF ID จากแท็บ <strong>Web app settings</strong> แล้ว
+</aside>
 
-ก่อนใช้ MINI AI Studio ต้องมี Channel ก่อน:
+### ขั้นตอนที่ 1: เปิดโปรเจกต์ใน Google AI Studio
 
-1. ไปที่ [LINE Developers Console](https://developers.line.biz/console/)
-2. สร้าง **Provider** (ถ้ายังไม่มี)
-3. คลิก **Create a new channel** → เลือก **LINE MINI App**
-4. กรอกข้อมูล:
-   - **Channel name**: `Restaurant Reservation`
-   - **Channel description**: `บริการจองโต๊ะร้านอาหาร The Green Table`
-   - **Category**: เลือกหมวดที่เหมาะสม (เช่น Food & Drink)
-5. บันทึก **Channel ID** และ **LIFF ID** จากแท็บ **Web app settings**
-
-### ขั้นตอนที่ 2: เปิด MINI AI Studio
-
-1. เปิด **MINI AI Studio** (ลิงก์ Access จากทีมงาน Workshop)
+1. เปิด **Google AI Studio** 
 2. เชื่อมต่อ LINE Developers Account
 3. เลือก Channel **Restaurant Reservation** ที่สร้างไว้
 4. สร้าง Project ใหม่
 
-### ขั้นตอนที่ 3: Prompt แปลงเว็บเดิมเป็น LINE MINI App
+### ขั้นตอนที่ 2: Prompt แปลงเว็บเดิมเป็น LINE MINI App
 
-วาง Prompt นี้ใน MINI AI Studio (แทนที่ `YOUR_WEBSITE_URL` ด้วย URL เว็บจริง):
+วาง Prompt นี้ใน Google AI Studio (แทนที่ `YOUR_WEBSITE_URL` ด้วย URL เว็บจริง):
 
 ```
 Convert my existing restaurant reservation website into a LINE MINI App. Do NOT redesign or rebuild the website from scratch — preserve the existing UI, pages, and business logic as much as possible.
@@ -294,8 +252,8 @@ Existing website URL: YOUR_WEBSITE_URL
 Conversion requirements:
 - Import and adapt the existing web app (guest selector, date picker, time slots, customer form, summary, Reserve Now button)
 - Add LIFF SDK: initialize with liff.init() on app load
-- Integrate liff.getProfile() to auto-fill Full Name from LINE profile
-- Show LINE profile picture on the header greeting: "Welcome, {displayName}"
+- Integrate liff.getProfile() to display user info in a profile card
+- Auto-fill Full Name in the reservation form from LINE profile
 - Keep createReservation() and all existing reservation logic unchanged
 - Preserve green accent (#00C853) premium restaurant design
 - Mobile-first design optimized for LINE in-app browser
@@ -303,17 +261,59 @@ Conversion requirements:
 Do NOT implement Service Message yet — we will add that in a later step.
 ```
 
-### ขั้นตอนที่ 4: Prompt เชื่อม LIFF Profile
+### ขั้นตอนที่ 3: ตั้งค่า LINE MINI App
 
-หลัง AI สร้างแอปแล้ว ถ้ายังไม่ดึง Profile จาก LINE ให้ Prompt:
+หลังจากที่คุณมี **Provider** และ **LINE MINI App channel** เรียบร้อยแล้ว ขั้นตอนต่อไปเราจะมาตั้งค่าเพื่อใช้งาน LINE MINI App กัน
+
+1. ไปที่ [LINE Developers Console](https://developers.line.biz/console/)
+2. เลือก Channel **Restaurant Reservation**
+3. เปิดแท็บ **Web app settings**
+
+#### ผูก Endpoint URL เข้ากับ LINE MINI App
+
+**Endpoint URL** คือ URL ที่รองรับ **HTTPS** ซึ่ง LINE จะใช้โหลดเว็บแอปของคุณเมื่อผู้ใช้เปิด MINI App
+
+ใน Codelab นี้ ให้คุณระบุ **Endpoint URL ของเว็บที่ Deploy แล้วจาก Google AI Studio** ลงในช่อง **Developing**:
+
+1. แท็บ **Web app settings** → หา **Endpoint URL**
+2. วาง URL ของเว็บจองร้านอาหารที่ Deploy แล้ว (ต้องขึ้นต้นด้วย `https://`)
+3. คลิก **Update** เพื่อบันทึก
+
+#### LIFF URL สำหรับเปิด MINI App
+
+URL ของ LINE MINI App ที่เราจะนำไปใช้ทดสอบจะอยู่ที่ **LIFF URL** แบบ **Developing** ในหน้า **Web app settings** เช่น:
 
 ```
-Add LIFF profile integration:
-- After liff.init() succeeds, call liff.getProfile()
-- Auto-fill the "Full Name" field with profile.displayName (editable)
-- Show profile.pictureUrl as avatar on home page header
-- If LIFF init fails, show friendly error: "กรุณาเปิดแอปผ่าน LINE MINI App"
-- Handle loading state while fetching profile
+https://miniapp.line.me/xxxxxxxxxx-xxxxxxxx
+```
+
+<aside class="negative">
+<strong>Important:</strong> URL ของ LINE MINI App ในขั้นตอนนี้ให้ทดสอบบน <strong>แอป LINE บนสมาร์ทโฟน</strong> และ <strong>External Browser บนมือถือ</strong> ก่อน — การรองรับ PC/Desktop จะตั้งค่าเพิ่มในขั้นตอนถัดไป
+</aside>
+
+<aside class="positive">
+<strong>Note:</strong> สิ่งที่ตามหลัง <code>https://miniapp.line.me/</code> ทั้งหมดคือสิ่งที่เรียกว่า <strong>LIFF ID</strong> ซึ่งใช้ในการ initialize LIFF SDK เช่น <code>2007775907-73PXWwvy</code> — คัดลอก LIFF ID นี้ไว้ใช้ใน Prompt ขั้นตอนถัดไป
+</aside>
+
+| รายการ | ที่หา | ใช้ทำอะไร |
+|:---|:---|:---|
+| Endpoint URL | Web app settings → Developing | URL เว็บแอปที่ LINE โหลด |
+| LIFF URL | Web app settings → Developing | ลิงก์เปิด MINI App ทดสอบ |
+| LIFF ID | ส่วนหลัง `miniapp.line.me/` | ใส่ใน `liff.init({ liffId: "..." })` |
+
+### ขั้นตอนที่ 4: Prompt สร้าง User Profile Card
+
+หลัง AI สร้างแอปแล้ว ให้ Prompt สร้าง **User Profile Card** ที่ดึงข้อมูลจาก LINE (แทนที่ `YOUR_LIFF_ID` ด้วย LIFF ID จาก Console):
+
+```
+Add MINI App and Create a User Profile Card at the top of the restaurant reservation app using LIFF API.
+
+LIFF ID: YOUR_LIFF_ID
+
+Add a LINE Profile Card at the top of the reservation page using LIFF.
+
+- Show profile picture and display name
+- Auto-fill customer name from LINE profile
 ```
 
 ### ขั้นตอนที่ 5: Prompt Deploy ไปยัง MINI App Channel
@@ -323,31 +323,24 @@ Ship the converted LINE MINI App to my Developing channel:
 - Set Endpoint URL to the deployed app URL (adapted from my existing website)
 - Ensure LIFF SDK is properly integrated without breaking original web functionality
 - Test that the app opens from LINE MINI App LIFF URL
-- Verify the original booking flow still works end-to-end inside LINE app
+- Verify the original reservation flow still works end-to-end inside LINE app
 ```
-
-### ขั้นตอนที่ 6: ตั้งค่า Endpoint URL ใน Console (ถ้า AI ยังไม่ทำให้)
-
-1. ไปที่ LINE Developers Console → Channel **Restaurant Reservation**
-2. แท็บ **Web app settings** → **Endpoint URL**
-3. วาง **URL ของแอปที่ MINI AI Studio Deploy** (แปลงจากเว็บเดิม)
-4. บันทึกการตั้งค่า
 
 ### ทดสอบ MINI App บนมือถือ
 
 1. เปิดแอป LINE บนมือถือ
 2. ไปที่ **Web app settings** → คัดลอก **LIFF URL** (Developing)
 3. เปิด LIFF URL ใน LINE
-4. ทดสอบจองโต๊ะ 1 ครั้ง
+4. ทดสอบจองโต๊ะ 1 ครั้ง และตรวจสอบว่า **User Profile Card** แสดงรูปและชื่อจาก LINE
 
 <aside class="positive">
-<strong>Tip:</strong> ถ้าแอปไม่แสดงผล ให้ Prompt ใน MINI AI Studio: "Debug LIFF initialization error and fix CORS/endpoint configuration"
+<strong>Tip:</strong> ถ้าแอปไม่แสดงผล ให้ Prompt ใน Google AI Studio: "Debug LIFF initialization error and fix CORS/endpoint configuration"
 </aside>
 
-## ให้ MINI App ใช้งานบน PC ได้ (Prompt)
+## ให้ MINI App ใช้งานบน PC ได้
 Duration: 0:20:00
 
-ตั้งแต่ **ตุลาคม 2025** LINE MINI App สามารถเปิดใช้งานผ่าน **External Browser** (Chrome, Edge บน PC) ได้แล้ว ในช่วงนี้คุณจะ Prompt ให้ MINI AI Studio ปรับแอปให้รองรับ
+ตั้งแต่ **ตุลาคม 2025** LINE MINI App สามารถเปิดใช้งานผ่าน **External Browser** (Chrome, Edge บน PC) ได้แล้ว ในช่วงนี้คุณจะ Prompt ให้ Google AI Studio ปรับแอปให้รองรับ
 
 ### ทำความรู้จัก External Browser
 
@@ -361,7 +354,7 @@ Duration: 0:20:00
 
 ### ขั้นตอนที่ 1: Prompt รองรับ External Browser
 
-วาง Prompt นี้ใน MINI AI Studio:
+วาง Prompt นี้ใน Google AI Studio:
 
 ```
 Update Restaurant Reservation MINI App to support external browser (PC/desktop):
@@ -401,28 +394,16 @@ Improve desktop layout for Restaurant Reservation:
 
 ### ขั้นตอนที่ 3: Deploy และทดสอบบน PC
 
-1. Prompt MINI AI Studio: `Deploy the updated app with external browser support to Developing channel`
+1. Prompt ใน Google AI Studio: `Deploy the updated app with external browser support`
 2. เปิด **Endpoint URL** ใน Chrome บน PC (ไม่ผ่าน LINE App)
 3. ตรวจสอบว่า LINE Login ทำงานและจองคิวได้
 
 ### Checklist ทดสอบบน PC
 
 - [ ] เปิด Endpoint URL ใน Chrome ได้
-- [ ] LINE Login ทำงาน (Auto หรือ Manual)
 - [ ] จองโต๊ะครบ Flow ได้
 - [ ] Layout แสดงผลดีบนหน้าจอ Desktop
 - [ ] เปิดใน LINE App บนมือถือยังทำงานปกติ
-
-## พัก ☕
-Duration: 0:15:00
-
-พักผ่อน 15 นาที ก่อนเริ่มช่วง **Service Message**
-
-<aside class="special">
-<strong>Agenda ช่วงบ่าย:</strong><br>
-15:15–15:45 — แนะนำ Service Message + ตั้งค่า Template<br>
-15:45–16:30 — Implement Service Message ใน MINI App (ทำผ่าน Prompt ใน MINI AI Studio)
-</aside>
 
 ## แนะนำ Service Message + ตั้งค่า Template
 Duration: 0:30:00
@@ -440,28 +421,9 @@ Duration: 0:30:00
 <strong>Important:</strong> Service Message ส่งได้เฉพาะเป็น **การตอบกลับ/ยืนยันจาก action ของผู้ใช้ใน MINI App** — ห้ามใช้ส่งโฆษณา โปรโมชัน หรือข้อมูลที่ไม่เกี่ยวกับ action นั้น
 </aside>
 
-### เงื่อนไขสำคัญ
-
-| หัวข้อ | รายละเอียด |
-|:---|:---|
-| Verified MINI App | ฟีเจอร์เต็มรูปแบบใช้ได้กับ Verified MINI App |
-| Developing Channel | ทดสอบส่งได้กับ Admin/Tester บน Developing channel |
-| Token อายุ | Service Notification Token อายุ **1 ปี** |
-| จำนวนข้อความ | ส่งได้สูงสุด **5 ข้อความ** ต่อ 1 user action |
-| Template Review | Template ต้องผ่าน Review ก่อนใช้บน Production |
 
 อ้างอิง: [Sending service messages](https://developers.line.biz/en/docs/line-mini-app/develop/service-messages/)
 
-### โครงสร้าง Service Message
-
-Service Message ประกอบด้วย 4 ส่วน:
-
-| ส่วน | คำอธิบาย |
-|:---|:---|
-| A. Title | หัวข้อหลัก + Subtitle |
-| B. Detail | รายละเอียด (simple หรือ detailed layout) |
-| C. Button | ปุ่มลิงก์ไปหน้า MINI App (Permanent Link) |
-| D. Footer | ไอคอน + ชื่อ MINI App |
 
 ### Flow การส่ง Service Message
 
@@ -481,7 +443,7 @@ sequenceDiagram
     LINE-->>User: Service Message ใน LINE MINI App Notice
 ```
 
-### ขั้นตอนที่ 1: Prompt ใน MINI AI Studio — วางแผน Service Message
+### ขั้นตอนที่ 1: Prompt ใน Google AI Studio — วางแผน Service Message
 
 ก่อนตั้งค่า Template ให้ Prompt วางแผน Implementation:
 
@@ -551,7 +513,7 @@ Template name: [paste your template name here]_th
 ## Implement Service Message ใน MINI App
 Duration: 0:45:00
 
-ในช่วง 15:45–16:30 คุณจะใช้ **MINI AI Studio Prompt** ทั้งหมด เพื่อ Implement การส่ง Service Message หลังจองสำเร็จ
+ในช่วงนี้คุณจะใช้ **Prompt ใน Google AI Studio** เพื่อ Implement การส่ง Service Message หลังจองสำเร็จ
 
 ### ขั้นตอนที่ 1: Prompt สร้าง Backend สำหรับ Service Message API
 
@@ -613,7 +575,7 @@ Test that the full flow works: reserve → confirm → receive service message i
 ### ขั้นตอนที่ 3: Prompt สร้างหน้า Booking Detail สำหรับปุ่มใน Service Message
 
 ```
-Add a booking detail page to P'Golf MINI App:
+Add a reservation detail page to Restaurant Reservation MINI App:
 
 Route: /booking-detail?bookingId=PG-YYYYMMDD-XXX
 
@@ -643,22 +605,6 @@ Requirements:
 Add the "Send Test Reminder" button on reservation detail page for workshop demo purposes.
 ```
 
-### ขั้นตอนที่ 5: Prompt Deploy และทดสอบ End-to-End
-
-```
-Deploy Restaurant Reservation MINI App with Service Message integration:
-
-1. Deploy backend and frontend to Developing environment
-2. Update Endpoint URL in LINE Developers Console if changed
-3. Run end-to-end test checklist:
-   - Open MINI App in LINE on mobile
-   - Complete a reservation (select guests, date, time, tap Reserve Now)
-   - Verify service message appears in "LINE MINI App Notice" chat
-   - Tap button in service message → opens reservation detail page
-   - Tap "Send Test Reminder" → second service message received
-4. Report any errors and fix them
-```
-
 ### Checklist ทดสอบ Service Message
 
 - [ ] Template ถูก Add ใน Console แล้ว
@@ -670,7 +616,7 @@ Deploy Restaurant Reservation MINI App with Service Message integration:
 
 ### Troubleshooting — Prompt แก้ปัญหา
 
-ถ้า Service Message ไม่ส่ง ให้ Prompt ใน MINI AI Studio:
+ถ้า Service Message ไม่ส่ง ให้ Prompt ใน Google AI Studio:
 
 ```
 Debug Service Message failure for Restaurant Reservation:
@@ -688,67 +634,35 @@ Check and fix:
 Fix the issue and redeploy.
 ```
 
-## สรุปและ Next Steps
+
+## Congratulations
 Duration: 0:05:00
 
-### สิ่งที่คุณได้สร้างใน Workshop นี้
+ยินดีด้วยครับ ถึงตรงนี้คุณก็มี LINE MINI App ตัวแรกเป็นของคุณเองแล้ว!!!
 
-```mermaid
-flowchart TB
-    subgraph Google["Google AI Studio"]
-        A[Prompt สร้างเว็บจองร้านอาหาร]
-        B[Deploy URL]
-    end
-    subgraph MINI["MINI AI Studio"]
-        C[Prompt แปลงเป็น MINI App]
-        D[Prompt รองรับ PC]
-        E[Prompt Service Message]
-    end
-    subgraph LINE["LINE Platform"]
-        F[MINI App Channel]
-        G[Service Message Template]
-        H[LINE MINI App Notice]
-    end
-    A --> B --> C --> D --> E
-    C --> F
-    G --> E
-    E --> H
-```
+### สิ่งที่คุณได้เรียนรู้ใน Codelab นี้
 
-### สรุป Prompt Workflow
+✅ การสร้าง Provider และ LINE MINI App Channel ใน LINE Developers Console  
+✅ การสร้างเว็บจองร้านอาหารด้วย Vibe Coding ใน Google AI Studio  
+✅ การแปลงเว็บธรรมดาให้กลายเป็น LINE MINI App ด้วย Prompt  
+✅ การดึงข้อมูลผู้ใช้งาน LINE (User Profile) ด้วย Prompt  
+✅ การทำให้ MINI App รองรับ External Browser บน PC ด้วย Prompt  
+✅ การตั้งค่า Service Message Template ใน LINE Developers Console  
+✅ การส่ง Service Message ยืนยันการจองด้วย Prompt ใน Google AI Studio  
 
-| ลำดับ | งาน | เครื่องมือ |
-|:---|:---|:---|
-| 1 | สร้างเว็บจองร้านอาหาร | Google AI Studio |
-| 2 | แปลงเว็บเป็น LINE MINI App + LIFF | MINI AI Studio |
-| 3 | รองรับ External Browser (PC) | MINI AI Studio |
-| 4 | ตั้งค่า Service Message Template | LINE Developers Console |
-| 5 | Implement ส่ง Service Message | MINI AI Studio |
+### เรียนรู้เพิ่มเติม
 
-### เทคนิค Prompt ที่ได้เรียนรู้
+- [บทความเกี่ยวกับ LINE MINI App ใน LINE Developers Thailand](https://medium.com/linedevth/tagged/line-mini-app)
 
-- **Zero-shot**: อธิบาย requirement ครบในครั้งเดียว
-- **Iterative**: ปรับ UI/Logic ทีละ Prompt หลัง Preview
-- **Few-shot**: ให้ตัวอย่าง JSON params สำหรับ Template
-- **Debug Prompt**: อธิบาย symptom ให้ AI แก้ไข
+### Reference docs
 
-### Next Steps
-
-- ส่ง **Verification Review** เพื่อเปิดใช้ Service Message บน Production
-- เพิ่ม Template Reminder สำหรับแจ้งเตือนก่อนถึงเวลานัด
-- เชื่อม **Backend จริง** ของเว็บเดิม (ถ้ามี) แทนการเก็บข้อมูลฝั่ง client
-- ศึกษา [LINE MINI App Documentation](https://developers.line.biz/en/docs/line-mini-app/) เพิ่มเติม
-
-<aside class="special">
-<strong>Feedback:</strong> ช่วยให้คะแนนและข้อเสนอแนะ Workshop ผ่าน <a href="https://forms.gle/xXkqeFE3vLSubP1f9" target="_blank">แบบสอบถาม</a>
-</aside>
-
-## อ้างอิง
-
+- [LINE MINI App Quickstart](https://developers.line.biz/en/docs/line-mini-app/quickstart/)
 - [Google AI Studio](https://aistudio.google.com/)
-- MINI AI Studio — Build & Ship LINE MINI App with Prompt (Workshop Access)
 - [LINE MINI App Documentation](https://developers.line.biz/en/docs/line-mini-app/)
 - [Sending service messages](https://developers.line.biz/en/docs/line-mini-app/develop/service-messages/)
 - [Open MINI App in external browser](https://developers.line.biz/en/docs/line-mini-app/develop/external-browser/)
 - [LINE MINI App API Reference](https://developers.line.biz/en/reference/line-mini-app/)
-- [Build & Ship LINE MINI App with MINI AI Studio (Speaker Deck)](https://speakerdeck.com/linedevth/build-and-ship-line-mini-app-with-mini-ai-studio)
+
+### บอกเราหน่อยว่า Codelab ชุดนี้เป็นอย่างไรบ้าง
+
+- [Feedback form](https://forms.gle/xXkqeFE3vLSubP1f9)
