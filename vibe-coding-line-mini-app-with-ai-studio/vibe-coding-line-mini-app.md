@@ -78,53 +78,8 @@ Duration: 0:15:00
 | **เหมาะกับ MVP, Hackathon, Demo** | ทดสอบไอเดียและ pitch ได้เร็วก่อนลงมือพัฒนาจริงจัง |
 | **สร้าง UI ได้เร็วมาก** | อธิบาย Style, Layout, Flow แล้วให้ AI generate ให้ทันที |
 
-
-## สร้าง Provider และ Channel
-Duration: 0:20:00
-
-ก่อนสร้างเว็บและแปลงเป็น LINE MINI App คุณต้องมี **Provider** และ **LINE MINI App Channel** ใน [LINE Developers Console](https://developers.line.biz/console/) ก่อน
-
-### สมัครเป็น LINE Developer
-
-จุดเริ่มต้นสำหรับการพัฒนาแอปพลิเคชันต่างๆ บนแพลตฟอร์มของ LINE คือคุณจะต้องสมัครเป็น **LINE Developer** ก่อน
-
-1. เข้าไปที่ [https://developers.line.biz/console/](https://developers.line.biz/console/) แล้วเลือก **Log in with LINE account** (สีเขียว) เพื่อเข้าสู่ระบบ
-2. เข้าสู่ระบบด้วยบัญชี LINE ของคุณให้เรียบร้อย
-3. กรอกชื่อและอีเมล พร้อมกดยอมรับ Agreement จากนั้นกดปุ่ม **Create my account** — เสร็จสิ้นขั้นตอนการสมัครเป็น LINE Developer
-
-### สร้าง Provider
-
-**Provider** คือ superset ของแอปทั้งหลายที่เราจะพัฒนาขึ้น รวมถึง LINE MINI App ด้วย โดยการสร้างเพียงให้ระบุชื่อของ Provider ลงไป ซึ่งอาจจะตั้งเป็นชื่อตัวเอง, ชื่อบริษัท, ชื่อทีม หรือชื่อกลุ่มก็ได้
-
-1. ในหน้า Console คลิก **Create a new provider**
-2. ระบุชื่อ Provider แล้วกด **Create**
-
-<aside class="negative">
-<strong>Important:</strong> 1 Account สามารถมี Provider สูงสุดได้ 10 Providers และ<strong>ไม่สามารถมีคำว่า LINE ในชื่อ Provider</strong> ได้
-</aside>
-
-### สร้าง Channel
-
-**Channel** คือ subset ของ Provider ซึ่งเปรียบเสมือนแอปพลิเคชัน
-
-ใน Codelab นี้เราจะต้องเลือก **Create a LINE MINI App channel**
-
-1. เลือก Provider ที่สร้างไว้ → คลิก **Create a new channel**
-2. เลือก **LINE MINI App**
-3. กรอกรายละเอียด Channel:
-   - **Channel name**: `Restaurant Reservation`
-   - **Channel description**: `บริการจองโต๊ะร้านอาหาร The Green Table`
-   - **Category**: เลือกหมวดที่เหมาะสม (เช่น Food & Drink)
-4. กดสร้าง Channel
-
-<aside class="positive">
-<strong>Note:</strong> ส่วนของ Channel icon และ Terms of Use สามารถระบุภายหลังได้
-</aside>
-
-บันทึก **Channel ID** และ **LIFF ID** จากแท็บ **Web app settings** ไว้ใช้ในขั้นตอนถัดไป
-
-
 ## สร้างเว็บจองร้านอาหาร
+
 Duration: 0:45:00
 
 ในช่วงนี้คุณจะใช้ **Google AI Studio** สร้างเว็บจองร้านอาหารแบบ ด้วย Prompt — ไม่ต้องเขียนโค้ดเอง
@@ -223,6 +178,52 @@ Keep the design clean, modern, and mobile-friendly.
 
 
 
+
+## สร้าง Provider และ Channel
+Duration: 0:20:00
+
+ก่อนสร้างเว็บและแปลงเป็น LINE MINI App คุณต้องมี **Provider** และ **LINE MINI App Channel** ใน [LINE Developers Console](https://developers.line.biz/console/) ก่อน
+
+### สมัครเป็น LINE Developer
+
+จุดเริ่มต้นสำหรับการพัฒนาแอปพลิเคชันต่างๆ บนแพลตฟอร์มของ LINE คือคุณจะต้องสมัครเป็น **LINE Developer** ก่อน
+
+1. เข้าไปที่ [https://developers.line.biz/console/](https://developers.line.biz/console/) แล้วเลือก **Log in with LINE account** (สีเขียว) เพื่อเข้าสู่ระบบ
+2. เข้าสู่ระบบด้วยบัญชี LINE ของคุณให้เรียบร้อย
+3. กรอกชื่อและอีเมล พร้อมกดยอมรับ Agreement จากนั้นกดปุ่ม **Create my account** — เสร็จสิ้นขั้นตอนการสมัครเป็น LINE Developer
+
+### สร้าง Provider
+
+**Provider** คือ superset ของแอปทั้งหลายที่เราจะพัฒนาขึ้น รวมถึง LINE MINI App ด้วย โดยการสร้างเพียงให้ระบุชื่อของ Provider ลงไป ซึ่งอาจจะตั้งเป็นชื่อตัวเอง, ชื่อบริษัท, ชื่อทีม หรือชื่อกลุ่มก็ได้
+
+1. ในหน้า Console คลิก **Create a new provider**
+2. ระบุชื่อ Provider แล้วกด **Create**
+
+<aside class="negative">
+<strong>Important:</strong> 1 Account สามารถมี Provider สูงสุดได้ 10 Providers และ<strong>ไม่สามารถมีคำว่า LINE ในชื่อ Provider</strong> ได้
+</aside>
+
+### สร้าง Channel
+
+**Channel** คือ subset ของ Provider ซึ่งเปรียบเสมือนแอปพลิเคชัน
+
+ใน Codelab นี้เราจะต้องเลือก **Create a LINE MINI App channel**
+
+1. เลือก Provider ที่สร้างไว้ → คลิก **Create a new channel**
+2. เลือก **LINE MINI App**
+3. กรอกรายละเอียด Channel:
+   - **Channel name**: `Restaurant Reservation`
+   - **Channel description**: `บริการจองโต๊ะร้านอาหาร The Green Table`
+   - **Category**: เลือกหมวดที่เหมาะสม (เช่น Food & Drink)
+4. กดสร้าง Channel
+
+<aside class="positive">
+<strong>Note:</strong> ส่วนของ Channel icon และ Terms of Use สามารถระบุภายหลังได้
+</aside>
+
+บันทึก **Channel ID** และ **LIFF ID** จากแท็บ **Web app settings** ไว้ใช้ในขั้นตอนถัดไป
+
+
 ## แปลงเว็บเป็น LINE MINI App
 Duration: 0:45:00
 
@@ -232,36 +233,26 @@ Duration: 0:45:00
 <strong>Note:</strong> ใช้ Channel <strong>Restaurant Reservation</strong> ที่สร้างไว้ในขั้นตอน <strong>สร้าง Provider และ Channel</strong> — ตรวจสอบว่ามี Channel ID และ LIFF ID จากแท็บ <strong>Web app settings</strong> แล้ว
 </aside>
 
-### ขั้นตอนที่ 1: เปิดโปรเจกต์ใน Google AI Studio
+### ขั้นตอนที่ 1: Prompt เพื่อแปลงเป็น LINE MINI App และสร้าง LINE User Profile Card
 
-1. เปิด **Google AI Studio** 
-2. เชื่อมต่อ LINE Developers Account
-3. เลือก Channel **Restaurant Reservation** ที่สร้างไว้
-4. สร้าง Project ใหม่
+ไปยัง LINE Developer Console เพื่อ หา LIFF_ID
 
-### ขั้นตอนที่ 2: Prompt แปลงเว็บเดิมเป็น LINE MINI App
 
-วาง Prompt นี้ใน Google AI Studio (แทนที่ `YOUR_WEBSITE_URL` ด้วย URL เว็บจริง):
+หลัง AI สร้างแอปแล้ว ให้ Prompt สร้าง **User Profile Card** ที่ดึงข้อมูลจาก LINE (แทนที่ `YOUR_LIFF_ID` ด้วย LIFF ID จาก Console):
 
 ```
-Convert my existing restaurant reservation website into a LINE MINI App. Do NOT redesign or rebuild the website from scratch — preserve the existing UI, pages, and business logic as much as possible.
+Add MINI App and Create a User Profile Card at the top of the restaurant reservation app using LIFF API.
 
-App name: Restaurant Reservation
-Existing website URL: YOUR_WEBSITE_URL
+LIFF ID: YOUR_LIFF_ID
 
-Conversion requirements:
-- Import and adapt the existing web app (guest selector, date picker, time slots, customer form, summary, Reserve Now button)
-- Add LIFF SDK: initialize with liff.init() on app load
-- Integrate liff.getProfile() to display user info in a profile card
-- Auto-fill Full Name in the reservation form from LINE profile
-- Keep createReservation() and all existing reservation logic unchanged
-- Preserve green accent (#00C853) premium restaurant design
-- Mobile-first design optimized for LINE in-app browser
+Add a LINE Profile Card at the top of the reservation page using LIFF.
 
-Do NOT implement Service Message yet — we will add that in a later step.
+- Show profile picture and display name
+- Auto-fill customer name from LINE profile
 ```
 
-### ขั้นตอนที่ 3: ตั้งค่า LINE MINI App
+
+### ขั้นตอนที่ 2: ตั้งค่า LINE MINI App
 
 หลังจากที่คุณมี **Provider** และ **LINE MINI App channel** เรียบร้อยแล้ว ขั้นตอนต่อไปเราจะมาตั้งค่าเพื่อใช้งาน LINE MINI App กัน
 
@@ -301,20 +292,6 @@ https://miniapp.line.me/xxxxxxxxxx-xxxxxxxx
 | LIFF URL | Web app settings → Developing | ลิงก์เปิด MINI App ทดสอบ |
 | LIFF ID | ส่วนหลัง `miniapp.line.me/` | ใส่ใน `liff.init({ liffId: "..." })` |
 
-### ขั้นตอนที่ 4: Prompt สร้าง User Profile Card
-
-หลัง AI สร้างแอปแล้ว ให้ Prompt สร้าง **User Profile Card** ที่ดึงข้อมูลจาก LINE (แทนที่ `YOUR_LIFF_ID` ด้วย LIFF ID จาก Console):
-
-```
-Add MINI App and Create a User Profile Card at the top of the restaurant reservation app using LIFF API.
-
-LIFF ID: YOUR_LIFF_ID
-
-Add a LINE Profile Card at the top of the reservation page using LIFF.
-
-- Show profile picture and display name
-- Auto-fill customer name from LINE profile
-```
 
 ### ขั้นตอนที่ 5: Prompt Deploy ไปยัง MINI App Channel
 
@@ -521,71 +498,27 @@ Duration: 0:45:00
 Implement server-side Service Message API for Restaurant Reservation MINI App.
 
 Requirements:
-1. Create API endpoint POST /api/service-message/send-reservation-confirmation
-   - Input: { liffAccessToken, reservation: { date, time, guests, reservationId, customerName } }
-   - Steps:
-     a. Get stateless channel access token from LINE
-     b. POST to https://api.line.me/message/v3/notifier/token with liffAccessToken
-     c. POST to https://api.line.me/message/v3/notifier/send?target=service with:
-        - templateName: "[YOUR_TEMPLATE_NAME]_th"
-        - notificationToken from step b
-        - params: { date, time, guests, reservation_id, customer_name, button_uri_1 }
-     d. Return { success, notificationToken, remainingCount }
+Create a function that sends a LINE Service Message after a reservation is successfully created.
 
-2. Store notificationToken keyed by reservationId for future reminders
+Flow:
+- Issue Stateless Channel Access Token
+- Issue Service Notification Token using LIFF Access Token
+- Send Service Message using template book_request_s_b_th
 
-3. Environment variables needed:
-   - LINE_CHANNEL_ID
-   - LINE_CHANNEL_SECRET (for stateless token)
+Environment variables needed:
+   - LINE_CHANNEL_ID: 
+   - LINE_CHANNEL_SECRET: 
 
-4. Error handling:
-   - Invalid LIFF token → 401 with Thai error message
-   - Template not found → log and return friendly error
-   - Token remainingCount = 0 → warn but don't crash
+Send Service Message with "templateParams": { "number": "xx", "btn1_url": "https://line.me", "btn2_url": "https://line.me", "btn3_url": "https://line.me", "btn4_url": "https://line.me" }
 
-Use Node.js/Express or the stack already in this project.
-Do NOT hardcode channel access token — use stateless token API.
+Update Restaurant Reservation MINI App frontend to send service message after successful reservation
 ```
 
 <aside class="negative">
 <strong>Important:</strong> ใช้ **Stateless Channel Access Token** สำหรับ LINE MINI App — ห้ามใช้ Long-lived token
 </aside>
 
-### ขั้นตอนที่ 2: Prompt เชื่อม MINI App Frontend กับ Service Message
 
-```
-Update Restaurant Reservation MINI App frontend to send service message after successful reservation:
-
-1. After user taps Reserve Now and createReservation() succeeds:
-   - Get LIFF access token via liff.getAccessToken()
-   - Call POST /api/service-message/send-reservation-confirmation with reservation data
-
-2. UX flow:
-   - Show loading spinner: "Sending confirmation to LINE..."
-   - On success: show "✅ Confirmation sent to LINE MINI App Notice"
-   - On failure: still show reservation success but warn "Could not send notification — please save your Reservation ID"
-
-3. Only send service message when liff.isLoggedIn() is true
-
-4. Pass button_uri_1 as permanent link to reservation detail page with reservationId query param
-
-Test that the full flow works: reserve → confirm → receive service message in LINE.
-```
-
-### ขั้นตอนที่ 3: Prompt สร้างหน้า Booking Detail สำหรับปุ่มใน Service Message
-
-```
-Add a reservation detail page to Restaurant Reservation MINI App:
-
-Route: /booking-detail?bookingId=PG-YYYYMMDD-XXX
-
-Features:
-- Load booking from localStorage/database by bookingId
-- Display: date, time, players, customer name, booking status
-- Button "ยกเลิกการจอง" (cancel booking, update status)
-- This page URL will be used as button_uri_1 in service message params
-- Support opening from service message button tap inside LINE
-```
 
 ### ขั้นตอนที่ 4: Prompt ส่ง Reminder Message (ข้อความที่ 2)
 
